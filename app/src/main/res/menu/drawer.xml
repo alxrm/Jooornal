@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+  <group
+      android:checkableBehavior="single">
+    <item
+        android:id="@+id/page_students"
+        android:checked="true"
+        android:title="@string/page_name_students"/>
+    <item
+        android:id="@+id/page_notes"
+        android:title="@string/page_name_notes"/>
+    <item
+        android:id="@+id/page_settings"
+        android:title="@string/page_name_settings"/>
+  </group>
+</menu>

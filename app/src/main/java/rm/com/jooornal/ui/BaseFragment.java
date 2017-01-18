@@ -96,6 +96,7 @@ public abstract class BaseFragment extends Fragment {
   @Override public void onResume() {
     super.onResume();
     updateAppbar(getTitle(), hasBackButton());
+    lockMenu(hasBackButton());
   }
 
   /**
@@ -137,7 +138,9 @@ public abstract class BaseFragment extends Fragment {
   protected void navigateBack() {
     final Navigator owner = getNavigator();
 
-    if (owner != null) owner.navigateBack();
+    if (owner != null) {
+      owner.navigateUp();
+    }
   }
 
   /**
@@ -165,10 +168,18 @@ public abstract class BaseFragment extends Fragment {
    * @param fragment экземпляр окна, которое нужно открыть
    */
   final protected void navigateTo(@NonNull BaseFragment fragment) {
-    final Navigator owner = getNavigator();
+    final Navigator navigator = getNavigator();
 
-    if (owner != null) {
-      owner.navigateTo(fragment);
+    if (navigator != null) {
+      navigator.navigateTo(fragment);
+    }
+  }
+
+  final protected void lockMenu(boolean should) {
+    final Navigator navigator = getNavigator();
+
+    if (navigator != null) {
+      navigator.lockMenu(should);
     }
   }
 
@@ -181,7 +192,6 @@ public abstract class BaseFragment extends Fragment {
 
     if (supportBar != null) {
       supportBar.setTitle(title);
-      supportBar.setDisplayHomeAsUpEnabled(hasBackButton);
     }
   }
 }

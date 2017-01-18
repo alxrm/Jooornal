@@ -1,3 +1,8 @@
 <resources>
   <string name="app_name">Jooornal</string>
+  <string name="navigation_drawer_open">open</string>
+  <string name="navigation_drawer_close">close</string>
+  <string name="page_name_students">Студенты</string>
+  <string name="page_name_notes">Заметки</string>
+  <string name="page_name_settings">Настройки</string>
 </resources>

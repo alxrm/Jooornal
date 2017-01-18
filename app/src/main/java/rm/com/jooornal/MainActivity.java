@@ -1,58 +1,113 @@
 package rm.com.jooornal;
 
 import android.app.FragmentTransaction;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.graphics.drawable.DrawerArrowDrawable;
+import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
+import rm.com.jooornal.constants.Navigation;
 import rm.com.jooornal.ui.BaseFragment;
 import rm.com.jooornal.ui.Navigator;
+import rm.com.jooornal.ui.StudentsFragment;
+import rm.com.jooornal.utils.Conditions;
 
 /**
  * главный контейнер, здесь происходит смена экранов
  */
-public final class MainActivity extends AppCompatActivity implements Navigator {
+public final class MainActivity extends AppCompatActivity
+    implements Navigator, NavigationView.OnNavigationItemSelectedListener {
 
-  /**
-   * метод, вызываемый при создании контейнера, здесь выполняется необходимая инициализация
-   *
-   * @param savedInstanceState сохранённое состояние, не используется здесь
-   */
+  @BindView(R.id.toolbar) Toolbar toolbar;
+  @BindView(R.id.drawer) NavigationView drawer;
+  @BindView(R.id.drawer_layout) DrawerLayout drawerLayout;
+
+  private DrawerArrowDrawable navigationIcon;
+  private Unbinder unbinder;
+
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
-    //navigateTo(CatalogFragment.newInstance(), true);
+    unbinder = ButterKnife.bind(this);
+
+    setSupportActionBar(toolbar);
+    setupNavigationIcon(toolbar);
+
+    drawer.setNavigationItemSelectedListener(this);
+    changeFragment(new StudentsFragment(), true);
   }
 
-  /**
-   * метод перехода в новый экран с возможностью вернуться назад
-   *
-   * @param fragment экземпляр экрана, на который переходит пользователь
-   */
+  @Override protected void onDestroy() {
+    super.onDestroy();
+    unbinder.unbind();
+  }
+
   @Override public void navigateTo(@NonNull BaseFragment fragment) {
-    navigateTo(fragment, false);
+    Conditions.checkNotNull(fragment, "Fragment cannot be null");
+
+    changeFragment(fragment, false);
   }
 
-  @Override public void navigateBack() {
-    onBackPressed();
+  @Override public void navigateUp() {
+    if (isMenuLocked()) {
+      onBackPressed();
+    } else {
+      drawerLayout.openDrawer(GravityCompat.START);
+    }
   }
 
-  /**
-   * перегруженная версия метода перехода к новому экрану, с возможностью указания, что экран
-   * начальный, если пользователь выйдет из него, то он покинет приложение
-   *
-   * @param fragment экземпляр экрана, на который переходит пользователь
-   * @param root флаг, определяющий, начальный ли это экран
-   */
-  private void navigateTo(@NonNull BaseFragment fragment, boolean root) {
+  @Override public void lockMenu(boolean should) {
+    final float navigationIconState = should ? Navigation.ICON_ARROW : Navigation.ICON_MENU;
+    final int lockMode =
+        should ? DrawerLayout.LOCK_MODE_LOCKED_CLOSED : DrawerLayout.LOCK_MODE_UNLOCKED;
+
+    navigationIcon.setProgress(navigationIconState);
+    drawerLayout.setDrawerLockMode(lockMode, GravityCompat.START);
+  }
+
+  @Override public boolean isMenuLocked() {
+    return drawerLayout.getDrawerLockMode(GravityCompat.START)
+        == DrawerLayout.LOCK_MODE_LOCKED_CLOSED;
+  }
+
+  @Override public void onBackPressed() {
+    if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+      drawerLayout.closeDrawers();
+    } else {
+      super.onBackPressed();
+    }
+  }
+
+  @Override public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+    final BaseFragment next = Navigation.PAGES.get(item.getItemId());
+    drawerLayout.closeDrawers();
+    changeFragment(next, true);
+    return true;
+  }
+
+  private void setupNavigationIcon(@NonNull Toolbar toolbar) {
+    navigationIcon = new DrawerArrowDrawable(this);
+    navigationIcon.setColor(Color.WHITE);
+    toolbar.setNavigationIcon(navigationIcon);
+  }
+
+  private void changeFragment(@NonNull BaseFragment fragment, boolean isRoot) {
     final FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction()
         .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-        .replace(R.id.root, fragment);
+        .replace(R.id.container, fragment);
 
-    if (!root) {
+    if (!isRoot) {
       fragmentTransaction.addToBackStack(null);
     }
 
     fragmentTransaction.commit();
   }
-
 }
