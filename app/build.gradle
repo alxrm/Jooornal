@@ -33,6 +33,12 @@ dependencies {
   compile square.butterknife
   compile square.dagger
 
+  compile dbflow.core
+  compile dbflow.lib
+
+  compile "com.evernote:android-job:$versions.androidJobs"
+
   annotationProcessor square.butterknifeCompiler
   annotationProcessor square.daggerCompiler
+  annotationProcessor dbflow.processor
 }

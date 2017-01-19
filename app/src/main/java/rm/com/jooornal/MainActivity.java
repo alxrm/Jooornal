@@ -15,9 +15,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import rm.com.jooornal.constants.Navigation;
-import rm.com.jooornal.ui.BaseFragment;
 import rm.com.jooornal.ui.Navigator;
-import rm.com.jooornal.ui.StudentsFragment;
+import rm.com.jooornal.ui.fragments.BaseFragment;
+import rm.com.jooornal.ui.fragments.StudentsListFragment;
 import rm.com.jooornal.utils.Conditions;
 
 /**
@@ -42,7 +42,7 @@ public final class MainActivity extends AppCompatActivity
     setupNavigationIcon(toolbar);
 
     drawer.setNavigationItemSelectedListener(this);
-    changeFragment(new StudentsFragment(), true);
+    changeFragment(new StudentsListFragment(), true);
   }
 
   @Override protected void onDestroy() {

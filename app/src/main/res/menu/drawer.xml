@@ -5,12 +5,18 @@
     <item
         android:id="@+id/page_students"
         android:checked="true"
-        android:title="@string/page_name_students"/>
+        android:icon="@drawable/ic_students_black_24dp"
+        android:title="@string/page_name_students"
+        />
     <item
         android:id="@+id/page_notes"
-        android:title="@string/page_name_notes"/>
+        android:icon="@drawable/ic_notes_black_24dp"
+        android:title="@string/page_name_notes"
+        />
     <item
         android:id="@+id/page_settings"
-        android:title="@string/page_name_settings"/>
+        android:icon="@drawable/ic_settings_black_24dp"
+        android:title="@string/page_name_settings"
+        />
   </group>
 </menu>

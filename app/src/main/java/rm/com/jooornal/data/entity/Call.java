@@ -1,0 +1,19 @@
+package rm.com.jooornal.data.entity;
+
+import com.raizlabs.android.dbflow.annotation.Column;
+import com.raizlabs.android.dbflow.annotation.ForeignKey;
+import com.raizlabs.android.dbflow.annotation.PrimaryKey;
+import com.raizlabs.android.dbflow.annotation.Table;
+import rm.com.jooornal.data.JoornalDatabase;
+
+/**
+ * Created by alex
+ */
+
+@Table(database = JoornalDatabase.class)
+public final class Call {
+  @PrimaryKey public long id = System.currentTimeMillis();
+  @ForeignKey public Student student;
+  @ForeignKey public Phone phone;
+  @Column public long time;
+}
