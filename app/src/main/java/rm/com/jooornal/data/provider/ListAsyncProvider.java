@@ -4,7 +4,7 @@ import android.os.Handler;
 import android.support.annotation.NonNull;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
-import rm.com.jooornal.utils.Collections;
+import rm.com.jooornal.util.Collections;
 
 /**
  * Created by alex

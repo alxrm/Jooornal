@@ -1,4 +1,4 @@
-package rm.com.jooornal.utils;
+package rm.com.jooornal.util;
 
 import android.support.annotation.NonNull;
 import java.util.ArrayList;

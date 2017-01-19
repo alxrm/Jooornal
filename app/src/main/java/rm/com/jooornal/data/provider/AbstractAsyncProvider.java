@@ -3,7 +3,7 @@ package rm.com.jooornal.data.provider;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import java.util.concurrent.ExecutorService;
-import rm.com.jooornal.utils.Conditions;
+import rm.com.jooornal.util.Conditions;
 
 /**
  * Created by alex

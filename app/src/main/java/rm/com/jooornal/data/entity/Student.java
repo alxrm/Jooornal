@@ -1,5 +1,7 @@
 package rm.com.jooornal.data.entity;
 
+import android.os.Parcel;
+import android.os.Parcelable;
 import com.raizlabs.android.dbflow.annotation.Column;
 import com.raizlabs.android.dbflow.annotation.OneToMany;
 import com.raizlabs.android.dbflow.annotation.PrimaryKey;
@@ -14,7 +16,7 @@ import rm.com.jooornal.data.JoornalDatabase;
  */
 
 @SuppressWarnings("WeakerAccess") @Table(database = JoornalDatabase.class)
-public final class Student extends BaseModel {
+public final class Student extends BaseModel implements Parcelable {
   @PrimaryKey public long id = System.currentTimeMillis();
   @Column public String name;
   @Column public String surname;
@@ -25,6 +27,46 @@ public final class Student extends BaseModel {
   List<Sms> smsList;
   List<Call> calls;
   List<Note> notes;
+
+  public Student() {}
+
+  protected Student(Parcel in) {
+    id = in.readLong();
+    name = in.readString();
+    surname = in.readString();
+    patronymic = in.readString();
+    birthDate = in.readLong();
+    phones = in.createTypedArrayList(Phone.CREATOR);
+    smsList = in.createTypedArrayList(Sms.CREATOR);
+    calls = in.createTypedArrayList(Call.CREATOR);
+    notes = in.createTypedArrayList(Note.CREATOR);
+  }
+
+  public static final Creator<Student> CREATOR = new Creator<Student>() {
+    @Override public Student createFromParcel(Parcel in) {
+      return new Student(in);
+    }
+
+    @Override public Student[] newArray(int size) {
+      return new Student[size];
+    }
+  };
+
+  @Override public int describeContents() {
+    return 0;
+  }
+
+  @Override public void writeToParcel(Parcel dest, int flags) {
+    dest.writeLong(id);
+    dest.writeString(name);
+    dest.writeString(surname);
+    dest.writeString(patronymic);
+    dest.writeLong(birthDate);
+    dest.writeTypedList(phones);
+    dest.writeTypedList(smsList);
+    dest.writeTypedList(calls);
+    dest.writeTypedList(notes);
+  }
 
   @OneToMany(methods = { OneToMany.Method.ALL }, variableName = "phones")
   public List<Phone> getPhones() {

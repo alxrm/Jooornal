@@ -1,4 +1,4 @@
-package rm.com.jooornal.ui.fragments;
+package rm.com.jooornal.ui.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

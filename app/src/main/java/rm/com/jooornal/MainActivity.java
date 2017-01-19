@@ -14,11 +14,10 @@ import android.view.MenuItem;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-import rm.com.jooornal.constants.Navigation;
+import rm.com.jooornal.constant.Navigation;
 import rm.com.jooornal.ui.Navigator;
-import rm.com.jooornal.ui.fragments.BaseFragment;
-import rm.com.jooornal.ui.fragments.StudentsListFragment;
-import rm.com.jooornal.utils.Conditions;
+import rm.com.jooornal.ui.fragment.BaseFragment;
+import rm.com.jooornal.util.Conditions;
 
 /**
  * главный контейнер, здесь происходит смена экранов
@@ -42,7 +41,7 @@ public final class MainActivity extends AppCompatActivity
     setupNavigationIcon(toolbar);
 
     drawer.setNavigationItemSelectedListener(this);
-    changeFragment(new StudentsListFragment(), true);
+    changeFragment(Navigation.PAGES.get(R.id.page_students), true);
   }
 
   @Override protected void onDestroy() {

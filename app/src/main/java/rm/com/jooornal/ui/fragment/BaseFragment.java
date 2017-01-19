@@ -1,5 +1,7 @@
-package rm.com.jooornal.ui.fragments;
+package rm.com.jooornal.ui.fragment;
 
+import android.app.Activity;
+import android.app.Application;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -10,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import rm.com.jooornal.JooornalApplication;
 import rm.com.jooornal.ui.Navigator;
 
 /**
@@ -129,6 +132,13 @@ public abstract class BaseFragment extends Fragment {
    */
   @Nullable final protected Navigator getNavigator() {
     return (Navigator) getActivity();
+  }
+
+  @Nullable final protected JooornalApplication getApplication() {
+    final Activity owner = getActivity();
+    final Application app = owner != null ? owner.getApplication() : null;
+
+    return ((JooornalApplication) app);
   }
 
   /**
