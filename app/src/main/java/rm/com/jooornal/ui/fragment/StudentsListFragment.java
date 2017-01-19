@@ -14,6 +14,7 @@ import rm.com.jooornal.data.provider.ProviderListener;
 import rm.com.jooornal.data.provider.StudentsListProvider;
 import rm.com.jooornal.ui.adapter.StudentsListAdapter;
 import rm.com.jooornal.ui.holder.BaseHolder;
+import rm.com.jooornal.util.Logger;
 
 /**
  * Created by alex
@@ -42,14 +43,10 @@ public final class StudentsListFragment extends BaseContentFragment
 
   @Override public void onViewCreated(View view, Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
+    toggleContent(false);
 
     adapter.setOnClickListener(this);
     content.setAdapter(adapter);
-    provider.provide(this);
-  }
-
-  @Override public void onResume() {
-    super.onResume();
     provider.provide(this);
   }
 

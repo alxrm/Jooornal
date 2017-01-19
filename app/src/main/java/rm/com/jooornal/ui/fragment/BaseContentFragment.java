@@ -34,11 +34,6 @@ public abstract class BaseContentFragment extends BaseFragment {
     return inflater.inflate(R.layout.fragment_content, container, false);
   }
 
-  @Override public void onResume() {
-    super.onResume();
-    toggleContent(false);
-  }
-
   /**
    * метод для показа/скрытия индикатора загрузки/контента
    *

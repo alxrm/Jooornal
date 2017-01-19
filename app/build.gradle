@@ -37,6 +37,7 @@ dependencies {
   compile dbflow.lib
 
   compile "com.evernote:android-job:$versions.androidJobs"
+  compile 'com.wdullaer:materialdatetimepicker:2.0.0'
 
   annotationProcessor square.butterknifeCompiler
   annotationProcessor square.daggerCompiler

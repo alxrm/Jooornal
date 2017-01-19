@@ -18,10 +18,10 @@ import rm.com.jooornal.data.JoornalDatabase;
 @SuppressWarnings("WeakerAccess") @Table(database = JoornalDatabase.class)
 public final class Student extends BaseModel implements Parcelable {
   @PrimaryKey public long id = System.currentTimeMillis();
-  @Column public String name;
-  @Column public String surname;
-  @Column public String patronymic;
-  @Column public long birthDate;
+  @Column public String name = "";
+  @Column public String surname = "";
+  @Column public String patronymic = "";
+  @Column public long birthDate = 0L;
 
   List<Phone> phones;
   List<Sms> smsList;

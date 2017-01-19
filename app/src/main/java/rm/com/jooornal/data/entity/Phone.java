@@ -17,9 +17,9 @@ import rm.com.jooornal.data.JoornalDatabase;
 @Table(database = JoornalDatabase.class)
 public final class Phone extends BaseModel implements Parcelable {
   @PrimaryKey public long id = System.currentTimeMillis();
-  @ForeignKey public Student student;
-  @Column public String alias;
-  @Column public String phoneNumber;
+  @ForeignKey(stubbedRelationship = true) public Student student;
+  @Column public String alias = "";
+  @Column public String phoneNumber = "";
 
   public Phone() {}
 

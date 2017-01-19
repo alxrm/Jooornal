@@ -16,7 +16,7 @@ import rm.com.jooornal.data.JoornalDatabase;
 @Table(database = JoornalDatabase.class)
 public final class Note implements Parcelable {
   @PrimaryKey public long id = System.currentTimeMillis();
-  @ForeignKey public Student student;
+  @ForeignKey(stubbedRelationship = true)  public Student student;
   @Column public String name;
   @Column public String text;
   @Column public long due;
