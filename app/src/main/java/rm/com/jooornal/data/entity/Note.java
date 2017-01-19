@@ -10,10 +10,12 @@ import rm.com.jooornal.data.JoornalDatabase;
  * Created by alex
  */
 
+@SuppressWarnings("WeakerAccess")
 @Table(database = JoornalDatabase.class)
 public final class Note {
   @PrimaryKey public long id = System.currentTimeMillis();
   @ForeignKey public Student student;
+  @Column public String name;
   @Column public String text;
   @Column public long due;
 }

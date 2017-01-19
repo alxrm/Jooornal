@@ -7,11 +7,7 @@ import com.raizlabs.android.dbflow.annotation.Table;
 import com.raizlabs.android.dbflow.sql.language.SQLite;
 import com.raizlabs.android.dbflow.structure.BaseModel;
 import java.util.List;
-import rm.com.jooornal.data.Call_Table;
 import rm.com.jooornal.data.JoornalDatabase;
-import rm.com.jooornal.data.Note_Table;
-import rm.com.jooornal.data.Phone_Table;
-import rm.com.jooornal.data.Sms_Table;
 
 /**
  * Created by alex

@@ -10,6 +10,7 @@ import rm.com.jooornal.data.JoornalDatabase;
  * Created by alex
  */
 
+@SuppressWarnings("WeakerAccess")
 @Table(database = JoornalDatabase.class)
 public final class Call {
   @PrimaryKey public long id = System.currentTimeMillis();

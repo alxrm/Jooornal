@@ -5,6 +5,6 @@ import android.support.annotation.NonNull;
 /**
  * Created by alex
  */
-public interface AsyncProvider<T> {
+interface AsyncProvider<T> {
   void provide(@NonNull ProviderListener<T> callback);
 }
