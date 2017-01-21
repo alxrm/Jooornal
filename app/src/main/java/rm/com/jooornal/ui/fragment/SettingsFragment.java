@@ -29,7 +29,7 @@ public final class SettingsFragment extends BaseFragment {
     super.onViewCreated(view, savedInstanceState);
   }
 
-  @NonNull @Override String getTitle() {
+  @NonNull @Override public String getTitle() {
     return title;
   }
 

@@ -98,7 +98,7 @@ public abstract class BaseFragment extends Fragment {
    *
    * @return строка, содержащая заголовок
    */
-  @NonNull abstract String getTitle();
+  @NonNull public abstract String getTitle();
 
   /**
    * абстрактный метод, который должен быть переопределён дочерними экранами, нужен для того, чтобы

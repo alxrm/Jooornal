@@ -15,7 +15,7 @@ public final class NotesListFragment extends BaseContentFragment {
     return new NotesListFragment();
   }
 
-  @NonNull @Override String getTitle() {
+  @NonNull @Override public String getTitle() {
     return title;
   }
 

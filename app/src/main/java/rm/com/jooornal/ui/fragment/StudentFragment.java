@@ -39,8 +39,8 @@ public final class StudentFragment extends BaseFragment {
     student = args.getParcelable(KEY_STUDENT);
   }
 
-  @NonNull @Override String getTitle() {
-    return Converters.initialsOf(student.surname, student.name, student.patronymic);
+  @NonNull @Override public String getTitle() {
+    return Converters.shortNameOf(student.surname, student.name, student.patronymic);
   }
 
   @Override boolean hasBackButton() {

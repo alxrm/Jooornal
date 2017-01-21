@@ -6,19 +6,19 @@ import android.view.ViewGroup;
 import rm.com.jooornal.R;
 import rm.com.jooornal.data.entity.Student;
 import rm.com.jooornal.ui.holder.BaseHolder;
+import rm.com.jooornal.ui.holder.StudentDetailedHolder;
 import rm.com.jooornal.ui.holder.StudentHolder;
-import rm.com.jooornal.util.Conditions;
 
 /**
  * Created by alex
  */
 
-public final class StudentsListAdapter extends BaseAdapter<Student, BaseHolder<Student>> {
+public class StudentsListAdapter extends BaseAdapter<Student, BaseHolder<Student>> {
 
   private BaseHolder.OnClickListener<Student> clickListener;
 
   @Override public BaseHolder<Student> onCreateViewHolder(ViewGroup parent, int viewType) {
-    return new StudentHolder(
+    return new StudentDetailedHolder(
         LayoutInflater.from(parent.getContext()).inflate(R.layout.item_student, parent, false));
   }
 
@@ -28,7 +28,6 @@ public final class StudentsListAdapter extends BaseAdapter<Student, BaseHolder<S
   }
 
   final public void setOnClickListener(@NonNull BaseHolder.OnClickListener<Student> clickListener) {
-    Conditions.checkNotNull(clickListener);
     this.clickListener = clickListener;
   }
 }

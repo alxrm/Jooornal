@@ -4,6 +4,7 @@ import android.app.FragmentTransaction;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -24,6 +25,7 @@ import rm.com.jooornal.util.Conditions;
  */
 public final class MainActivity extends AppCompatActivity
     implements Navigator, NavigationView.OnNavigationItemSelectedListener {
+  private static String KEY_FRAGMENT_SAVE = "KEY_FRAGMENT_SAVE";
 
   @BindView(R.id.toolbar) Toolbar toolbar;
   @BindView(R.id.drawer) NavigationView drawer;
@@ -31,17 +33,25 @@ public final class MainActivity extends AppCompatActivity
 
   private DrawerArrowDrawable navigationIcon;
   private Unbinder unbinder;
+  private BaseFragment currentFragment;
 
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
     unbinder = ButterKnife.bind(this);
+    currentFragment = getInitialFragment(savedInstanceState);
 
     setSupportActionBar(toolbar);
     setupNavigationIcon(toolbar);
 
     drawer.setNavigationItemSelectedListener(this);
-    changeFragment(Navigation.PAGES.get(R.id.page_students), true);
+
+    changeFragment(currentFragment, true);
+  }
+
+  @Override protected void onSaveInstanceState(Bundle outState) {
+    super.onSaveInstanceState(outState);
+    getFragmentManager().putFragment(outState, KEY_FRAGMENT_SAVE, currentFragment);
   }
 
   @Override protected void onDestroy() {
@@ -99,6 +109,8 @@ public final class MainActivity extends AppCompatActivity
   }
 
   private void changeFragment(@NonNull BaseFragment fragment, boolean isRoot) {
+    this.currentFragment = fragment;
+
     final FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction()
         .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
         .replace(R.id.container, fragment);
@@ -108,5 +120,10 @@ public final class MainActivity extends AppCompatActivity
     }
 
     fragmentTransaction.commit();
+  }
+
+  private BaseFragment getInitialFragment(@Nullable Bundle state) {
+    return (state == null) ? Navigation.PAGES.get(R.id.page_students)
+        : (BaseFragment) getFragmentManager().getFragment(state, KEY_FRAGMENT_SAVE);
   }
 }

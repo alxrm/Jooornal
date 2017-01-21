@@ -15,71 +15,49 @@
         android:id="@+id/student_create_icon_person"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
         android:layout_marginTop="32dp"
-        android:alpha="0.5"
         app:srcCompat="@drawable/ic_students_black_24dp"
+        style="@style/AppTheme.FormInputIcon"
         />
 
     <EditText
         android:id="@+id/student_create_input_surname"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="56dp"
-        android:layout_marginRight="56dp"
         android:layout_marginTop="20dp"
-        android:layout_toEndOf="@id/student_create_icon_person"
-        android:layout_toRightOf="@id/student_create_icon_person"
         android:hint="Фамилия*"
-        android:maxLines="1"
-        android:paddingBottom="16dp"
-        android:textSize="16sp"
+        android:theme="@style/AppTheme.FormInputTheme"
+        style="@style/AppTheme.FormEntryRow"
         />
 
     <EditText
         android:id="@+id/student_create_input_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignEnd="@id/student_create_input_surname"
-        android:layout_alignLeft="@id/student_create_input_surname"
-        android:layout_alignRight="@id/student_create_input_surname"
-        android:layout_alignStart="@id/student_create_input_surname"
         android:layout_below="@id/student_create_input_surname"
-        android:layout_marginTop="4dp"
         android:hint="Имя*"
-        android:maxLines="1"
-        android:paddingBottom="16dp"
-        android:textSize="16sp"
+        android:theme="@style/AppTheme.FormInputTheme"
+        style="@style/AppTheme.FormEntryRow"
         />
 
     <EditText
         android:id="@+id/student_create_input_patronymic"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignEnd="@id/student_create_input_surname"
-        android:layout_alignLeft="@id/student_create_input_surname"
-        android:layout_alignRight="@id/student_create_input_surname"
-        android:layout_alignStart="@id/student_create_input_surname"
         android:layout_below="@id/student_create_input_name"
-        android:layout_marginTop="4dp"
         android:hint="Отчество"
-        android:maxLines="1"
-        android:paddingBottom="16dp"
-        android:textSize="16sp"
+        android:theme="@style/AppTheme.FormInputTheme"
+        style="@style/AppTheme.FormEntryRow"
         />
-
 
     <ImageView
         android:id="@+id/student_create_icon_phone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/student_create_input_patronymic"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
         android:layout_marginTop="16dp"
-        android:alpha="0.5"
         app:srcCompat="@drawable/ic_call_black_24dp"
+        style="@style/AppTheme.FormInputIcon"
         />
 
     <LinearLayout
@@ -87,12 +65,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/student_create_input_patronymic"
-        android:layout_marginEnd="56dp"
-        android:layout_marginRight="56dp"
-        android:layout_marginTop="4dp"
-        android:layout_toEndOf="@id/student_create_icon_phone"
-        android:layout_toRightOf="@id/student_create_icon_phone"
         android:orientation="horizontal"
+        style="@style/AppTheme.FormEntryRow"
         >
 
       <EditText
@@ -102,9 +76,7 @@
           android:layout_weight="1"
           android:hint="Телефон 1*"
           android:inputType="phone"
-          android:maxLines="1"
-          android:paddingBottom="16dp"
-          android:textSize="16sp"
+          android:theme="@style/AppTheme.FormInputTheme"
           />
 
 
@@ -114,9 +86,7 @@
           android:layout_height="wrap_content"
           android:layout_weight="1"
           android:hint="Название"
-          android:maxLines="1"
-          android:paddingBottom="16dp"
-          android:textSize="16sp"
+          android:theme="@style/AppTheme.FormInputTheme"
           />
 
     </LinearLayout>
@@ -126,12 +96,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/student_create_wrapper_phone"
-        android:layout_marginEnd="56dp"
-        android:layout_marginRight="56dp"
-        android:layout_marginTop="4dp"
-        android:layout_toEndOf="@id/student_create_icon_phone"
-        android:layout_toRightOf="@id/student_create_icon_phone"
         android:orientation="horizontal"
+        style="@style/AppTheme.FormEntryRow"
         >
 
       <EditText
@@ -141,11 +107,8 @@
           android:layout_weight="1"
           android:hint="Телефон 2"
           android:inputType="phone"
-          android:maxLines="1"
-          android:paddingBottom="16dp"
-          android:textSize="16sp"
+          android:theme="@style/AppTheme.FormInputTheme"
           />
-
 
       <EditText
           android:id="@+id/student_create_input_altphone_name"
@@ -153,9 +116,7 @@
           android:layout_height="wrap_content"
           android:layout_weight="1"
           android:hint="Название"
-          android:maxLines="1"
-          android:paddingBottom="16dp"
-          android:textSize="16sp"
+          android:theme="@style/AppTheme.FormInputTheme"
           />
 
     </LinearLayout>
@@ -169,13 +130,12 @@
         android:clickable="true"
         android:gravity="center_vertical"
         >
+
       <ImageView
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:layout_marginLeft="16dp"
-          android:layout_marginRight="16dp"
-          android:alpha="0.5"
           app:srcCompat="@drawable/ic_cake_black_24dp"
+          style="@style/AppTheme.FormInputIcon"
           />
 
       <TextView
@@ -183,14 +143,15 @@
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:layout_marginEnd="56dp"
-          android:layout_marginRight="56dp"
           android:layout_marginLeft="4dp"
+          android:layout_marginRight="56dp"
           android:layout_marginStart="4dp"
           android:maxLines="1"
           android:text="Выбрать дату рождения*"
           android:textColor="@color/color_text_secondary"
           android:textSize="16sp"
           />
+
     </LinearLayout>
   </RelativeLayout>
 </ScrollView>

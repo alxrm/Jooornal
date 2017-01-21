@@ -115,7 +115,7 @@ public final class StudentCreateFragment extends BaseFragment
     birthday.setText(Converters.dateStringOf(time));
   }
 
-  @NonNull @Override String getTitle() {
+  @NonNull @Override public String getTitle() {
     return title;
   }
 

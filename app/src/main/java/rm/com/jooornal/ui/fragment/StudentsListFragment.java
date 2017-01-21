@@ -14,7 +14,6 @@ import rm.com.jooornal.data.provider.ProviderListener;
 import rm.com.jooornal.data.provider.StudentsListProvider;
 import rm.com.jooornal.ui.adapter.StudentsListAdapter;
 import rm.com.jooornal.ui.holder.BaseHolder;
-import rm.com.jooornal.util.Logger;
 
 /**
  * Created by alex
@@ -63,7 +62,7 @@ public final class StudentsListFragment extends BaseContentFragment
     navigateTo(StudentCreateFragment.newInstance());
   }
 
-  @NonNull @Override String getTitle() {
+  @NonNull @Override public String getTitle() {
     return title;
   }
 

@@ -31,7 +31,7 @@
       android:layout_margin="16dp"
       android:clickable="true"
       app:rippleColor="@android:color/white"
-      app:srcCompat="@drawable/ic_add_black_24dp"
+      app:srcCompat="@drawable/ic_add_white_24dp"
       />
 
 </RelativeLayout>
