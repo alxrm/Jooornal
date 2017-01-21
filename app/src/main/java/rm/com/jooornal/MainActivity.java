@@ -1,45 +1,43 @@
 package rm.com.jooornal;
 
-import android.app.FragmentTransaction;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.graphics.drawable.DrawerArrowDrawable;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.Unbinder;
-import rm.com.jooornal.constant.Navigation;
 import rm.com.jooornal.ui.Navigator;
 import rm.com.jooornal.ui.fragment.BaseFragment;
 import rm.com.jooornal.util.Conditions;
 
+import static android.support.v4.widget.DrawerLayout.LOCK_MODE_LOCKED_CLOSED;
+import static android.support.v4.widget.DrawerLayout.LOCK_MODE_UNLOCKED;
+import static rm.com.jooornal.constant.Navigation.ICON_ARROW;
+import static rm.com.jooornal.constant.Navigation.ICON_MENU;
+import static rm.com.jooornal.constant.Navigation.PAGES;
+
 /**
  * главный контейнер, здесь происходит смена экранов
  */
-public final class MainActivity extends AppCompatActivity
+public final class MainActivity extends BaseActivity
     implements Navigator, NavigationView.OnNavigationItemSelectedListener {
-  private static String KEY_FRAGMENT_SAVE = "KEY_FRAGMENT_SAVE";
 
   @BindView(R.id.toolbar) Toolbar toolbar;
   @BindView(R.id.drawer) NavigationView drawer;
   @BindView(R.id.drawer_layout) DrawerLayout drawerLayout;
 
   private DrawerArrowDrawable navigationIcon;
-  private Unbinder unbinder;
-  private BaseFragment currentFragment;
 
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
     unbinder = ButterKnife.bind(this);
-    currentFragment = getInitialFragment(savedInstanceState);
+    currentFragment = getInitialFragment(savedInstanceState, PAGES.get(R.id.page_students));
 
     setSupportActionBar(toolbar);
     setupNavigationIcon(toolbar);
@@ -49,19 +47,8 @@ public final class MainActivity extends AppCompatActivity
     changeFragment(currentFragment, true);
   }
 
-  @Override protected void onSaveInstanceState(Bundle outState) {
-    super.onSaveInstanceState(outState);
-    getFragmentManager().putFragment(outState, KEY_FRAGMENT_SAVE, currentFragment);
-  }
-
-  @Override protected void onDestroy() {
-    super.onDestroy();
-    unbinder.unbind();
-  }
-
   @Override public void navigateTo(@NonNull BaseFragment fragment) {
     Conditions.checkNotNull(fragment, "Fragment cannot be null");
-
     changeFragment(fragment, false);
   }
 
@@ -74,17 +61,15 @@ public final class MainActivity extends AppCompatActivity
   }
 
   @Override public void lockMenu(boolean should) {
-    final float navigationIconState = should ? Navigation.ICON_ARROW : Navigation.ICON_MENU;
-    final int lockMode =
-        should ? DrawerLayout.LOCK_MODE_LOCKED_CLOSED : DrawerLayout.LOCK_MODE_UNLOCKED;
+    final float navigationIconState = should ? ICON_ARROW : ICON_MENU;
+    final int lockMode = should ? LOCK_MODE_LOCKED_CLOSED : LOCK_MODE_UNLOCKED;
 
     navigationIcon.setProgress(navigationIconState);
     drawerLayout.setDrawerLockMode(lockMode, GravityCompat.START);
   }
 
   @Override public boolean isMenuLocked() {
-    return drawerLayout.getDrawerLockMode(GravityCompat.START)
-        == DrawerLayout.LOCK_MODE_LOCKED_CLOSED;
+    return drawerLayout.getDrawerLockMode(GravityCompat.START) == LOCK_MODE_LOCKED_CLOSED;
   }
 
   @Override public void onBackPressed() {
@@ -96,7 +81,7 @@ public final class MainActivity extends AppCompatActivity
   }
 
   @Override public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-    final BaseFragment next = Navigation.PAGES.get(item.getItemId());
+    final BaseFragment next = PAGES.get(item.getItemId());
     drawerLayout.closeDrawers();
     changeFragment(next, true);
     return true;
@@ -106,24 +91,5 @@ public final class MainActivity extends AppCompatActivity
     navigationIcon = new DrawerArrowDrawable(this);
     navigationIcon.setColor(Color.WHITE);
     toolbar.setNavigationIcon(navigationIcon);
-  }
-
-  private void changeFragment(@NonNull BaseFragment fragment, boolean isRoot) {
-    this.currentFragment = fragment;
-
-    final FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction()
-        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-        .replace(R.id.container, fragment);
-
-    if (!isRoot) {
-      fragmentTransaction.addToBackStack(null);
-    }
-
-    fragmentTransaction.commit();
-  }
-
-  private BaseFragment getInitialFragment(@Nullable Bundle state) {
-    return (state == null) ? Navigation.PAGES.get(R.id.page_students)
-        : (BaseFragment) getFragmentManager().getFragment(state, KEY_FRAGMENT_SAVE);
   }
 }
