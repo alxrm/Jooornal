@@ -19,8 +19,8 @@ public final class Sms extends BaseModel implements Parcelable {
   @PrimaryKey public long id = System.currentTimeMillis();
   @ForeignKey(stubbedRelationship = true) public Student student;
   @ForeignKey public Phone phone;
-  @Column public long time;
-  @Column public String text;
+  @Column public long time = 0L;
+  @Column public String text = "";
 
   public Sms() {}
 

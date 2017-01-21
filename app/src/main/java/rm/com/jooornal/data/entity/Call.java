@@ -18,7 +18,7 @@ public final class Call implements Parcelable {
   @PrimaryKey public long id = System.currentTimeMillis();
   @ForeignKey(stubbedRelationship = true) public Student student;
   @ForeignKey public Phone phone;
-  @Column public long time;
+  @Column public long time = 0L;
 
   public Call() {}
 

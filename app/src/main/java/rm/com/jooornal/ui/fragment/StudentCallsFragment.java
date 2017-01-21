@@ -6,6 +6,7 @@ import android.view.View;
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
+import rm.com.jooornal.JooornalApplication;
 import rm.com.jooornal.data.entity.Call;
 import rm.com.jooornal.ui.adapter.CallsListAdapter;
 
@@ -30,12 +31,22 @@ public final class StudentCallsFragment extends BaseContentFragment {
     return fragment;
   }
 
+  @Override public void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    final JooornalApplication app = getApplication();
+
+    if (app != null) {
+      app.injector().inject(this);
+    }
+  }
+
   @Override public void onViewCreated(View view, Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
-    add.setVisibility(View.GONE);
-
     adapter.updateData(calls);
     content.setAdapter(adapter);
+
+    toggleContent(true);
+    add.setVisibility(View.GONE);
   }
 
   @Override protected void unwrapArguments(@NonNull Bundle args) {

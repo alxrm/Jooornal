@@ -12,7 +12,6 @@ import butterknife.BindView;
 import java.util.Arrays;
 import java.util.List;
 import rm.com.jooornal.R;
-import rm.com.jooornal.constant.Navigation;
 import rm.com.jooornal.data.entity.Student;
 import rm.com.jooornal.ui.MainActivity;
 import rm.com.jooornal.ui.adapter.StudentPagerAdapter;

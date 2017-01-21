@@ -6,6 +6,7 @@ import android.view.View;
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
+import rm.com.jooornal.JooornalApplication;
 import rm.com.jooornal.data.entity.Sms;
 import rm.com.jooornal.ui.adapter.SmsListAdapter;
 import rm.com.jooornal.ui.holder.BaseHolder;
@@ -32,15 +33,23 @@ public final class StudentMessagesFragment extends BaseContentFragment
     return fragment;
   }
 
+  @Override public void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    final JooornalApplication app = getApplication();
+
+    if (app != null) {
+      app.injector().inject(this);
+    }
+  }
+
   @Override public void onViewCreated(View view, Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
-    add.setVisibility(View.GONE);
-
     adapter.updateData(messages);
     adapter.setOnClickListener(this);
     content.setAdapter(adapter);
 
     toggleContent(true);
+    add.setVisibility(View.GONE);
   }
 
   @Override protected void unwrapArguments(@NonNull Bundle args) {
