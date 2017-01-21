@@ -1,6 +1,8 @@
 package rm.com.jooornal.constant;
 
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import rm.com.jooornal.R;
 import rm.com.jooornal.ui.fragment.BaseFragment;
 import rm.com.jooornal.ui.fragment.NotesListFragment;
@@ -20,4 +22,6 @@ public interface Navigation {
     put(R.id.page_notes, NotesListFragment.newInstance());
     put(R.id.page_settings, SettingsFragment.newInstance());
   }};
+
+  List<String> STUDENT_PAGE_TITLES = Arrays.asList("Инфо", "СМС", "Звонки");
 }

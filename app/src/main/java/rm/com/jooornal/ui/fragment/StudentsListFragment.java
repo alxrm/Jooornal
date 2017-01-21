@@ -55,7 +55,7 @@ public final class StudentsListFragment extends BaseContentFragment
   }
 
   @Override public void onItemClick(@NonNull Student item) {
-    navigateTo(StudentFragment.newInstance(item));
+    navigateTo(StudentPageFragment.newInstance(item));
   }
 
   @OnClick(R.id.content_add) void createNewStudent() {
@@ -67,6 +67,10 @@ public final class StudentsListFragment extends BaseContentFragment
   }
 
   @Override boolean hasBackButton() {
+    return false;
+  }
+
+  @Override boolean isNested() {
     return false;
   }
 }

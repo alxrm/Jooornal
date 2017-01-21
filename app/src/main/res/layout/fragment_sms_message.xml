@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    >
+
+  <TextView
+      android:id="@+id/sms_message_text"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:text="блять мне похоже ещё и экран просмотра смски нужно делать (сука ладно и его сделаю)"
+      android:textColor="@color/color_text_primary"
+      android:textIsSelectable="true"
+      android:textSize="18sp"
+      />
+
+</ScrollView>

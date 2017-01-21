@@ -77,8 +77,10 @@ public abstract class BaseFragment extends Fragment {
    */
   @Override public void onResume() {
     super.onResume();
-    updateAppbar(getTitle());
-    lockMenu(hasBackButton());
+    if (!isNested()) {
+      updateAppbar(getTitle());
+      lockMenu(hasBackButton());
+    }
   }
 
   /**
@@ -107,6 +109,8 @@ public abstract class BaseFragment extends Fragment {
    * @return {@code true} если кнопка должна быть
    */
   abstract boolean hasBackButton();
+
+  abstract boolean isNested();
 
   /**
    * метод вызываемый при распаковке параметров

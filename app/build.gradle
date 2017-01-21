@@ -29,6 +29,7 @@ dependencies {
   compile supportDeps.appCompat
   compile supportDeps.design
   compile supportDeps.recyclerView
+  compile supportDeps.v13
 
   compile square.butterknife
   compile square.dagger

@@ -6,13 +6,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".MainActivity"
+    tools:context=".ui.MainActivity"
     >
 
   <android.support.design.widget.AppBarLayout
       android:id="@+id/appbar"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
+      android:animateLayoutChanges="true"
       android:theme="@style/AppTheme.AppBarOverlay"
       >
 
@@ -28,6 +29,17 @@
 
     </android.support.v7.widget.Toolbar>
 
+    <android.support.design.widget.TabLayout
+        android:id="@+id/tabs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:tabGravity="fill"
+        app:tabIndicatorColor="@android:color/white"
+        app:tabIndicatorHeight="2dp"
+        app:tabMode="fixed"
+        />
+
   </android.support.design.widget.AppBarLayout>
 
   <FrameLayout
@@ -35,6 +47,7 @@
       android:layout_width="match_parent"
       android:layout_height="match_parent"
       android:layout_below="@id/appbar"
+      android:animateLayoutChanges="true"
       />
 
 </RelativeLayout>

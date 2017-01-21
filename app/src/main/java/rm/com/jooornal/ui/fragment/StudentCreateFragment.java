@@ -123,6 +123,10 @@ public final class StudentCreateFragment extends BaseFragment
     return true;
   }
 
+  @Override boolean isNested() {
+    return false;
+  }
+
   private void addStudent() {
     final boolean hasName = !student.name.isEmpty();
     final boolean hasSurname = !student.surname.isEmpty();

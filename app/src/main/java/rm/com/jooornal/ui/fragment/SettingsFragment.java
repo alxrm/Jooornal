@@ -36,4 +36,8 @@ public final class SettingsFragment extends BaseFragment {
   @Override boolean hasBackButton() {
     return false;
   }
+
+  @Override boolean isNested() {
+    return false;
+  }
 }

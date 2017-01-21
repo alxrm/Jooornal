@@ -1,5 +1,6 @@
 package rm.com.jooornal.ui.adapter;
 
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +19,7 @@ abstract class BaseAdapter<M, VH extends BaseHolder<M>> extends RecyclerView.Ada
    * список с данными, которые могут обновляться
    */
   protected List<M> data = new ArrayList<>();
+  protected BaseHolder.OnClickListener<M> clickListener;
 
   /**
    * метод, где происходит привязка данных из модели к визуальной части
@@ -43,8 +45,12 @@ abstract class BaseAdapter<M, VH extends BaseHolder<M>> extends RecyclerView.Ada
    *
    * @param data новые данные, которые будут записаны в переменную класса
    */
-  public final void updateData(List<M> data) {
+  final public void updateData(List<M> data) {
     this.data = data;
     notifyDataSetChanged();
+  }
+
+  final public void setOnClickListener(@NonNull BaseHolder.OnClickListener<M> clickListener) {
+    this.clickListener = clickListener;
   }
 }

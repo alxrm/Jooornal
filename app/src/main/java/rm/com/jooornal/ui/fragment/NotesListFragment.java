@@ -23,4 +23,7 @@ public final class NotesListFragment extends BaseContentFragment {
     return false;
   }
 
+  @Override boolean isNested() {
+    return false;
+  }
 }

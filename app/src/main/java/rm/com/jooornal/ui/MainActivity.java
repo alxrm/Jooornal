@@ -1,9 +1,10 @@
-package rm.com.jooornal;
+package rm.com.jooornal.ui;
 
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.TabLayout;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.graphics.drawable.DrawerArrowDrawable;
@@ -11,7 +12,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import rm.com.jooornal.ui.Navigator;
+import rm.com.jooornal.R;
 import rm.com.jooornal.ui.fragment.BaseFragment;
 import rm.com.jooornal.util.Conditions;
 
@@ -28,6 +29,7 @@ public final class MainActivity extends BaseActivity
     implements Navigator, NavigationView.OnNavigationItemSelectedListener {
 
   @BindView(R.id.toolbar) Toolbar toolbar;
+  @BindView(R.id.tabs) TabLayout tabs;
   @BindView(R.id.drawer) NavigationView drawer;
   @BindView(R.id.drawer_layout) DrawerLayout drawerLayout;
 
@@ -91,5 +93,10 @@ public final class MainActivity extends BaseActivity
     navigationIcon = new DrawerArrowDrawable(this);
     navigationIcon.setColor(Color.WHITE);
     toolbar.setNavigationIcon(navigationIcon);
+  }
+
+  @NonNull public TabLayout getTabs() {
+    Conditions.checkNotNull(tabs, "Tabs cannot be null");
+    return tabs;
   }
 }

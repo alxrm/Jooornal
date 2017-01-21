@@ -7,18 +7,10 @@ import dagger.Provides;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import javax.inject.Singleton;
-import rm.com.jooornal.JooornalApplication;
 import rm.com.jooornal.data.provider.StudentsListProvider;
 import rm.com.jooornal.ui.adapter.StudentsListAdapter;
 
-
 @Module public final class StudentsListModule {
-
-  private final JooornalApplication app;
-
-  public StudentsListModule(JooornalApplication app) {
-    this.app = app;
-  }
 
   @Provides @Singleton static StudentsListAdapter provideStudentsListAdapter() {
     return new StudentsListAdapter();
