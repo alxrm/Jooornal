@@ -30,7 +30,7 @@ public final class StudentPageFragment extends BaseFragment {
 
   private TabLayout tabs;
   private Student student;
-  private List<BaseFragment> pages;
+  private List<BaseContentFragment> pages;
 
   public static StudentPageFragment newInstance(@NonNull Student student) {
     final Bundle args = new Bundle();

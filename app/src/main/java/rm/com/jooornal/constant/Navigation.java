@@ -17,7 +17,7 @@ public interface Navigation {
   float ICON_MENU = 0F;
   float ICON_ARROW = 1F;
 
-  HashMap<Integer, BaseFragment> PAGES = new HashMap<Integer, BaseFragment>() {{
+  HashMap<Integer, BaseFragment> PAGES = new HashMap<Integer, BaseFragment>(3) {{
     put(R.id.page_students, StudentsListFragment.newInstance());
     put(R.id.page_notes, NotesListFragment.newInstance());
     put(R.id.page_settings, SettingsFragment.newInstance());

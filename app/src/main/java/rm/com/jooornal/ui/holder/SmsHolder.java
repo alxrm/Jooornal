@@ -23,7 +23,7 @@ public final class SmsHolder extends BaseHolder<Sms> {
 
   @Override public void bind(@NonNull Sms model) {
     from.setText(model.phone.phoneNumber);
-    date.setText(Converters.dateStringOf(model.time));
+    date.setText(Converters.shortDateStringOf(model.time));
     text.setText(model.text);
   }
 }

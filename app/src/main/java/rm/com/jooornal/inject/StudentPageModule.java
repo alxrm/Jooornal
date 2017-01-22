@@ -5,6 +5,7 @@ import dagger.Provides;
 import javax.inject.Singleton;
 import rm.com.jooornal.ui.adapter.CallsListAdapter;
 import rm.com.jooornal.ui.adapter.SmsListAdapter;
+import rm.com.jooornal.ui.adapter.StudentInfoAdapter;
 
 /**
  * Created by alex
@@ -18,5 +19,9 @@ import rm.com.jooornal.ui.adapter.SmsListAdapter;
 
   @Provides @Singleton static SmsListAdapter provideMessagesListAdapter() {
     return new SmsListAdapter();
+  }
+
+  @Provides @Singleton static StudentInfoAdapter provideStudentInfoAdapter() {
+    return new StudentInfoAdapter();
   }
 }

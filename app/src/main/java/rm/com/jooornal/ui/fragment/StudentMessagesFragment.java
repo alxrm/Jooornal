@@ -49,7 +49,7 @@ public final class StudentMessagesFragment extends BaseContentFragment
     content.setAdapter(adapter);
 
     toggleContent(true);
-    add.setVisibility(View.GONE);
+    add.hide();
   }
 
   @Override protected void unwrapArguments(@NonNull Bundle args) {
