@@ -23,6 +23,7 @@ ext {
               bolts       : "1.4.0",
               dagger      : "2.8",
               redex       : "1.1.0",
+              datePicker  : "3.1.0",
               dbflow      : "4.0.0-beta5"]
 
   kotlin = [plugin: "org.jetbrains.kotlin:kotlin-gradle-plugin:$versions.kotlin",

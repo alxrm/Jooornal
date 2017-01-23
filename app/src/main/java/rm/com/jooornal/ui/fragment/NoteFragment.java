@@ -1,5 +1,6 @@
 package rm.com.jooornal.ui.fragment;
 
+import android.Manifest;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -16,13 +17,16 @@ import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.OnClick;
 import butterknife.OnTextChanged;
+import com.canelmas.let.AskPermission;
+import com.canelmas.let.DeniedPermission;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 import java.util.Calendar;
+import java.util.List;
 import rm.com.jooornal.R;
 import rm.com.jooornal.data.entity.Note;
 import rm.com.jooornal.data.entity.Student;
-import rm.com.jooornal.ui.OnActionListener;
 import rm.com.jooornal.util.Converters;
+import rm.com.jooornal.util.Events;
 
 /**
  * Created by alex
@@ -40,6 +44,7 @@ public final class NoteFragment extends BaseFragment
   @BindView(R.id.note_create_title) EditText title;
 
   private Note note = new Note();
+  private boolean hasCalendarPermission = false;
 
   @NonNull public static NoteFragment newInstance() {
     return new NoteFragment();
@@ -53,6 +58,11 @@ public final class NoteFragment extends BaseFragment
     fragment.setArguments(args);
 
     return fragment;
+  }
+
+  @Override public void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    askAndSavePermission();
   }
 
   @Nullable @Override public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -90,6 +100,11 @@ public final class NoteFragment extends BaseFragment
     return super.onOptionsItemSelected(item);
   }
 
+  @Override public void onPermissionDenied(List<DeniedPermission> deniedPermissionList) {
+    Toast.makeText(getActivity(), "Уведомление заметки не будет записано в календарь",
+        Toast.LENGTH_LONG).show();
+  }
+
   @Override protected void unwrapArguments(@NonNull Bundle args) {
     super.unwrapArguments(args);
     note = args.getParcelable(KEY_NOTE);
@@ -104,7 +119,7 @@ public final class NoteFragment extends BaseFragment
   }
 
   @OnClick(R.id.note_create_student) final void onDeleteStudent() {
-    ask("Отменить привязку к студенту?", new OnActionListener() {
+    ask("Отменить привязку к студенту?", new OnAskListener() {
       @Override public void onAction() {
         note.student = null;
         student.setVisibility(View.GONE);
@@ -113,7 +128,7 @@ public final class NoteFragment extends BaseFragment
   }
 
   @OnClick(R.id.note_create_time) final void onDeleteDate() {
-    ask("Сбросить дату уведомления?", new OnActionListener() {
+    ask("Сбросить дату уведомления?", new OnAskListener() {
       @Override public void onAction() {
         note.due = 0L;
         dueDate.setVisibility(View.GONE);
@@ -164,6 +179,11 @@ public final class NoteFragment extends BaseFragment
     return false;
   }
 
+  @AskPermission({ Manifest.permission.READ_CALENDAR, Manifest.permission.WRITE_CALENDAR })
+  private void askAndSavePermission() {
+    hasCalendarPermission = true;
+  }
+
   private void addNote() {
     if (note.text.isEmpty()) {
       Toast.makeText(getActivity(), "У заметки должен быть текст", Toast.LENGTH_LONG).show();
@@ -171,6 +191,16 @@ public final class NoteFragment extends BaseFragment
     }
 
     note.save();
+
+    if (note.due != 0L && hasCalendarPermission) {
+      addCalendarEvent();
+    }
+
     navigateUp();
+  }
+
+  private void addCalendarEvent() {
+    Events.addEventToCalender(getActivity().getContentResolver(), note.name, note.text, null,
+        note.due, false);
   }
 }

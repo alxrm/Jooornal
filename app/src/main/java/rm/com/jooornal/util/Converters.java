@@ -87,9 +87,9 @@ public final class Converters {
 
   @NonNull private static String shortNameOf(@NonNull String surname, @NonNull String name,
       @Nullable String patronymic) {
-    final String patronymicInitial =
-        ((patronymic == null) || patronymic.isEmpty()) ? EMPTY : (patronymic.substring(0, 1) + DOT);
     final String nameInitial = name.substring(0, 1) + DOT;
+    final String patronymicInitial =
+        ((patronymic == null) || patronymic.isEmpty()) ? "" : (patronymic.substring(0, 1) + DOT);
 
     return String.format("%s %s %s", surname, nameInitial, patronymicInitial);
   }

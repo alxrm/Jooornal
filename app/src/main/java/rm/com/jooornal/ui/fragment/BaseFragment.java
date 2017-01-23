@@ -12,18 +12,23 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import com.canelmas.let.DeniedPermission;
+import com.canelmas.let.Let;
+import com.canelmas.let.RuntimePermissionListener;
+import com.canelmas.let.RuntimePermissionRequest;
+import java.util.List;
 import rm.com.jooornal.JooornalApplication;
 import rm.com.jooornal.R;
 import rm.com.jooornal.ui.Navigator;
-import rm.com.jooornal.ui.OnActionListener;
 
 /**
  * базовый класс экрана(фрагмента) приложения, отрисовывающий данные и индикатор загрузки, на
  * случай, если данные ещё не получены
  */
-public abstract class BaseFragment extends Fragment {
+public abstract class BaseFragment extends Fragment implements RuntimePermissionListener {
 
   protected Unbinder unbinder;
 
@@ -61,6 +66,11 @@ public abstract class BaseFragment extends Fragment {
   @Override public void onViewCreated(View view, Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
     unbinder = ButterKnife.bind(this, view);
+  }
+
+  @Override public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+      @NonNull int[] grantResults) {
+    Let.handle(this, requestCode, permissions, grantResults);
   }
 
   /**
@@ -101,6 +111,13 @@ public abstract class BaseFragment extends Fragment {
     if (unbinder != null) {
       unbinder.unbind();
     }
+  }
+
+  @Override public void onShowPermissionRationale(List<String> permissionList,
+      RuntimePermissionRequest permissionRequest) {
+  }
+
+  @Override public void onPermissionDenied(List<DeniedPermission> deniedPermissionList) {
   }
 
   /**
@@ -180,9 +197,8 @@ public abstract class BaseFragment extends Fragment {
     }
   }
 
-  final void ask(String message, final OnActionListener action) {
-    new AlertDialog.Builder(getActivity())
-        .setMessage(message)
+  final protected void ask(String message, final OnAskListener action) {
+    new AlertDialog.Builder(getActivity()).setMessage(message)
         .setNegativeButton(R.string.ask_negative, new DialogInterface.OnClickListener() {
           @Override public void onClick(DialogInterface dialog, int which) {
             dialog.dismiss();
@@ -207,5 +223,9 @@ public abstract class BaseFragment extends Fragment {
     if (supportBar != null) {
       supportBar.setTitle(title);
     }
+  }
+
+  protected interface OnAskListener {
+    void onAction();
   }
 }

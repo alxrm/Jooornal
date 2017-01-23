@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'let'
 apply from: "${rootDir}/constants.gradle"
 
 android {
@@ -37,8 +38,8 @@ dependencies {
   compile dbflow.core
   compile dbflow.lib
 
-  compile "com.evernote:android-job:$versions.androidJobs"
-  compile 'com.wdullaer:materialdatetimepicker:2.0.0'
+  //  compile "com.evernote:android-job:$versions.androidJobs"
+  compile "com.wdullaer:materialdatetimepicker:$versions.datePicker"
 
   annotationProcessor square.butterknifeCompiler
   annotationProcessor square.daggerCompiler

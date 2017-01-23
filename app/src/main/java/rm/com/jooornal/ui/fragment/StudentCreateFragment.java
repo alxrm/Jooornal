@@ -1,5 +1,6 @@
 package rm.com.jooornal.ui.fragment;
 
+import android.Manifest;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -15,12 +16,16 @@ import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.OnClick;
 import butterknife.OnTextChanged;
+import com.canelmas.let.AskPermission;
+import com.canelmas.let.DeniedPermission;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 import java.util.Calendar;
+import java.util.List;
 import rm.com.jooornal.R;
 import rm.com.jooornal.data.entity.Phone;
 import rm.com.jooornal.data.entity.Student;
 import rm.com.jooornal.util.Converters;
+import rm.com.jooornal.util.Events;
 
 /**
  * Created by alex
@@ -35,6 +40,8 @@ public final class StudentCreateFragment extends BaseFragment
   private final Phone main = new Phone();
   private final Phone alter = new Phone();
 
+  private boolean hasCalendarPermission = false;
+
   {
     main.student = student;
     alter.student = student;
@@ -42,6 +49,11 @@ public final class StudentCreateFragment extends BaseFragment
 
   @NonNull public static StudentCreateFragment newInstance() {
     return new StudentCreateFragment();
+  }
+
+  @Override public void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    askAndSavePermission();
   }
 
   @Nullable @Override public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -60,6 +72,11 @@ public final class StudentCreateFragment extends BaseFragment
     }
 
     return super.onOptionsItemSelected(item);
+  }
+
+  @Override public void onPermissionDenied(List<DeniedPermission> deniedPermissionList) {
+    Toast.makeText(getActivity(), "День рождения не будет записан в календарь", Toast.LENGTH_LONG)
+        .show();
   }
 
   @OnTextChanged(R.id.student_create_input_surname)
@@ -97,8 +114,7 @@ public final class StudentCreateFragment extends BaseFragment
     alter.alias = name.toString();
   }
 
-  @OnClick(R.id.student_create_wrapper_birthday)
-  final void onSetBirthday() {
+  @OnClick(R.id.student_create_wrapper_birthday) final void onSetBirthday() {
     final Calendar birth = Calendar.getInstance();
     final DatePickerDialog dpd =
         DatePickerDialog.newInstance(this, birth.get(Calendar.YEAR), birth.get(Calendar.MONTH),
@@ -127,6 +143,11 @@ public final class StudentCreateFragment extends BaseFragment
     return false;
   }
 
+  @AskPermission({ Manifest.permission.READ_CALENDAR, Manifest.permission.WRITE_CALENDAR })
+  private void askAndSavePermission() {
+    hasCalendarPermission = true;
+  }
+
   private void addStudent() {
     final boolean hasName = !student.name.isEmpty();
     final boolean hasSurname = !student.surname.isEmpty();
@@ -147,6 +168,16 @@ public final class StudentCreateFragment extends BaseFragment
     main.save();
     student.save();
 
+    if (hasCalendarPermission) {
+      addCalendarEvent();
+    }
+
     navigateUp();
+  }
+
+  private void addCalendarEvent() {
+    Events.addEventToCalender(getActivity().getContentResolver(),
+        student.name + " " + student.surname + " — " + " день рождения", "", null,
+        student.birthDate, true);
   }
 }
