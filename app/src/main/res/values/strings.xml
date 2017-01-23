@@ -6,4 +6,8 @@
   <string name="page_name_notes">Заметки</string>
   <string name="page_name_settings">Настройки</string>
   <string name="page_name_student_create">Добавить студента</string>
+  <string name="page_name_note_page">Заметка</string>
+  <string name="ask_positive">Да</string>
+  <string name="ask_negative">Нет</string>
+  <string name="item_note_noname">Без названия</string>
 </resources>

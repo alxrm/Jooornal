@@ -33,15 +33,6 @@ public final class StudentMessagesFragment extends BaseContentFragment
     return fragment;
   }
 
-  @Override public void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-    final JooornalApplication app = getApplication();
-
-    if (app != null) {
-      app.injector().inject(this);
-    }
-  }
-
   @Override public void onViewCreated(View view, Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
     adapter.updateData(messages);
@@ -55,6 +46,12 @@ public final class StudentMessagesFragment extends BaseContentFragment
   @Override protected void unwrapArguments(@NonNull Bundle args) {
     super.unwrapArguments(args);
     messages = args.getParcelableArrayList(KEY_MESSAGES_LIST);
+  }
+
+
+  @Override protected void injectDependencies(@NonNull JooornalApplication app) {
+    super.injectDependencies(app);
+    app.injector().inject(this);
   }
 
   @Override public void onItemClick(@NonNull Sms item) {

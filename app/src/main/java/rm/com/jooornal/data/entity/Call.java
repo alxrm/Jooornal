@@ -6,6 +6,7 @@ import com.raizlabs.android.dbflow.annotation.Column;
 import com.raizlabs.android.dbflow.annotation.ForeignKey;
 import com.raizlabs.android.dbflow.annotation.PrimaryKey;
 import com.raizlabs.android.dbflow.annotation.Table;
+import com.raizlabs.android.dbflow.structure.BaseModel;
 import rm.com.jooornal.data.JoornalDatabase;
 
 /**
@@ -14,8 +15,8 @@ import rm.com.jooornal.data.JoornalDatabase;
 
 @SuppressWarnings("WeakerAccess")
 @Table(database = JoornalDatabase.class)
-public final class Call implements Parcelable {
-  @PrimaryKey public long id = System.currentTimeMillis();
+public final class Call extends BaseModel implements Parcelable {
+  @PrimaryKey(autoincrement = true) public long id = System.currentTimeMillis();
   @ForeignKey(stubbedRelationship = true) public Student student;
   @ForeignKey public Phone phone;
   @Column public long time = 0L;

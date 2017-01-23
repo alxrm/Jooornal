@@ -10,11 +10,13 @@ import rm.com.jooornal.ui.fragment.*;
 
 @Singleton @Component(modules = {
     StudentsListModule.class,
-    StudentPageModule.class
+    StudentPageModule.class,
+    NotesListModule.class
 })
 public interface JooornalComponent {
   void inject(StudentsListFragment fragment);
   void inject(StudentMessagesFragment fragment);
   void inject(StudentCallsFragment fragment);
   void inject(StudentInfoFragment fragment);
+  void inject(NotesListFragment fragment);
 }

@@ -3,17 +3,21 @@ package rm.com.jooornal.ui.fragment;
 import android.app.Activity;
 import android.app.Application;
 import android.app.Fragment;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import rm.com.jooornal.JooornalApplication;
+import rm.com.jooornal.R;
 import rm.com.jooornal.ui.Navigator;
+import rm.com.jooornal.ui.OnActionListener;
 
 /**
  * базовый класс экрана(фрагмента) приложения, отрисовывающий данные и индикатор загрузки, на
@@ -35,10 +39,15 @@ public abstract class BaseFragment extends Fragment {
     super.onCreate(savedInstanceState);
     setHasOptionsMenu(true);
 
+    final JooornalApplication app = getApplication();
     final Bundle args = getArguments();
 
     if (args != null) {
       unwrapArguments(args);
+    }
+
+    if (app != null) {
+      injectDependencies(app);
     }
   }
 
@@ -120,6 +129,9 @@ public abstract class BaseFragment extends Fragment {
   protected void unwrapArguments(@NonNull Bundle args) {
   }
 
+  protected void injectDependencies(@NonNull JooornalApplication app) {
+  }
+
   /**
    * метод, эмулирующий нажатие системной кнопки назад
    */
@@ -166,6 +178,23 @@ public abstract class BaseFragment extends Fragment {
     if (navigator != null) {
       navigator.lockMenu(should);
     }
+  }
+
+  final void ask(String message, final OnActionListener action) {
+    new AlertDialog.Builder(getActivity())
+        .setMessage(message)
+        .setNegativeButton(R.string.ask_negative, new DialogInterface.OnClickListener() {
+          @Override public void onClick(DialogInterface dialog, int which) {
+            dialog.dismiss();
+          }
+        })
+        .setPositiveButton(R.string.ask_positive, new DialogInterface.OnClickListener() {
+          @Override public void onClick(DialogInterface dialog, int which) {
+            action.onAction();
+          }
+        })
+        .create()
+        .show();
   }
 
   /**

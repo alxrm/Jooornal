@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.Locale;
 import rm.com.jooornal.constant.Colors;
 import rm.com.jooornal.constant.Formats;
-import rm.com.jooornal.constant.StudentInfo;
 import rm.com.jooornal.data.entity.Phone;
 import rm.com.jooornal.data.entity.Student;
 import rm.com.jooornal.data.entity.StudentInfoEntry;
@@ -27,6 +26,10 @@ public final class Converters {
   private static final String EMPTY = "";
 
   private Converters() {
+  }
+
+  @NonNull public static String shortNameOf(@NonNull Student student) {
+    return shortNameOf(student.surname, student.name, student.patronymic);
   }
 
   @NonNull public static String shortNameOf(@NonNull String surname, @NonNull String name,
@@ -62,6 +65,8 @@ public final class Converters {
     infoEntries.add(new StudentInfoEntry(ENTRY_TEXT, dateStringOf(student.birthDate)));
 
     infoEntries.add(new StudentInfoEntry(ENTRY_TITLE, "Контакты"));
+
+    Logger.d(student.getPhones().size());
 
     for (Phone phone : student.getPhones()) {
       phonesStringBuilder.append(phone.phoneNumber);

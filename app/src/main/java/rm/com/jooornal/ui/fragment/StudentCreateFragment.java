@@ -40,7 +40,7 @@ public final class StudentCreateFragment extends BaseFragment
     alter.student = student;
   }
 
-  public static StudentCreateFragment newInstance() {
+  @NonNull public static StudentCreateFragment newInstance() {
     return new StudentCreateFragment();
   }
 
@@ -51,11 +51,11 @@ public final class StudentCreateFragment extends BaseFragment
 
   @Override public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
     super.onCreateOptionsMenu(menu, inflater);
-    inflater.inflate(R.menu.menu_fragment_student_create, menu);
+    inflater.inflate(R.menu.menu_create_new, menu);
   }
 
   @Override public boolean onOptionsItemSelected(MenuItem item) {
-    if (item.getItemId() == R.id.menu_student_create_done) {
+    if (item.getItemId() == R.id.menu_create_done) {
       addStudent();
     }
 
@@ -97,8 +97,7 @@ public final class StudentCreateFragment extends BaseFragment
     alter.alias = name.toString();
   }
 
-  @OnClick(R.id.student_create_wrapper_birthday)
-  final void onSetBirthday() {
+  @OnClick(R.id.student_create_wrapper_birthday) final void onSetBirthday() {
     final Calendar birth = Calendar.getInstance();
     final DatePickerDialog dpd =
         DatePickerDialog.newInstance(this, birth.get(Calendar.YEAR), birth.get(Calendar.MONTH),
@@ -144,8 +143,8 @@ public final class StudentCreateFragment extends BaseFragment
       alter.save();
     }
 
-    student.save();
     main.save();
+    student.save();
 
     navigateUp();
   }

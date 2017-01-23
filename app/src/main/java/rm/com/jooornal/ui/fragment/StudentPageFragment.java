@@ -72,7 +72,7 @@ public final class StudentPageFragment extends BaseFragment {
   }
 
   @NonNull @Override String getTitle() {
-    return Converters.shortNameOf(student.surname, student.name, student.patronymic);
+    return Converters.shortNameOf(student);
   }
 
   @Override boolean hasBackButton() {

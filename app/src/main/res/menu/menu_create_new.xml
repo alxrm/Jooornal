@@ -2,7 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
   <item
-      android:id="@+id/menu_student_create_done"
+      android:id="@+id/menu_create_done"
       android:icon="@drawable/ic_done_white_24dp"
       android:title="Done"
       app:showAsAction="ifRoom"

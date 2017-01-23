@@ -23,7 +23,7 @@ public final class StudentInfoFragment extends BaseContentFragment {
 
   private Student student;
 
-  public static StudentInfoFragment newInstance(@NonNull Student student) {
+  @NonNull public static StudentInfoFragment newInstance(@NonNull Student student) {
     final Bundle args = new Bundle();
     final StudentInfoFragment fragment = new StudentInfoFragment();
 
@@ -31,15 +31,6 @@ public final class StudentInfoFragment extends BaseContentFragment {
     fragment.setArguments(args);
 
     return fragment;
-  }
-
-  @Override public void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-    final JooornalApplication app = getApplication();
-
-    if (app != null) {
-      app.injector().inject(this);
-    }
   }
 
   @Override public void onViewCreated(View view, Bundle savedInstanceState) {
@@ -57,6 +48,11 @@ public final class StudentInfoFragment extends BaseContentFragment {
   @Override protected void unwrapArguments(@NonNull Bundle args) {
     super.unwrapArguments(args);
     student = args.getParcelable(KEY_STUDENT);
+  }
+
+  @Override protected void injectDependencies(@NonNull JooornalApplication app) {
+    super.injectDependencies(app);
+    app.injector().inject(this);
   }
 
   @NonNull @Override String getTitle() {

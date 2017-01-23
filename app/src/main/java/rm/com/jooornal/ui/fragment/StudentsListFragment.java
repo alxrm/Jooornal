@@ -19,7 +19,7 @@ import rm.com.jooornal.ui.holder.BaseHolder;
  * Created by alex
  */
 
-public final class StudentsListFragment extends BaseContentFragment
+public class StudentsListFragment extends BaseContentFragment
     implements BaseHolder.OnClickListener<Student>, ProviderListener<List<Student>> {
 
   @BindString(R.string.page_name_students) String title;
@@ -27,17 +27,8 @@ public final class StudentsListFragment extends BaseContentFragment
   @Inject StudentsListAdapter adapter;
   @Inject StudentsListProvider provider;
 
-  public static StudentsListFragment newInstance() {
+  @NonNull public static StudentsListFragment newInstance() {
     return new StudentsListFragment();
-  }
-
-  @Override public void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-    final JooornalApplication app = getApplication();
-
-    if (app != null) {
-      app.injector().inject(this);
-    }
   }
 
   @Override public void onViewCreated(View view, Bundle savedInstanceState) {
@@ -49,6 +40,11 @@ public final class StudentsListFragment extends BaseContentFragment
     provider.provide(this);
   }
 
+  @Override protected void injectDependencies(@NonNull JooornalApplication app) {
+    super.injectDependencies(app);
+    app.injector().inject(this);
+  }
+
   @Override public void onProvide(@NonNull List<Student> payload) {
     adapter.updateData(payload);
     toggleContent(true);
@@ -58,7 +54,7 @@ public final class StudentsListFragment extends BaseContentFragment
     navigateTo(StudentPageFragment.newInstance(item));
   }
 
-  @OnClick(R.id.content_add) void createNewStudent() {
+  @OnClick(R.id.content_add) final void createNewStudent() {
     navigateTo(StudentCreateFragment.newInstance());
   }
 

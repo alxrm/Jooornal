@@ -21,9 +21,17 @@ public final class SmsHolder extends BaseHolder<Sms> {
     super(itemView);
   }
 
-  @Override public void bind(@NonNull Sms model) {
+  @Override public void bind(@NonNull final Sms model) {
     from.setText(model.phone.phoneNumber);
     date.setText(Converters.shortDateStringOf(model.time));
     text.setText(model.text);
+
+    itemView.setOnClickListener(new View.OnClickListener() {
+      @Override public void onClick(View v) {
+        if (clickListener != null) {
+          clickListener.onItemClick(model);
+        }
+      }
+    });
   }
 }

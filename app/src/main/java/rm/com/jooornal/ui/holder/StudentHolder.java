@@ -26,7 +26,7 @@ public class StudentHolder extends BaseHolder<Student> {
   }
 
   @Override public void bind(@NonNull final Student model) {
-    final String shortName = Converters.shortNameOf(model.surname, model.name, model.patronymic);
+    final String shortName = Converters.shortNameOf(model);
     final String letters = Converters.iconLettersOf(model.surname, model.name);
     final String phoneNumber = model.getPhones().get(0).phoneNumber;
     final ColorFilter colorFilter =

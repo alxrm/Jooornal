@@ -31,15 +31,6 @@ public final class StudentCallsFragment extends BaseContentFragment {
     return fragment;
   }
 
-  @Override public void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-    final JooornalApplication app = getApplication();
-
-    if (app != null) {
-      app.injector().inject(this);
-    }
-  }
-
   @Override public void onViewCreated(View view, Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
     adapter.updateData(calls);
@@ -52,6 +43,11 @@ public final class StudentCallsFragment extends BaseContentFragment {
   @Override protected void unwrapArguments(@NonNull Bundle args) {
     super.unwrapArguments(args);
     calls = args.getParcelableArrayList(KEY_CALLS_LIST);
+  }
+
+  @Override protected void injectDependencies(@NonNull JooornalApplication app) {
+    super.injectDependencies(app);
+    app.injector().inject(this);
   }
 
   @NonNull @Override String getTitle() {
