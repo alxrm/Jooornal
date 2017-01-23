@@ -10,6 +10,7 @@ import com.raizlabs.android.dbflow.sql.language.SQLite;
 import com.raizlabs.android.dbflow.structure.BaseModel;
 import java.util.List;
 import rm.com.jooornal.data.JoornalDatabase;
+import rm.com.jooornal.util.Guids;
 
 /**
  * Created by alex
@@ -17,7 +18,7 @@ import rm.com.jooornal.data.JoornalDatabase;
 
 @SuppressWarnings("WeakerAccess") @Table(database = JoornalDatabase.class)
 public final class Student extends BaseModel implements Parcelable {
-  @PrimaryKey(autoincrement = true) public long id = System.currentTimeMillis();
+  @PrimaryKey public String id = Guids.randomGuid();
   @Column public String name = "";
   @Column public String surname = "";
   @Column public String patronymic = "";
@@ -31,7 +32,7 @@ public final class Student extends BaseModel implements Parcelable {
   public Student() {}
 
   protected Student(Parcel in) {
-    id = in.readLong();
+    id = in.readString();
     name = in.readString();
     surname = in.readString();
     patronymic = in.readString();
@@ -57,7 +58,7 @@ public final class Student extends BaseModel implements Parcelable {
   }
 
   @Override public void writeToParcel(Parcel dest, int flags) {
-    dest.writeLong(id);
+    dest.writeString(id);
     dest.writeString(name);
     dest.writeString(surname);
     dest.writeString(patronymic);

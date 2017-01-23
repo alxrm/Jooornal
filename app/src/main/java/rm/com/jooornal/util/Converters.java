@@ -32,15 +32,6 @@ public final class Converters {
     return shortNameOf(student.surname, student.name, student.patronymic);
   }
 
-  @NonNull public static String shortNameOf(@NonNull String surname, @NonNull String name,
-      @Nullable String patronymic) {
-    final String patronymicInitial =
-        ((patronymic == null) || patronymic.isEmpty()) ? EMPTY : (patronymic.substring(0, 1) + DOT);
-    final String nameInitial = name.substring(0, 1) + DOT;
-
-    return String.format("%s %s %s", surname, nameInitial, patronymicInitial);
-  }
-
   @NonNull public static String iconLettersOf(@NonNull String surname, @NonNull String name) {
     return name.substring(0, 1) + surname.substring(0, 1);
   }
@@ -65,8 +56,6 @@ public final class Converters {
     infoEntries.add(new StudentInfoEntry(ENTRY_TEXT, dateStringOf(student.birthDate)));
 
     infoEntries.add(new StudentInfoEntry(ENTRY_TITLE, "Контакты"));
-
-    Logger.d(student.getPhones().size());
 
     for (Phone phone : student.getPhones()) {
       phonesStringBuilder.append(phone.phoneNumber);
@@ -94,6 +83,15 @@ public final class Converters {
     final Calendar calendar = Calendar.getInstance();
     calendar.set(year, monthOfYear, dayOfMonth);
     return calendar.getTimeInMillis();
+  }
+
+  @NonNull private static String shortNameOf(@NonNull String surname, @NonNull String name,
+      @Nullable String patronymic) {
+    final String patronymicInitial =
+        ((patronymic == null) || patronymic.isEmpty()) ? EMPTY : (patronymic.substring(0, 1) + DOT);
+    final String nameInitial = name.substring(0, 1) + DOT;
+
+    return String.format("%s %s %s", surname, nameInitial, patronymicInitial);
   }
 
   @NonNull private static String dateStringOf(long time, @NonNull String pattern) {

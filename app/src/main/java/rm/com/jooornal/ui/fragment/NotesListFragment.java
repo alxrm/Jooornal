@@ -15,7 +15,6 @@ import rm.com.jooornal.data.provider.NotesListProvider;
 import rm.com.jooornal.data.provider.ProviderListener;
 import rm.com.jooornal.ui.adapter.NotesListAdapter;
 import rm.com.jooornal.ui.holder.BaseHolder;
-import rm.com.jooornal.util.Logger;
 
 /**
  * Created by alex
@@ -48,7 +47,6 @@ public final class NotesListFragment extends BaseContentFragment
   }
 
   @Override public void onItemClick(@NonNull Note item) {
-    Logger.d(item.name);
     navigateTo(NoteFragment.newInstance(item));
   }
 
@@ -57,7 +55,8 @@ public final class NotesListFragment extends BaseContentFragment
     toggleContent(true);
   }
 
-  @OnClick(R.id.content_add) final void createNewNote() {
+  @OnClick(R.id.content_add)
+  final void createNewNote() {
     navigateTo(NoteFragment.newInstance());
   }
 

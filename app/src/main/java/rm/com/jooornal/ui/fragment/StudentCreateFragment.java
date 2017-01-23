@@ -97,7 +97,8 @@ public final class StudentCreateFragment extends BaseFragment
     alter.alias = name.toString();
   }
 
-  @OnClick(R.id.student_create_wrapper_birthday) final void onSetBirthday() {
+  @OnClick(R.id.student_create_wrapper_birthday)
+  final void onSetBirthday() {
     final Calendar birth = Calendar.getInstance();
     final DatePickerDialog dpd =
         DatePickerDialog.newInstance(this, birth.get(Calendar.YEAR), birth.get(Calendar.MONTH),

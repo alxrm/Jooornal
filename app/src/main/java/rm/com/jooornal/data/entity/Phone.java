@@ -8,6 +8,7 @@ import com.raizlabs.android.dbflow.annotation.PrimaryKey;
 import com.raizlabs.android.dbflow.annotation.Table;
 import com.raizlabs.android.dbflow.structure.BaseModel;
 import rm.com.jooornal.data.JoornalDatabase;
+import rm.com.jooornal.util.Guids;
 
 /**
  * Created by alex
@@ -16,7 +17,7 @@ import rm.com.jooornal.data.JoornalDatabase;
 @SuppressWarnings("WeakerAccess")
 @Table(database = JoornalDatabase.class)
 public final class Phone extends BaseModel implements Parcelable {
-  @PrimaryKey(autoincrement = true) public long id = System.currentTimeMillis();
+  @PrimaryKey public String id = Guids.randomGuid();
   @ForeignKey(stubbedRelationship = true) public Student student;
   @Column public String alias = "";
   @Column public String phoneNumber = "";
@@ -24,7 +25,7 @@ public final class Phone extends BaseModel implements Parcelable {
   public Phone() {}
 
   protected Phone(Parcel in) {
-    id = in.readLong();
+    id = in.readString();
     student = in.readParcelable(Student.class.getClassLoader());
     alias = in.readString();
     phoneNumber = in.readString();
@@ -45,7 +46,7 @@ public final class Phone extends BaseModel implements Parcelable {
   }
 
   @Override public void writeToParcel(Parcel dest, int flags) {
-    dest.writeLong(id);
+    dest.writeString(id);
     dest.writeParcelable(student, flags);
     dest.writeString(alias);
     dest.writeString(phoneNumber);
