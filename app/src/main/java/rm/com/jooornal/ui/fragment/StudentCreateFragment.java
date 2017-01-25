@@ -1,6 +1,7 @@
 package rm.com.jooornal.ui.fragment;
 
 import android.Manifest;
+import android.content.ContentResolver;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -75,8 +76,7 @@ public final class StudentCreateFragment extends BaseFragment
   }
 
   @Override public void onPermissionDenied(List<DeniedPermission> deniedPermissionList) {
-    Toast.makeText(getActivity(), "День рождения не будет записан в календарь", Toast.LENGTH_LONG)
-        .show();
+    Toast.makeText(getActivity(), R.string.message_birthday_ignored, Toast.LENGTH_LONG).show();
   }
 
   @OnTextChanged(R.id.student_create_input_surname)
@@ -157,7 +157,7 @@ public final class StudentCreateFragment extends BaseFragment
     final boolean isInvalid = !(hasName && hasSurname && hasPhone && hasBirthday);
 
     if (isInvalid) {
-      Toast.makeText(getActivity(), "Не все обязательные поля заполнены", Toast.LENGTH_LONG).show();
+      Toast.makeText(getActivity(), R.string.message_form_not_correct, Toast.LENGTH_LONG).show();
       return;
     }
 
@@ -165,19 +165,21 @@ public final class StudentCreateFragment extends BaseFragment
       alter.save();
     }
 
-    main.save();
-    student.save();
-
     if (hasCalendarPermission) {
       addCalendarEvent();
     }
+
+    main.save();
+    student.save();
 
     navigateUp();
   }
 
   private void addCalendarEvent() {
-    Events.addEventToCalender(getActivity().getContentResolver(),
-        student.name + " " + student.surname + " — " + " день рождения", "", null,
-        student.birthDate, true);
+    final ContentResolver resolver = getActivity().getContentResolver();
+    final String title = getString(R.string.student_birthday_event, student.name, student.surname);
+
+    student.birthDayEventId =
+        Events.addEventToCalender(resolver, title, "", student.birthDate, true);
   }
 }

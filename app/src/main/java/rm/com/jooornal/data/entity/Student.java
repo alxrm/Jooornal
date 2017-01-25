@@ -23,6 +23,7 @@ public final class Student extends BaseModel implements Parcelable {
   @Column public String surname = "";
   @Column public String patronymic = "";
   @Column public long birthDate = 0L;
+  @Column public long birthDayEventId = -1L;
 
   List<Phone> phones;
   List<Sms> smsList;
@@ -37,6 +38,7 @@ public final class Student extends BaseModel implements Parcelable {
     surname = in.readString();
     patronymic = in.readString();
     birthDate = in.readLong();
+    birthDayEventId = in.readLong();
     phones = in.createTypedArrayList(Phone.CREATOR);
     smsList = in.createTypedArrayList(Sms.CREATOR);
     calls = in.createTypedArrayList(Call.CREATOR);
@@ -63,6 +65,7 @@ public final class Student extends BaseModel implements Parcelable {
     dest.writeString(surname);
     dest.writeString(patronymic);
     dest.writeLong(birthDate);
+    dest.writeLong(birthDayEventId);
     dest.writeTypedList(phones);
     dest.writeTypedList(smsList);
     dest.writeTypedList(calls);

@@ -22,6 +22,7 @@ public final class Note extends BaseModel implements Parcelable {
   @Column public String name = "";
   @Column public String text = "";
   @Column public long due = 0L;
+  @Column public long noteEventId = -1L;
 
   public Note() {}
 
@@ -31,6 +32,7 @@ public final class Note extends BaseModel implements Parcelable {
     name = in.readString();
     text = in.readString();
     due = in.readLong();
+    noteEventId = in.readLong();
   }
 
   public static final Creator<Note> CREATOR = new Creator<Note>() {
@@ -53,5 +55,6 @@ public final class Note extends BaseModel implements Parcelable {
     dest.writeString(name);
     dest.writeString(text);
     dest.writeLong(due);
+    dest.writeLong(noteEventId);
   }
 }

@@ -1,6 +1,7 @@
 package rm.com.jooornal.ui.fragment;
 
 import android.Manifest;
+import android.content.ContentResolver;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -101,8 +102,7 @@ public final class NoteFragment extends BaseFragment
   }
 
   @Override public void onPermissionDenied(List<DeniedPermission> deniedPermissionList) {
-    Toast.makeText(getActivity(), "Уведомление заметки не будет записано в календарь",
-        Toast.LENGTH_LONG).show();
+    Toast.makeText(getActivity(), R.string.message_note_ignored, Toast.LENGTH_LONG).show();
   }
 
   @Override protected void unwrapArguments(@NonNull Bundle args) {
@@ -119,7 +119,7 @@ public final class NoteFragment extends BaseFragment
   }
 
   @OnClick(R.id.note_create_student) final void onDeleteStudent() {
-    ask("Отменить привязку к студенту?", new OnAskListener() {
+    ask(getString(R.string.ask_deassign_student), new OnAskListener() {
       @Override public void onAction() {
         note.student = null;
         student.setVisibility(View.GONE);
@@ -128,10 +128,15 @@ public final class NoteFragment extends BaseFragment
   }
 
   @OnClick(R.id.note_create_time) final void onDeleteDate() {
-    ask("Сбросить дату уведомления?", new OnAskListener() {
+    ask(getString(R.string.ask_deassign_date), new OnAskListener() {
       @Override public void onAction() {
         note.due = 0L;
         dueDate.setVisibility(View.GONE);
+
+        if (note.noteEventId != -1L) {
+          Events.deleteCalendarEvent(getActivity().getContentResolver(), note.noteEventId);
+          note.noteEventId = -1L;
+        }
       }
     });
   }
@@ -186,21 +191,20 @@ public final class NoteFragment extends BaseFragment
 
   private void addNote() {
     if (note.text.isEmpty()) {
-      Toast.makeText(getActivity(), "У заметки должен быть текст", Toast.LENGTH_LONG).show();
+      Toast.makeText(getActivity(), R.string.message_note_no_text, Toast.LENGTH_LONG).show();
       return;
     }
-
-    note.save();
 
     if (note.due != 0L && hasCalendarPermission) {
       addCalendarEvent();
     }
 
+    note.save();
     navigateUp();
   }
 
   private void addCalendarEvent() {
-    Events.addEventToCalender(getActivity().getContentResolver(), note.name, note.text, null,
-        note.due, false);
+    final ContentResolver resolver = getActivity().getContentResolver();
+    note.noteEventId = Events.addEventToCalender(resolver, note.name, note.text, note.due, false);
   }
 }

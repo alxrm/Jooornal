@@ -10,4 +10,11 @@
   <string name="ask_positive">Да</string>
   <string name="ask_negative">Нет</string>
   <string name="item_note_noname">Без названия</string>
+  <string name="student_birthday_event">%1$s %2$s —  день рождения</string>
+  <string name="message_birthday_ignored">День рождения не будет записан в календарь</string>
+  <string name="message_note_no_text">У заметки должен быть текст</string>
+  <string name="message_note_ignored">Уведомление заметки не будет записано в календарь</string>
+  <string name="ask_deassign_student">Отменить привязку к студенту?</string>
+  <string name="ask_deassign_date">Сбросить дату уведомления?</string>
+  <string name="message_form_not_correct">Не все обязательные поля заполнены</string>
 </resources>
