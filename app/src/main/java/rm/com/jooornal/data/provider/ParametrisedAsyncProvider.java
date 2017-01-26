@@ -11,7 +11,7 @@ import java.util.concurrent.ExecutorService;
 
 public abstract class ParametrisedAsyncProvider<P, T> extends AbstractAsyncProvider<T> {
 
-  @Nullable protected P currentParam;
+  @Nullable P currentParam;
 
   public ParametrisedAsyncProvider(@NonNull ExecutorService executor,
       @NonNull Handler mainThreadHook) {
@@ -20,7 +20,7 @@ public abstract class ParametrisedAsyncProvider<P, T> extends AbstractAsyncProvi
 
   public void provide(P param, ProviderListener<T> listener) {
     currentParam = param;
-    provide(listener);
+    super.provide(listener);
   }
 
   @Override public void provide(@NonNull ProviderListener<T> callback) {

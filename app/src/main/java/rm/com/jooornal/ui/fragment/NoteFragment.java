@@ -205,6 +205,13 @@ public final class NoteFragment extends BaseFragment
 
   private void addCalendarEvent() {
     final ContentResolver resolver = getActivity().getContentResolver();
-    note.noteEventId = Events.addEventToCalender(resolver, note.name, note.text, note.due, false);
+    final String eventName =
+        note.name.isEmpty() ? getString(R.string.note_event_title_stub) : note.name;
+
+    if (note.noteEventId != -1L) {
+      Events.updateCalendarEvent(resolver, note.noteEventId, eventName, note.text, note.due, false);
+    } else {
+      note.noteEventId = Events.addEventToCalender(resolver, eventName, note.text, note.due, false);
+    }
   }
 }

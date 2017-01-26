@@ -118,6 +118,7 @@ public abstract class BaseFragment extends Fragment implements RuntimePermission
   }
 
   @Override public void onPermissionDenied(List<DeniedPermission> deniedPermissionList) {
+    Toast.makeText(getActivity(), "Нужно разрешение, чтобы выполнить действие", Toast.LENGTH_LONG).show();
   }
 
   /**

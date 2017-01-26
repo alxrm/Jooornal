@@ -17,4 +17,5 @@
   <string name="ask_deassign_student">Отменить привязку к студенту?</string>
   <string name="ask_deassign_date">Сбросить дату уведомления?</string>
   <string name="message_form_not_correct">Не все обязательные поля заполнены</string>
+  <string name="note_event_title_stub">Напоминание о заметке</string>
 </resources>

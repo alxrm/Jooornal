@@ -21,8 +21,16 @@ public final class CallHolder extends BaseHolder<Call> {
     super(itemView);
   }
 
-  @Override public void bind(@NonNull Call model) {
+  @Override public void bind(@NonNull final Call model) {
     from.setText(model.phone.phoneNumber);
     date.setText(Converters.shortDateStringOf(model.time));
+
+    itemView.setOnClickListener(new View.OnClickListener() {
+      @Override public void onClick(View v) {
+        if (clickListener != null) {
+          clickListener.onItemClick(model);
+        }
+      }
+    });
   }
 }

@@ -1,10 +1,12 @@
 package rm.com.jooornal.ui.fragment;
 
+import android.Manifest;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.View;
 import butterknife.BindString;
 import butterknife.OnClick;
+import com.canelmas.let.AskPermission;
 import java.util.List;
 import javax.inject.Inject;
 import rm.com.jooornal.JooornalApplication;
@@ -29,6 +31,11 @@ public class StudentsListFragment extends BaseContentFragment
 
   @NonNull public static StudentsListFragment newInstance() {
     return new StudentsListFragment();
+  }
+
+  @Override public void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    askSmsAndCallsPermissions();
   }
 
   @Override public void onViewCreated(View view, Bundle savedInstanceState) {
@@ -68,5 +75,10 @@ public class StudentsListFragment extends BaseContentFragment
 
   @Override boolean isNested() {
     return false;
+  }
+
+  @AskPermission({
+      Manifest.permission.RECEIVE_SMS, Manifest.permission.READ_PHONE_STATE
+  }) private void askSmsAndCallsPermissions() {
   }
 }

@@ -30,7 +30,6 @@ public final class StudentPageFragment extends BaseFragment {
 
   private TabLayout tabs;
   private Student student;
-  private List<BaseContentFragment> pages;
 
   public static StudentPageFragment newInstance(@NonNull Student student) {
     final Bundle args = new Bundle();
@@ -58,12 +57,14 @@ public final class StudentPageFragment extends BaseFragment {
     setupTabTitles(tabs);
   }
 
-  @Override public void onDestroy() {
-    super.onDestroy();
+  @Override public void onResume() {
+    super.onResume();
+    toggleTabs(true);
+  }
 
-    if (tabs != null) {
-      tabs.setVisibility(View.GONE);
-    }
+  @Override public void onPause() {
+    super.onPause();
+    toggleTabs(false);
   }
 
   @Override protected void unwrapArguments(@NonNull Bundle args) {
@@ -83,6 +84,12 @@ public final class StudentPageFragment extends BaseFragment {
     return false;
   }
 
+  private void toggleTabs(boolean show) {
+    if (tabs != null) {
+      tabs.setVisibility(show ? View.VISIBLE : View.GONE);
+    }
+  }
+
   private void setupTabs() {
     final MainActivity activity = (MainActivity) getActivity();
     Conditions.checkNotNull(activity, "Activity cannot be null");
@@ -93,7 +100,7 @@ public final class StudentPageFragment extends BaseFragment {
   }
 
   @NonNull private StudentPagerAdapter getSectionsPagerAdapter() {
-    pages = Arrays.asList(StudentInfoFragment.newInstance(student),
+    final List<BaseContentFragment> pages = Arrays.asList(StudentInfoFragment.newInstance(student),
         StudentMessagesFragment.newInstance(student.getSmsList()),
         StudentCallsFragment.newInstance(student.getCalls()));
 

@@ -17,9 +17,4 @@ public class StudentsListAdapter extends BaseAdapter<Student, BaseHolder<Student
     return new StudentDetailedHolder(
         LayoutInflater.from(parent.getContext()).inflate(R.layout.item_student, parent, false));
   }
-
-  @Override public void onBindViewHolder(BaseHolder<Student> holder, int position) {
-    super.onBindViewHolder(holder, position);
-    holder.setOnClickListener(clickListener);
-  }
 }

@@ -17,9 +17,4 @@ public final class NotesListAdapter extends BaseAdapter<Note, BaseHolder<Note>> 
     return new NoteHolder(
         LayoutInflater.from(parent.getContext()).inflate(R.layout.item_note, parent, false));
   }
-
-  @Override public void onBindViewHolder(BaseHolder<Note> holder, int position) {
-    super.onBindViewHolder(holder, position);
-    holder.setOnClickListener(clickListener);
-  }
 }

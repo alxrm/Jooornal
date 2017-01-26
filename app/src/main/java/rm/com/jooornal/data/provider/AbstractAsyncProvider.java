@@ -9,8 +9,8 @@ import rm.com.jooornal.util.Conditions;
  * Created by alex
  */
 
-@SuppressWarnings("WeakerAccess")
-abstract class AbstractAsyncProvider<T> implements AsyncProvider<T> {
+@SuppressWarnings("WeakerAccess") abstract class AbstractAsyncProvider<T>
+    implements AsyncProvider<T> {
 
   protected final ExecutorService executor;
   protected final Handler mainThreadHook;
@@ -28,7 +28,10 @@ abstract class AbstractAsyncProvider<T> implements AsyncProvider<T> {
     executor.submit(new Runnable() {
       @Override public void run() {
         cachedResult = get();
-        postCallback(cachedResult, callback);
+
+        if (cachedResult != null) {
+          postCallback(cachedResult, callback);
+        }
       }
     });
   }

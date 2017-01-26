@@ -28,7 +28,10 @@ abstract class BaseAdapter<M, VH extends BaseHolder<M>> extends RecyclerView.Ada
    * @param position позиция в списке, по которой нужно брать модель
    */
   @Override public void onBindViewHolder(VH holder, int position) {
-    if (holder != null) holder.bind(data.get(position));
+    if (holder != null) {
+      holder.bind(data.get(position));
+      holder.setOnClickListener(clickListener);
+    }
   }
 
   /**

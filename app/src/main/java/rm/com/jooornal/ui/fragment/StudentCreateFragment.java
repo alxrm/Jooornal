@@ -54,7 +54,7 @@ public final class StudentCreateFragment extends BaseFragment
 
   @Override public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    askAndSavePermission();
+    askAndSaveCalendarPermission();
   }
 
   @Nullable @Override public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -143,8 +143,9 @@ public final class StudentCreateFragment extends BaseFragment
     return false;
   }
 
-  @AskPermission({ Manifest.permission.READ_CALENDAR, Manifest.permission.WRITE_CALENDAR })
-  private void askAndSavePermission() {
+  @AskPermission({
+      Manifest.permission.READ_CALENDAR, Manifest.permission.WRITE_CALENDAR
+  }) private void askAndSaveCalendarPermission() {
     hasCalendarPermission = true;
   }
 
