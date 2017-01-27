@@ -4,7 +4,7 @@ import android.os.Handler;
 import android.support.annotation.NonNull;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
-import rm.com.jooornal.util.Collections;
+import rm.com.jooornal.util.Lists;
 
 /**
  * Created by alex
@@ -38,7 +38,7 @@ public abstract class ListAsyncProvider<T> extends AbstractAsyncProvider<List<T>
   protected abstract boolean matchQuery(T item, String query);
 
   private List<T> searchByQuery(final String clause) {
-    return Collections.filter(cachedResult, new Collections.Predicate<T>() {
+    return Lists.filter(cachedResult, new Lists.Predicate<T>() {
       @Override public boolean test(T item) {
         return matchQuery(item, clause);
       }

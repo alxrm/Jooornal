@@ -38,8 +38,8 @@ dependencies {
   compile dbflow.core
   compile dbflow.lib
 
-  //  compile "com.evernote:android-job:$versions.androidJobs"
   compile "com.wdullaer:materialdatetimepicker:$versions.datePicker"
+  compile 'com.redmadrobot:inputmask:2.2.0'
 
   annotationProcessor square.butterknifeCompiler
   annotationProcessor square.daggerCompiler

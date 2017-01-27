@@ -15,8 +15,9 @@ import rm.com.jooornal.data.entity.Phone;
 import rm.com.jooornal.data.entity.Sms;
 import rm.com.jooornal.data.provider.PhoneProvider;
 import rm.com.jooornal.data.provider.ProviderListener;
-import rm.com.jooornal.util.Collections;
-import rm.com.jooornal.util.Collections.Predicate;
+import rm.com.jooornal.util.Intents;
+import rm.com.jooornal.util.Lists;
+import rm.com.jooornal.util.Lists.Predicate;
 
 /**
  * Created by alex
@@ -32,7 +33,7 @@ public final class SmsReceiver extends BroadcastReceiver implements ProviderList
   @Override public void onReceive(Context context, Intent intent) {
     ((JooornalApplication) context.getApplicationContext()).injector().inject(this);
 
-    if (!checkIntent(intent, Telephony.Sms.Intents.SMS_RECEIVED_ACTION)) {
+    if (!Intents.checkIntent(intent, Telephony.Sms.Intents.SMS_RECEIVED_ACTION)) {
       return;
     }
 
@@ -67,7 +68,7 @@ public final class SmsReceiver extends BroadcastReceiver implements ProviderList
 
   @Nullable private SmsMessage findSmsByNumber(@NonNull List<SmsMessage> messages,
       @NonNull final String number) {
-    return Collections.first(messages, new Predicate<SmsMessage>() {
+    return Lists.first(messages, new Predicate<SmsMessage>() {
       @Override public boolean test(SmsMessage item) {
         return item.getOriginatingAddress().equals(number);
       }
@@ -76,19 +77,13 @@ public final class SmsReceiver extends BroadcastReceiver implements ProviderList
 
   @NonNull private List<SmsMessage> unwrapMessages(@NonNull Intent intent) {
     final List<Object> pduChunks =
-        Collections.listOfArray((Object[]) intent.getExtras().get(KEY_PDU_CHUNKS));
+        Lists.listOfArray((Object[]) intent.getExtras().get(KEY_PDU_CHUNKS));
 
-    return Collections.map(pduChunks, new Collections.Transformer<Object, SmsMessage>() {
+    return Lists.map(pduChunks, new Lists.Transformer<Object, SmsMessage>() {
       @Override public SmsMessage invoke(Object item) {
         //noinspection deprecation
         return SmsMessage.createFromPdu((byte[]) item);
       }
     });
-  }
-
-  private static boolean checkIntent(@Nullable Intent intent, @NonNull String action) {
-    return intent != null
-        && action.equalsIgnoreCase(intent.getAction())
-        && intent.getExtras() != null;
   }
 }

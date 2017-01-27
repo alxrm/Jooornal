@@ -6,7 +6,8 @@ import com.raizlabs.android.dbflow.sql.language.SQLite;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import rm.com.jooornal.data.entity.Note;
-import rm.com.jooornal.util.Collections;
+import rm.com.jooornal.data.entity.Note_Table;
+import rm.com.jooornal.util.Lists;
 
 /**
  * Created by alex
@@ -23,9 +24,10 @@ public final class NotesListProvider extends ListAsyncProvider<Note> {
   }
 
   @Override protected List<Note> get() {
-    final List<Note> notes = SQLite.select().from(Note.class).queryList();
+    final List<Note> notes =
+        SQLite.select().from(Note.class).orderBy(Note_Table.time, false).queryList();
 
-    return Collections.map(notes, new Collections.Transformer<Note, Note>() {
+    return Lists.map(notes, new Lists.Transformer<Note, Note>() {
       @Override public Note invoke(Note item) {
         if (item.student != null) {
           item.student.load();

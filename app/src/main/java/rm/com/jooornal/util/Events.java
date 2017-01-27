@@ -59,7 +59,7 @@ public final class Events {
       event.put(CalendarContract.Events.RRULE, EVENT_FREQUENCY_YEARLY);
     }
 
-    event.put(CalendarContract.Events.DTSTART, startDate + TimeUnit.DAYS.toMillis(1) / 2);
+    event.put(CalendarContract.Events.DTSTART, startDate);
     event.put(CalendarContract.Events.DTEND, startDate + TimeUnit.DAYS.toMillis(1));
     event.put(CalendarContract.Events.ALL_DAY, 1);
     event.put(CalendarContract.Events.HAS_ALARM, 1);

@@ -30,7 +30,8 @@ public final class Student extends BaseModel implements Parcelable {
   List<Call> calls;
   List<Note> notes;
 
-  public Student() {}
+  public Student() {
+  }
 
   protected Student(Parcel in) {
     id = in.readString();
@@ -84,7 +85,11 @@ public final class Student extends BaseModel implements Parcelable {
   @OneToMany(methods = { OneToMany.Method.ALL }, variableName = "smsList")
   public List<Sms> getSmsList() {
     if (smsList == null || smsList.isEmpty()) {
-      smsList = SQLite.select().from(Sms.class).where(Sms_Table.student_id.eq(id)).queryList();
+      smsList = SQLite.select()
+          .from(Sms.class)
+          .where(Sms_Table.student_id.eq(id))
+          .orderBy(Sms_Table.time, false)
+          .queryList();
     }
 
     return smsList;
@@ -93,7 +98,11 @@ public final class Student extends BaseModel implements Parcelable {
   @OneToMany(methods = { OneToMany.Method.ALL }, variableName = "calls")
   public List<Call> getCalls() {
     if (calls == null || calls.isEmpty()) {
-      calls = SQLite.select().from(Call.class).where(Call_Table.student_id.eq(id)).queryList();
+      calls = SQLite.select()
+          .from(Call.class)
+          .where(Call_Table.student_id.eq(id))
+          .orderBy(Call_Table.time, false)
+          .queryList();
     }
 
     return calls;

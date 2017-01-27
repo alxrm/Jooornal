@@ -21,6 +21,7 @@ public final class Note extends BaseModel implements Parcelable {
   @ForeignKey(stubbedRelationship = true)  public Student student;
   @Column public String name = "";
   @Column public String text = "";
+  @Column public long time = System.currentTimeMillis();
   @Column public long due = 0L;
   @Column public long noteEventId = -1L;
 
@@ -31,6 +32,7 @@ public final class Note extends BaseModel implements Parcelable {
     student = in.readParcelable(Student.class.getClassLoader());
     name = in.readString();
     text = in.readString();
+    time = in.readLong();
     due = in.readLong();
     noteEventId = in.readLong();
   }
@@ -54,6 +56,7 @@ public final class Note extends BaseModel implements Parcelable {
     dest.writeParcelable(student, flags);
     dest.writeString(name);
     dest.writeString(text);
+    dest.writeLong(time);
     dest.writeLong(due);
     dest.writeLong(noteEventId);
   }

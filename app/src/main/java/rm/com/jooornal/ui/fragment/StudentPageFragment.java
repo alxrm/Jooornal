@@ -57,13 +57,8 @@ public final class StudentPageFragment extends BaseFragment {
     setupTabTitles(tabs);
   }
 
-  @Override public void onResume() {
-    super.onResume();
-    toggleTabs(true);
-  }
-
-  @Override public void onPause() {
-    super.onPause();
+  @Override public void onDestroyView() {
+    super.onDestroyView();
     toggleTabs(false);
   }
 

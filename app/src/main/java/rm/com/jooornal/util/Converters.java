@@ -44,6 +44,10 @@ public final class Converters {
     return dateStringOf(time, Formats.PATTERN_SHORT_DATE);
   }
 
+  @NonNull public static String formatPhoneNumberOf(@NonNull String phoneNumber) {
+    return "";
+  }
+
   @NonNull public static List<StudentInfoEntry> infoEntryListOf(@NonNull Student student) {
     final List<StudentInfoEntry> infoEntries = new ArrayList<>();
     final StringBuilder phonesStringBuilder = new StringBuilder();

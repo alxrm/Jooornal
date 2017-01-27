@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import static java.util.Collections.EMPTY_LIST;
@@ -12,8 +13,8 @@ import static java.util.Collections.EMPTY_LIST;
  * Created by alex
  */
 
-@SuppressWarnings("ALL") public final class Collections {
-  private Collections() {
+@SuppressWarnings("ALL") public final class Lists {
+  private Lists() {
   }
 
   @NonNull public static <T> List<T> filter(@NonNull List<T> target, @NonNull Predicate<T> clause) {
