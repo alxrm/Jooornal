@@ -1,9 +1,13 @@
 package rm.com.jooornal.ui.fragment;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
+import android.support.v7.widget.helper.ItemTouchHelper.Callback;
+import android.support.v7.widget.helper.ItemTouchHelper.SimpleCallback;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,9 +16,8 @@ import android.widget.TextView;
 import butterknife.BindView;
 import rm.com.jooornal.R;
 
-/**
- * Created by alex
- */
+import static android.support.v7.widget.helper.ItemTouchHelper.LEFT;
+import static android.support.v7.widget.helper.ItemTouchHelper.RIGHT;
 
 public abstract class BaseContentFragment extends BaseFragment {
 
@@ -36,6 +39,9 @@ public abstract class BaseContentFragment extends BaseFragment {
     return inflater.inflate(R.layout.fragment_content, container, false);
   }
 
+  void onItemSwiped(int position) {
+  }
+
   /**
    * метод для показа/скрытия индикатора загрузки/контента
    *
@@ -51,5 +57,22 @@ public abstract class BaseContentFragment extends BaseFragment {
     } else {
       add.hide();
     }
+  }
+
+  final protected void addSwipeBehaviour(@NonNull RecyclerView listView) {
+    final Callback callback = new SimpleCallback(0, LEFT | RIGHT) {
+      @Override public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder,
+          RecyclerView.ViewHolder target) {
+        return false;
+      }
+
+      @Override public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
+        onItemSwiped(viewHolder.getAdapterPosition());
+      }
+    };
+
+    final ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
+
+    touchHelper.attachToRecyclerView(listView);
   }
 }

@@ -8,9 +8,6 @@ import javax.inject.Singleton;
 import rm.com.jooornal.data.provider.NotesListProvider;
 import rm.com.jooornal.ui.adapter.NotesListAdapter;
 
-/**
- * Created by alex
- */
 @Module public final class NotesListModule {
 
   @Provides @Singleton static NotesListAdapter provideNotesListAdapter() {

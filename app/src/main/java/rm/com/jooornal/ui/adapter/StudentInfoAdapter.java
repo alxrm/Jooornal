@@ -11,9 +11,6 @@ import rm.com.jooornal.ui.holder.TitleEntryHolder;
 
 import static rm.com.jooornal.constant.StudentInfo.ENTRY_LAYOUTS;
 
-/**
- * Created by alex
- */
 public final class StudentInfoAdapter
     extends BaseAdapter<StudentInfoEntry, BaseHolder<StudentInfoEntry>> {
 

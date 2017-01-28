@@ -29,9 +29,6 @@ import rm.com.jooornal.data.entity.Student;
 import rm.com.jooornal.util.Converters;
 import rm.com.jooornal.util.Events;
 
-/**
- * Created by alex
- */
 public final class NoteFragment extends BaseFragment
     implements StudentPickerFragment.OnStudentPickerListener, DatePickerDialog.OnDateSetListener {
 

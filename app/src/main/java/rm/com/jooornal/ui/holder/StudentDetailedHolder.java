@@ -5,13 +5,8 @@ import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import rm.com.jooornal.R;
 import rm.com.jooornal.data.entity.Student;
-
-/**
- * Created by alex
- */
 
 public final class StudentDetailedHolder extends StudentHolder {
 

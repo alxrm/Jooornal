@@ -7,10 +7,6 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 import rm.com.jooornal.data.entity.Student;
 
-/**
- * Created by alex
- */
-
 public final class StudentsListProvider extends ListAsyncProvider<Student> {
 
   public StudentsListProvider(@NonNull ExecutorService executor, @NonNull Handler mainThreadHook) {

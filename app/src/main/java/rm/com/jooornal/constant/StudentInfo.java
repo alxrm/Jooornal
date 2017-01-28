@@ -3,10 +3,6 @@ package rm.com.jooornal.constant;
 import android.support.v4.util.SparseArrayCompat;
 import rm.com.jooornal.R;
 
-/**
- * Created by alex
- */
-
 public interface StudentInfo {
   int ENTRY_TITLE = 1;
   int ENTRY_TEXT = 2;

@@ -6,10 +6,6 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 import rm.com.jooornal.util.Lists;
 
-/**
- * Created by alex
- */
-
 @SuppressWarnings("WeakerAccess")
 public abstract class ListAsyncProvider<T> extends AbstractAsyncProvider<List<T>> {
 

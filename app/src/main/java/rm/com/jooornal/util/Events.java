@@ -14,10 +14,6 @@ import static rm.com.jooornal.constant.Events.EVENT_FREQUENCY_YEARLY;
 import static rm.com.jooornal.constant.Events.EVENT_TIMEZONE_MSK;
 import static rm.com.jooornal.constant.Events.EVENT_URI_PATH;
 
-/**
- * Created by alex
- */
-
 public final class Events {
 
   private Events() {

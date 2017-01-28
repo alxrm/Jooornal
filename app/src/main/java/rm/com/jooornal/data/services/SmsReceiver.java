@@ -21,12 +21,7 @@ import static rm.com.jooornal.util.Lists.listOfArray;
 import static rm.com.jooornal.util.Lists.map;
 import static rm.com.jooornal.util.Lists.reduce;
 
-/**
- * Created by alex
- */
-
-@SuppressWarnings("deprecation")
-public final class SmsReceiver extends BroadcastReceiver
+@SuppressWarnings("deprecation") public final class SmsReceiver extends BroadcastReceiver
     implements ProviderListener<Phone> {
 
   private static final String KEY_PDU_CHUNKS = "pdus";

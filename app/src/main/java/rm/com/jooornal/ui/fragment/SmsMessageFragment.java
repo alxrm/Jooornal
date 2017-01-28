@@ -12,10 +12,6 @@ import rm.com.jooornal.R;
 import rm.com.jooornal.data.entity.Sms;
 import rm.com.jooornal.util.Converters;
 
-/**
- * Created by alex
- */
-
 public final class SmsMessageFragment extends BaseFragment {
 
   private static final String KEY_SMS_MESSAGE = "KEY_SMS_MESSAGE";

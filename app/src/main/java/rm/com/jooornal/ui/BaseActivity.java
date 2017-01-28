@@ -9,10 +9,6 @@ import butterknife.Unbinder;
 import rm.com.jooornal.R;
 import rm.com.jooornal.ui.fragment.BaseFragment;
 
-/**
- * Created by alex
- */
-
 public class BaseActivity extends AppCompatActivity {
   static String KEY_FRAGMENT_SAVE = "KEY_FRAGMENT_SAVE";
 

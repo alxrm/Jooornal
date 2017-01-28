@@ -13,9 +13,6 @@ import rm.com.jooornal.data.entity.StudentInfoEntry;
 import rm.com.jooornal.ui.adapter.StudentInfoAdapter;
 import rm.com.jooornal.util.Converters;
 
-/**
- * Created by alex
- */
 public final class StudentInfoFragment extends BaseContentFragment {
   private static final String KEY_STUDENT = "KEY_STUDENT";
 

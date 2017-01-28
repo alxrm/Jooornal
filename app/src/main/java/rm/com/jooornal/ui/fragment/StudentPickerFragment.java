@@ -8,10 +8,6 @@ import java.util.List;
 import rm.com.jooornal.data.entity.Student;
 import rm.com.jooornal.ui.adapter.StudentPickerAdapter;
 
-/**
- * Created by alex
- */
-
 public final class StudentPickerFragment extends StudentsListFragment {
 
   private OnStudentPickerListener pickerListener;

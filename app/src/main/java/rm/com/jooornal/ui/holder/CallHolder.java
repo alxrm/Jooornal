@@ -8,10 +8,6 @@ import rm.com.jooornal.R;
 import rm.com.jooornal.data.entity.Call;
 import rm.com.jooornal.util.Converters;
 
-/**
- * Created by alex
- */
-
 public final class CallHolder extends BaseHolder<Call> {
 
   @BindView(R.id.item_call_from) TextView from;

@@ -7,10 +7,6 @@ import rm.com.jooornal.ui.adapter.CallsListAdapter;
 import rm.com.jooornal.ui.adapter.SmsListAdapter;
 import rm.com.jooornal.ui.adapter.StudentInfoAdapter;
 
-/**
- * Created by alex
- */
-
 @Module public final class StudentPageModule {
 
   @Provides @Singleton static CallsListAdapter provideCallsListAdapter() {

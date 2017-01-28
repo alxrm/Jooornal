@@ -9,9 +9,6 @@ import android.view.ViewGroup;
 import butterknife.BindString;
 import rm.com.jooornal.R;
 
-/**
- * Created by alex
- */
 public final class SettingsFragment extends BaseFragment {
 
   @BindString(R.string.page_name_settings) String title;

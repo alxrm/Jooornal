@@ -46,6 +46,7 @@ import android.util.Log;
   public static void e(@Nullable String err) {
     Log.e(LEVEL_ERROR, "" + err);
   }
+
   /**
    * метод, выводящий в лог название переданного объекта ошибки
    *

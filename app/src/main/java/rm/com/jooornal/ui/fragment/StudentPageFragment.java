@@ -20,9 +20,6 @@ import rm.com.jooornal.util.Converters;
 
 import static rm.com.jooornal.constant.Navigation.STUDENT_PAGE_TITLES;
 
-/**
- * Created by alex
- */
 public final class StudentPageFragment extends BaseFragment {
   private static final String KEY_STUDENT = "KEY_STUDENT";
 

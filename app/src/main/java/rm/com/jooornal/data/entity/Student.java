@@ -2,6 +2,7 @@ package rm.com.jooornal.data.entity;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.provider.CalendarContract;
 import com.raizlabs.android.dbflow.annotation.Column;
 import com.raizlabs.android.dbflow.annotation.OneToMany;
 import com.raizlabs.android.dbflow.annotation.PrimaryKey;
@@ -10,11 +11,8 @@ import com.raizlabs.android.dbflow.sql.language.SQLite;
 import com.raizlabs.android.dbflow.structure.BaseModel;
 import java.util.List;
 import rm.com.jooornal.data.JoornalDatabase;
+import rm.com.jooornal.util.Events;
 import rm.com.jooornal.util.Guids;
-
-/**
- * Created by alex
- */
 
 @SuppressWarnings("WeakerAccess") @Table(database = JoornalDatabase.class)
 public final class Student extends BaseModel implements Parcelable {
@@ -29,6 +27,16 @@ public final class Student extends BaseModel implements Parcelable {
   List<Sms> smsList;
   List<Call> calls;
   List<Note> notes;
+
+  public static final Creator<Student> CREATOR = new Creator<Student>() {
+    @Override public Student createFromParcel(Parcel in) {
+      return new Student(in);
+    }
+
+    @Override public Student[] newArray(int size) {
+      return new Student[size];
+    }
+  };
 
   public Student() {
   }
@@ -45,16 +53,6 @@ public final class Student extends BaseModel implements Parcelable {
     calls = in.createTypedArrayList(Call.CREATOR);
     notes = in.createTypedArrayList(Note.CREATOR);
   }
-
-  public static final Creator<Student> CREATOR = new Creator<Student>() {
-    @Override public Student createFromParcel(Parcel in) {
-      return new Student(in);
-    }
-
-    @Override public Student[] newArray(int size) {
-      return new Student[size];
-    }
-  };
 
   @Override public int describeContents() {
     return 0;

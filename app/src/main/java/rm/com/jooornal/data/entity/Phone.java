@@ -10,10 +10,6 @@ import com.raizlabs.android.dbflow.structure.BaseModel;
 import rm.com.jooornal.data.JoornalDatabase;
 import rm.com.jooornal.util.Guids;
 
-/**
- * Created by alex
- */
-
 @SuppressWarnings("WeakerAccess")
 @Table(database = JoornalDatabase.class)
 public final class Phone extends BaseModel implements Parcelable {
@@ -21,15 +17,6 @@ public final class Phone extends BaseModel implements Parcelable {
   @ForeignKey(stubbedRelationship = true) public Student student;
   @Column public String alias = "";
   @Column public String phoneNumber = "";
-
-  public Phone() {}
-
-  protected Phone(Parcel in) {
-    id = in.readString();
-    student = in.readParcelable(Student.class.getClassLoader());
-    alias = in.readString();
-    phoneNumber = in.readString();
-  }
 
   public static final Creator<Phone> CREATOR = new Creator<Phone>() {
     @Override public Phone createFromParcel(Parcel in) {
@@ -40,6 +27,16 @@ public final class Phone extends BaseModel implements Parcelable {
       return new Phone[size];
     }
   };
+
+  public Phone() {
+  }
+
+  protected Phone(Parcel in) {
+    id = in.readString();
+    student = in.readParcelable(Student.class.getClassLoader());
+    alias = in.readString();
+    phoneNumber = in.readString();
+  }
 
   @Override public int describeContents() {
     return 0;

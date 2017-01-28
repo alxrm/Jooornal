@@ -2,7 +2,6 @@ package rm.com.jooornal.data.provider;
 
 import android.support.annotation.NonNull;
 
-
 /**
  * интерфейс слушателя результатов чтения JSON файла
  *

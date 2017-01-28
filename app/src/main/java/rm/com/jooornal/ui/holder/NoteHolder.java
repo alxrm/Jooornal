@@ -9,10 +9,6 @@ import rm.com.jooornal.R;
 import rm.com.jooornal.data.entity.Note;
 import rm.com.jooornal.util.Converters;
 
-/**
- * Created by alex
- */
-
 public final class NoteHolder extends BaseHolder<Note> {
 
   @BindString(R.string.item_note_noname) String noName;

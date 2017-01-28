@@ -10,10 +10,6 @@ import rm.com.jooornal.JooornalApplication;
 import rm.com.jooornal.data.entity.Call;
 import rm.com.jooornal.ui.adapter.CallsListAdapter;
 
-/**
- * Created by alex
- */
-
 public final class StudentCallsFragment extends BaseContentFragment {
   private static final String KEY_CALLS_LIST = "KEY_CALLS_LIST";
 

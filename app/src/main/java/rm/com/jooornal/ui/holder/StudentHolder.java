@@ -11,10 +11,6 @@ import rm.com.jooornal.R;
 import rm.com.jooornal.data.entity.Student;
 import rm.com.jooornal.util.Converters;
 
-/**
- * Created by alex
- */
-
 public class StudentHolder extends BaseHolder<Student> {
 
   @BindView(R.id.item_student_name) TextView name;

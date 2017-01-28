@@ -8,9 +8,6 @@ import rm.com.jooornal.R;
 import rm.com.jooornal.data.entity.Sms;
 import rm.com.jooornal.util.Converters;
 
-/**
- * Created by alex
- */
 public final class SmsHolder extends BaseHolder<Sms> {
 
   @BindView(R.id.item_message_from) TextView from;

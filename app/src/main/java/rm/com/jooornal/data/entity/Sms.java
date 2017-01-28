@@ -10,10 +10,6 @@ import com.raizlabs.android.dbflow.structure.BaseModel;
 import rm.com.jooornal.data.JoornalDatabase;
 import rm.com.jooornal.util.Guids;
 
-/**
- * Created by alex
- */
-
 @SuppressWarnings("WeakerAccess")
 @Table(database = JoornalDatabase.class)
 public final class Sms extends BaseModel implements Parcelable {
@@ -22,16 +18,6 @@ public final class Sms extends BaseModel implements Parcelable {
   @ForeignKey public Phone phone;
   @Column public long time = 0L;
   @Column public String text = "";
-
-  public Sms() {}
-
-  protected Sms(Parcel in) {
-    id = in.readString();
-    student = in.readParcelable(Student.class.getClassLoader());
-    phone = in.readParcelable(Phone.class.getClassLoader());
-    time = in.readLong();
-    text = in.readString();
-  }
 
   public static final Creator<Sms> CREATOR = new Creator<Sms>() {
     @Override public Sms createFromParcel(Parcel in) {
@@ -42,6 +28,17 @@ public final class Sms extends BaseModel implements Parcelable {
       return new Sms[size];
     }
   };
+
+  public Sms() {
+  }
+
+  protected Sms(Parcel in) {
+    id = in.readString();
+    student = in.readParcelable(Student.class.getClassLoader());
+    phone = in.readParcelable(Phone.class.getClassLoader());
+    time = in.readLong();
+    text = in.readString();
+  }
 
   @Override public int describeContents() {
     return 0;

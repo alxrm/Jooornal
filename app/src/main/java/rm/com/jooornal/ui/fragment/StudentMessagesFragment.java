@@ -11,9 +11,6 @@ import rm.com.jooornal.data.entity.Sms;
 import rm.com.jooornal.ui.adapter.SmsListAdapter;
 import rm.com.jooornal.ui.holder.BaseHolder;
 
-/**
- * Created by alex
- */
 public final class StudentMessagesFragment extends BaseContentFragment
     implements BaseHolder.OnClickListener<Sms> {
 
@@ -47,7 +44,6 @@ public final class StudentMessagesFragment extends BaseContentFragment
     super.unwrapArguments(args);
     messages = args.getParcelableArrayList(KEY_MESSAGES_LIST);
   }
-
 
   @Override protected void injectDependencies(@NonNull JooornalApplication app) {
     super.injectDependencies(app);

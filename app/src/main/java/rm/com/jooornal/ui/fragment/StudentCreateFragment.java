@@ -30,21 +30,16 @@ import rm.com.jooornal.util.Converters;
 import rm.com.jooornal.util.Events;
 import rm.com.jooornal.util.Logger;
 
-/**
- * Created by alex
- */
 public final class StudentCreateFragment extends BaseFragment
     implements DatePickerDialog.OnDateSetListener {
-
-  @BindString(R.string.page_name_student_create) String title;
-  @BindView(R.id.student_create_input_birthday) TextView birthday;
-  @BindView(R.id.student_create_input_altphone) EditText alterPhone;
-  @BindView(R.id.student_create_input_phone) EditText mainPhone;
 
   private final Student student = new Student();
   private final Phone main = new Phone();
   private final Phone alter = new Phone();
-
+  @BindString(R.string.page_name_student_create) String title;
+  @BindView(R.id.student_create_input_birthday) TextView birthday;
+  @BindView(R.id.student_create_input_altphone) EditText alterPhone;
+  @BindView(R.id.student_create_input_phone) EditText mainPhone;
   private boolean hasCalendarPermission = false;
 
   {

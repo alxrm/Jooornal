@@ -7,10 +7,6 @@ import rm.com.jooornal.data.entity.Student;
 import rm.com.jooornal.ui.holder.BaseHolder;
 import rm.com.jooornal.ui.holder.StudentDetailedHolder;
 
-/**
- * Created by alex
- */
-
 public class StudentsListAdapter extends BaseAdapter<Student, BaseHolder<Student>> {
 
   @Override public BaseHolder<Student> onCreateViewHolder(ViewGroup parent, int viewType) {

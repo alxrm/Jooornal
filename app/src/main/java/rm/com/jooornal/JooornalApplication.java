@@ -6,10 +6,6 @@ import com.raizlabs.android.dbflow.config.FlowManager;
 import rm.com.jooornal.inject.DaggerJooornalComponent;
 import rm.com.jooornal.inject.JooornalComponent;
 
-/**
- * Created by alex
- */
-
 public final class JooornalApplication extends Application {
 
   private JooornalComponent component;

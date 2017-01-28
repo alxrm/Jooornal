@@ -5,10 +5,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import java.util.concurrent.ExecutorService;
 
-/**
- * Created by alex
- */
-
 public abstract class ParametrisedAsyncProvider<P, T> extends AbstractAsyncProvider<T> {
 
   @Nullable P currentParam;

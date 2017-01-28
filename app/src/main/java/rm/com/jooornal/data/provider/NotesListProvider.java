@@ -9,10 +9,6 @@ import rm.com.jooornal.data.entity.Note;
 import rm.com.jooornal.data.entity.Note_Table;
 import rm.com.jooornal.util.Lists;
 
-/**
- * Created by alex
- */
-
 public final class NotesListProvider extends ListAsyncProvider<Note> {
   public NotesListProvider(@NonNull ExecutorService executor, @NonNull Handler mainThreadHook) {
     super(executor, mainThreadHook);

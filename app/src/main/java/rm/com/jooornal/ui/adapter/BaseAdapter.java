@@ -48,9 +48,15 @@ abstract class BaseAdapter<M, VH extends BaseHolder<M>> extends RecyclerView.Ada
    *
    * @param data новые данные, которые будут записаны в переменную класса
    */
-  final public void updateData(List<M> data) {
+  final public void updateData(@NonNull List<M> data) {
     this.data = data;
     notifyDataSetChanged();
+  }
+
+  @NonNull final public M delete(int position) {
+    final M deleted = data.remove(position);
+    notifyDataSetChanged();
+    return deleted;
   }
 
   final public void setOnClickListener(@NonNull BaseHolder.OnClickListener<M> clickListener) {

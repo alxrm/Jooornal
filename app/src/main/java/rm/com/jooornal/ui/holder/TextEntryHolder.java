@@ -7,9 +7,6 @@ import butterknife.BindView;
 import rm.com.jooornal.R;
 import rm.com.jooornal.data.entity.StudentInfoEntry;
 
-/**
- * Created by alex
- */
 public final class TextEntryHolder extends BaseHolder<StudentInfoEntry> {
 
   @BindView(R.id.item_entry_text) TextView text;

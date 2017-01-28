@@ -4,13 +4,8 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import rm.com.jooornal.R;
 import rm.com.jooornal.data.entity.Note;
-import rm.com.jooornal.data.entity.Student;
 import rm.com.jooornal.ui.holder.BaseHolder;
 import rm.com.jooornal.ui.holder.NoteHolder;
-
-/**
- * Created by alex
- */
 
 public final class NotesListAdapter extends BaseAdapter<Note, BaseHolder<Note>> {
   @Override public BaseHolder<Note> onCreateViewHolder(ViewGroup parent, int viewType) {

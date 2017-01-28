@@ -10,32 +10,16 @@ import com.raizlabs.android.dbflow.structure.BaseModel;
 import rm.com.jooornal.data.JoornalDatabase;
 import rm.com.jooornal.util.Guids;
 
-/**
- * Created by alex
- */
-
 @SuppressWarnings("WeakerAccess")
 @Table(database = JoornalDatabase.class)
 public final class Note extends BaseModel implements Parcelable {
   @PrimaryKey public String id = Guids.randomGuid();
-  @ForeignKey(stubbedRelationship = true)  public Student student;
+  @ForeignKey(stubbedRelationship = true) public Student student;
   @Column public String name = "";
   @Column public String text = "";
   @Column public long time = System.currentTimeMillis();
   @Column public long due = 0L;
   @Column public long noteEventId = -1L;
-
-  public Note() {}
-
-  protected Note(Parcel in) {
-    id = in.readString();
-    student = in.readParcelable(Student.class.getClassLoader());
-    name = in.readString();
-    text = in.readString();
-    time = in.readLong();
-    due = in.readLong();
-    noteEventId = in.readLong();
-  }
 
   public static final Creator<Note> CREATOR = new Creator<Note>() {
     @Override public Note createFromParcel(Parcel in) {
@@ -46,6 +30,19 @@ public final class Note extends BaseModel implements Parcelable {
       return new Note[size];
     }
   };
+
+  public Note() {
+  }
+
+  protected Note(Parcel in) {
+    id = in.readString();
+    student = in.readParcelable(Student.class.getClassLoader());
+    name = in.readString();
+    text = in.readString();
+    time = in.readLong();
+    due = in.readLong();
+    noteEventId = in.readLong();
+  }
 
   @Override public int describeContents() {
     return 0;

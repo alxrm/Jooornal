@@ -1,9 +1,5 @@
 package rm.com.jooornal.data.entity;
 
-/**
- * Created by alex
- */
-
 public final class StudentInfoEntry {
 
   /**

@@ -4,10 +4,6 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-/**
- * Created by alex
- */
-
 public final class Intents {
   private Intents() {
   }

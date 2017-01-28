@@ -7,10 +7,6 @@ import rm.com.jooornal.data.entity.Call;
 import rm.com.jooornal.ui.holder.BaseHolder;
 import rm.com.jooornal.ui.holder.CallHolder;
 
-/**
- * Created by alex
- */
-
 public final class CallsListAdapter extends BaseAdapter<Call, BaseHolder<Call>> {
   @Override public BaseHolder<Call> onCreateViewHolder(ViewGroup parent, int viewType) {
     return new CallHolder(

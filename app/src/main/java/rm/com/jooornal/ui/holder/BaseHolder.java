@@ -11,17 +11,7 @@ import butterknife.ButterKnife;
  *
  * @param <T> тип модели, данными из которой будет заполнен этот элемент списка
  */
-@SuppressWarnings("ALL")
-public abstract class BaseHolder<T> extends RecyclerView.ViewHolder {
-
-  /**
-   * слушатель нажатия на элемент списка
-   *
-   * @param <T> модель, которая хранилась в нажатом элементе
-   */
-  public interface OnClickListener<T> {
-    void onItemClick(@NonNull T item);
-  }
+@SuppressWarnings("ALL") public abstract class BaseHolder<T> extends RecyclerView.ViewHolder {
 
   protected OnClickListener<T> clickListener;
 
@@ -45,5 +35,14 @@ public abstract class BaseHolder<T> extends RecyclerView.ViewHolder {
    */
   public final void setOnClickListener(@Nullable OnClickListener<T> clickListener) {
     this.clickListener = clickListener;
+  }
+
+  /**
+   * слушатель нажатия на элемент списка
+   *
+   * @param <T> модель, которая хранилась в нажатом элементе
+   */
+  public interface OnClickListener<T> {
+    void onItemClick(@NonNull T item);
   }
 }

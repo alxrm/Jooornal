@@ -12,11 +12,6 @@ import rm.com.jooornal.data.entity.Phone;
 import rm.com.jooornal.data.provider.PhoneProvider;
 import rm.com.jooornal.data.provider.ProviderListener;
 import rm.com.jooornal.util.Intents;
-import rm.com.jooornal.util.Logger;
-
-/**
- * Created by alex
- */
 
 public final class CallReceiver extends BroadcastReceiver implements ProviderListener<Phone> {
 

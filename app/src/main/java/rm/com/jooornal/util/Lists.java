@@ -8,10 +8,6 @@ import java.util.List;
 
 import static java.util.Collections.EMPTY_LIST;
 
-/**
- * Created by alex
- */
-
 @SuppressWarnings("ALL") public final class Lists {
   private Lists() {
   }

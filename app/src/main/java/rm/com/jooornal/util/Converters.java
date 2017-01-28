@@ -27,10 +27,6 @@ import static rm.com.jooornal.constant.Formats.PHONE_PREFIX_HOME_REGEX;
 import static rm.com.jooornal.constant.StudentInfo.ENTRY_TEXT;
 import static rm.com.jooornal.constant.StudentInfo.ENTRY_TITLE;
 
-/**
- * Created by alex
- */
-
 public final class Converters {
   private static final String DOT = ".";
 
@@ -39,6 +35,10 @@ public final class Converters {
 
   @NonNull public static String shortNameOf(@NonNull Student student) {
     return shortNameOf(student.surname, student.name, student.patronymic);
+  }
+
+  @NonNull public static String fullNameOf(@NonNull Student student) {
+    return String.format("%s %s %s", student.surname, student.name, student.patronymic);
   }
 
   @NonNull public static String iconLettersOf(@NonNull String surname, @NonNull String name) {
@@ -95,8 +95,7 @@ public final class Converters {
     final StringBuilder phonesStringBuilder = new StringBuilder();
 
     infoEntries.add(new StudentInfoEntry(ENTRY_TITLE, "Полное имя"));
-    infoEntries.add(new StudentInfoEntry(ENTRY_TEXT,
-        String.format("%s %s %s", student.surname, student.name, student.patronymic)));
+    infoEntries.add(new StudentInfoEntry(ENTRY_TEXT, fullNameOf(student)));
 
     infoEntries.add(new StudentInfoEntry(ENTRY_TITLE, "Дата рождения"));
     infoEntries.add(new StudentInfoEntry(ENTRY_TEXT, dateStringOf(student.birthDate)));
