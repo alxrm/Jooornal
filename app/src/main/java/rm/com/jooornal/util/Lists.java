@@ -4,7 +4,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 import static java.util.Collections.EMPTY_LIST;
@@ -50,6 +49,17 @@ import static java.util.Collections.EMPTY_LIST;
     return result;
   }
 
+  @NonNull public static <T, R> R reduce(@NonNull List<T> target, @NonNull R initialValue,
+      @NonNull Accumulator<T, R> accumulator) {
+    R result = initialValue;
+
+    for (T item : target) {
+      result = accumulator.collect(result, item);
+    }
+
+    return result;
+  }
+
   @NonNull public static <T> List<T> listOfArray(@Nullable T[] array) {
     if (array == null) {
       return EMPTY_LIST;
@@ -64,5 +74,9 @@ import static java.util.Collections.EMPTY_LIST;
 
   public interface Transformer<T, R> {
     R invoke(T item);
+  }
+
+  public interface Accumulator<T, R> {
+    R collect(R result, T item);
   }
 }
