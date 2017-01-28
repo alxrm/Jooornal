@@ -28,7 +28,7 @@ public class StudentHolder extends BaseHolder<Student> {
   @Override public void bind(@NonNull final Student model) {
     final String shortName = Converters.shortNameOf(model);
     final String letters = Converters.iconLettersOf(model.surname, model.name);
-    final String phoneNumber = model.getPhones().get(0).phoneNumber;
+    final String phoneNumber = Converters.formatPhoneNumberOf(model.getPhones().get(0).phoneNumber);
     final ColorFilter colorFilter =
         new PorterDuffColorFilter(Converters.colorOf(model.surname), PorterDuff.Mode.MULTIPLY);
 

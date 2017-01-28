@@ -22,7 +22,7 @@ public final class CallHolder extends BaseHolder<Call> {
   }
 
   @Override public void bind(@NonNull final Call model) {
-    from.setText(model.phone.phoneNumber);
+    from.setText(Converters.formatPhoneNumberOf(model.phone.phoneNumber));
     date.setText(Converters.shortDateStringOf(model.time));
 
     itemView.setOnClickListener(new View.OnClickListener() {

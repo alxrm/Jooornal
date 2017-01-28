@@ -11,6 +11,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 import butterknife.BindString;
@@ -36,6 +37,8 @@ public final class StudentCreateFragment extends BaseFragment
 
   @BindString(R.string.page_name_student_create) String title;
   @BindView(R.id.student_create_input_birthday) TextView birthday;
+  @BindView(R.id.student_create_input_altphone) EditText alterPhone;
+  @BindView(R.id.student_create_input_phone) EditText mainPhone;
 
   private final Student student = new Student();
   private final Phone main = new Phone();
@@ -96,7 +99,7 @@ public final class StudentCreateFragment extends BaseFragment
 
   @OnTextChanged(R.id.student_create_input_phone)
   final void onMainPhoneChanged(CharSequence phoneNumber) {
-    main.phoneNumber = phoneNumber.toString();
+    main.phoneNumber = Converters.databasePhoneNumberOf(phoneNumber.toString());
   }
 
   @OnTextChanged(R.id.student_create_input_phone_name)
@@ -106,7 +109,7 @@ public final class StudentCreateFragment extends BaseFragment
 
   @OnTextChanged(R.id.student_create_input_altphone)
   final void onAlterPhoneChanged(CharSequence phoneNumber) {
-    alter.phoneNumber = phoneNumber.toString();
+    alter.phoneNumber = Converters.databasePhoneNumberOf(phoneNumber.toString());
   }
 
   @OnTextChanged(R.id.student_create_input_altphone_name)

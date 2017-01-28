@@ -2,6 +2,8 @@ package rm.com.jooornal.util;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import com.redmadrobot.inputmask.helper.Mask;
+import com.redmadrobot.inputmask.model.CaretString;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -14,6 +16,12 @@ import rm.com.jooornal.data.entity.Phone;
 import rm.com.jooornal.data.entity.Student;
 import rm.com.jooornal.data.entity.StudentInfoEntry;
 
+import static rm.com.jooornal.constant.Formats.MASK_PHONE_CELL;
+import static rm.com.jooornal.constant.Formats.MASK_PHONE_HOME;
+import static rm.com.jooornal.constant.Formats.PHONE_LENGTH_FULL;
+import static rm.com.jooornal.constant.Formats.PHONE_LENGTH_HOME;
+import static rm.com.jooornal.constant.Formats.PHONE_PREFIX_COUNTRY;
+import static rm.com.jooornal.constant.Formats.PHONE_PREFIX_HOME;
 import static rm.com.jooornal.constant.StudentInfo.ENTRY_TEXT;
 import static rm.com.jooornal.constant.StudentInfo.ENTRY_TITLE;
 
@@ -23,7 +31,6 @@ import static rm.com.jooornal.constant.StudentInfo.ENTRY_TITLE;
 
 public final class Converters {
   private static final String DOT = ".";
-  private static final String EMPTY = "";
 
   private Converters() {
   }
@@ -44,8 +51,41 @@ public final class Converters {
     return dateStringOf(time, Formats.PATTERN_SHORT_DATE);
   }
 
+  @NonNull public static String databasePhoneNumberOf(@NonNull String phoneNumber) {
+    final String cleanNumber = phoneNumber.replaceAll("-", "");
+    final boolean hasWrongCountryCode = cleanNumber.startsWith("8");
+
+    if (cleanNumber.length() == PHONE_LENGTH_HOME) {
+      return PHONE_PREFIX_HOME + cleanNumber;
+    }
+
+    if (cleanNumber.length() >= PHONE_LENGTH_FULL && hasWrongCountryCode) {
+      return cleanNumber.replaceFirst("8", PHONE_PREFIX_COUNTRY);
+    }
+
+    return cleanNumber;
+  }
+
   @NonNull public static String formatPhoneNumberOf(@NonNull String phoneNumber) {
-    return "";
+    final boolean isHome = phoneNumber.contains(PHONE_PREFIX_HOME);
+    final boolean isCell = phoneNumber.contains(PHONE_PREFIX_COUNTRY) || phoneNumber.length() > 11;
+
+    if (isHome) {
+      final String simplified = phoneNumber.replaceAll(PHONE_PREFIX_HOME, "");
+      final CaretString caret = new CaretString(simplified, simplified.length());
+      final Mask.Result result = MASK_PHONE_HOME.apply(caret, true);
+
+      return result.getFormattedText().getString();
+    }
+
+    if (isCell) {
+      final CaretString caret = new CaretString(phoneNumber, phoneNumber.length());
+      final Mask.Result result = MASK_PHONE_CELL.apply(caret, true);
+
+      return result.getFormattedText().getString();
+    }
+
+    return phoneNumber;
   }
 
   @NonNull public static List<StudentInfoEntry> infoEntryListOf(@NonNull Student student) {
@@ -62,7 +102,7 @@ public final class Converters {
     infoEntries.add(new StudentInfoEntry(ENTRY_TITLE, "Контакты"));
 
     for (Phone phone : student.getPhones()) {
-      phonesStringBuilder.append(phone.phoneNumber);
+      phonesStringBuilder.append(formatPhoneNumberOf(phone.phoneNumber));
 
       if (!phone.alias.isEmpty()) {
         phonesStringBuilder.append(" (").append(phone.alias).append(")");
@@ -77,10 +117,10 @@ public final class Converters {
   }
 
   public static int colorOf(@NonNull String surname) {
-    final int size = Colors.ICON_COLORS.length;
+    final int size = Colors.STUDENT_ICON_COLORS.length;
     final int nameHash = Math.abs(surname.hashCode());
 
-    return Colors.ICON_COLORS[nameHash % size];
+    return Colors.STUDENT_ICON_COLORS[nameHash % size];
   }
 
   public static long timeOf(int year, int monthOfYear, int dayOfMonth) {

@@ -5,7 +5,7 @@ package rm.com.jooornal.constant;
  */
 
 public interface Colors {
-  int[] ICON_COLORS = {
+  int[] STUDENT_ICON_COLORS = {
       0xffe57373,
       0xfff06292,
       0xffba68c8,
