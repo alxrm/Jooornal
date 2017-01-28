@@ -22,4 +22,10 @@
   <string name="message_permission_needed">Нужно разрешение, чтобы выполнить действие</string>
   <string name="ask_delete_old_notes">Удалить старые заметки?</string>
   <string name="page_name_picker">Выбрать студента</string>
+  <string name="settings_clear_old_notes_description">Удалятся только заметки с привязкой к дате, если дата прошедшая, то заметка будет удалена.</string>
+  <string name="settings_clear_old_notes_title">Очистить устаревшие заметки</string>
+  <string name="settings_block_title_data">Данные</string>
+  <string name="settings_block_title_notifications">Уведомления</string>
+  <string name="settings_title_notifications_notes">О заметках</string>
+  <string name="settings_title_notifications_birthday">О днях рождения</string>
 </resources>

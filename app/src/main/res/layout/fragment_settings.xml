@@ -1,167 +1,173 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/color_primary_light"
-    android:orientation="vertical"
     >
-
   <LinearLayout
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:background="@android:color/white"
+      android:background="@color/color_primary_light"
       android:orientation="vertical"
       >
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp"
-        android:paddingTop="16dp"
-        android:text="Уведомления"
-        android:textColor="@color/color_primary"
-        android:textStyle="bold"
-        />
-
-    <RelativeLayout
-        android:id="@+id/settings_notifications_notes_wrapper"
-        android:layout_width="match_parent"
-        android:layout_height="64dp"
-        android:background="?attr/selectableItemBackground"
-        android:clickable="true"
-        >
-
-      <TextView
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_centerVertical="true"
-          android:layout_margin="16dp"
-          android:text="О заметках"
-          android:textColor="@color/color_text_primary"
-          android:textSize="16sp"
-          />
-
-      <android.support.v7.widget.SwitchCompat
-          android:id="@+id/settings_notifications_notes"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_alignParentEnd="true"
-          android:layout_centerVertical="true"
-          android:layout_margin="16dp"
-          />
-
-      <View
-          android:layout_width="match_parent"
-          android:layout_height="0.5dp"
-          android:layout_alignParentBottom="true"
-          android:alpha="0.5"
-          android:background="@color/color_separator"
-          />
-
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/settings_notifications_birthday_wrapper"
-        android:layout_width="match_parent"
-        android:layout_height="64dp"
-        android:background="?attr/selectableItemBackground"
-        android:clickable="true"
-        >
-
-      <TextView
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_centerVertical="true"
-          android:layout_margin="16dp"
-          android:text="О днях рождения"
-          android:textColor="@color/color_text_primary"
-          android:textSize="16sp"
-          />
-
-      <android.support.v7.widget.SwitchCompat
-          android:id="@+id/settings_notifications_birthday"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_alignParentEnd="true"
-          android:layout_centerVertical="true"
-          android:layout_margin="16dp"
-          />
-
-    </RelativeLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:alpha="0.5"
-        android:background="@color/color_separator"
-        />
-
-  </LinearLayout>
-
-  <LinearLayout
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_marginTop="8dp"
-      android:background="@android:color/white"
-      android:orientation="vertical"
-      >
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp"
-        android:paddingTop="16dp"
-        android:text="Данные"
-        android:textColor="@color/color_primary"
-        android:textStyle="bold"
-        />
 
     <LinearLayout
-        android:id="@+id/settings_clear_old_notes"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:background="?attr/selectableItemBackground"
-        android:clickable="true"
-        android:gravity="center_vertical"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
         android:orientation="vertical"
         >
 
       <TextView
-          android:layout_width="wrap_content"
+          android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:layout_marginBottom="2dp"
-          android:layout_marginEnd="16dp"
-          android:layout_marginStart="16dp"
-          android:text="Очистить устаревшие заметки"
-          android:textColor="@color/color_text_primary"
-          android:textSize="16sp"
+          android:gravity="center_vertical"
+          android:paddingLeft="16dp"
+          android:paddingRight="16dp"
+          android:paddingTop="16dp"
+          android:text="@string/settings_block_title_notifications"
+          android:textColor="@color/color_primary"
+          android:textStyle="bold"
           />
 
-      <TextView
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_marginEnd="16dp"
-          android:layout_marginStart="16dp"
-          android:layout_marginTop="2dp"
-          android:text="Удалятся только заметки с привязкой к дате, если дата прошедшая, то заметка будет удалена."
-          android:textColor="@color/color_text_secondary"
-          android:textSize="13sp"
+      <RelativeLayout
+          android:id="@+id/settings_notifications_notes_wrapper"
+          android:layout_width="match_parent"
+          android:layout_height="64dp"
+          android:background="?attr/selectableItemBackground"
+          android:clickable="true"
+          >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_margin="16dp"
+            android:text="@string/settings_title_notifications_notes"
+            android:textColor="@color/color_text_primary"
+            android:textSize="16sp"
+            />
+
+        <android.support.v7.widget.SwitchCompat
+            android:id="@+id/settings_notifications_notes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_margin="16dp"
+            />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_alignParentBottom="true"
+            android:alpha="0.5"
+            android:background="@color/color_separator"
+            />
+
+      </RelativeLayout>
+
+      <RelativeLayout
+          android:id="@+id/settings_notifications_birthday_wrapper"
+          android:layout_width="match_parent"
+          android:layout_height="64dp"
+          android:background="?attr/selectableItemBackground"
+          android:clickable="true"
+          >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_margin="16dp"
+            android:text="@string/settings_title_notifications_birthday"
+            android:textColor="@color/color_text_primary"
+            android:textSize="16sp"
+            />
+
+        <android.support.v7.widget.SwitchCompat
+            android:id="@+id/settings_notifications_birthday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_margin="16dp"
+            />
+
+      </RelativeLayout>
+
+      <View
+          android:layout_width="match_parent"
+          android:layout_height="2dp"
+          android:alpha="0.5"
+          android:background="@color/color_separator"
           />
 
     </LinearLayout>
 
-
-    <View
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:alpha="0.5"
-        android:background="@color/color_separator"
-        />
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:background="@android:color/white"
+        android:orientation="vertical"
+        >
 
+      <TextView
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:gravity="center_vertical"
+          android:paddingLeft="16dp"
+          android:paddingRight="16dp"
+          android:paddingTop="16dp"
+          android:text="@string/settings_block_title_data"
+          android:textColor="@color/color_primary"
+          android:textStyle="bold"
+          />
+
+      <LinearLayout
+          android:id="@+id/settings_clear_old_notes"
+          android:layout_width="match_parent"
+          android:layout_height="80dp"
+          android:background="?attr/selectableItemBackground"
+          android:clickable="true"
+          android:gravity="center_vertical"
+          android:orientation="vertical"
+          >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="2dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            android:text="@string/settings_clear_old_notes_title"
+            android:textColor="@color/color_text_primary"
+            android:textSize="16sp"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="2dp"
+            android:text="@string/settings_clear_old_notes_description"
+            android:textColor="@color/color_text_secondary"
+            android:textSize="13sp"
+            />
+
+      </LinearLayout>
+
+
+      <View
+          android:layout_width="match_parent"
+          android:layout_height="2dp"
+          android:alpha="0.5"
+          android:background="@color/color_separator"
+          />
+
+    </LinearLayout>
   </LinearLayout>
-</LinearLayout>
+</ScrollView>
+

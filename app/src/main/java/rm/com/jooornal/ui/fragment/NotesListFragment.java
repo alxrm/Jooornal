@@ -76,6 +76,7 @@ public final class NotesListFragment extends BaseContentFragment
       Events.deleteCalendarEvent(contentResolver, removedNote.noteEventId);
     }
 
+    provider.delete(removedNote);
     removedNote.delete();
   }
 

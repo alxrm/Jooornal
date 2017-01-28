@@ -31,6 +31,14 @@ public abstract class ListAsyncProvider<T> extends AbstractAsyncProvider<List<T>
     });
   }
 
+  public void delete(@NonNull T element) {
+    if (cachedResult == null) {
+      return;
+    }
+
+    cachedResult.remove(element);
+  }
+
   protected abstract boolean matchQuery(T item, String query);
 
   private List<T> searchByQuery(final String clause) {

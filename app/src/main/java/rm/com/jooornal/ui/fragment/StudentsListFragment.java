@@ -86,6 +86,7 @@ public class StudentsListFragment extends BaseContentFragment
       Events.deleteCalendarEvent(contentResolver, removedStudent.birthDayEventId);
     }
 
+    provider.delete(removedStudent);
     removedStudent.delete();
   }
 
