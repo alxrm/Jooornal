@@ -19,4 +19,7 @@
   <string name="message_form_not_correct">Не все обязательные поля заполнены</string>
   <string name="note_event_title_stub">Напоминание о заметке</string>
   <string name="message_content_empty">Список пуст</string>
+  <string name="message_permission_needed">Нужно разрешение, чтобы выполнить действие</string>
+  <string name="ask_delete_old_notes">Удалить старые заметки?</string>
+  <string name="page_name_picker">Выбрать студента</string>
 </resources>

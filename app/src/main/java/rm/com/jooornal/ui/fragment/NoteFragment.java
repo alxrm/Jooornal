@@ -39,6 +39,11 @@ public final class NoteFragment extends BaseFragment
   private static final String KEY_NOTE = "KEY_NOTE";
 
   @BindString(R.string.page_name_note_page) String pageTitle;
+  @BindString(R.string.ask_deassign_student) String askMessageDeassignStudent;
+  @BindString(R.string.ask_deassign_date) String askMessageDeassignDate;
+  @BindString(R.string.message_note_ignored) String messageNoteIgnored;
+  @BindString(R.string.message_note_no_text) String messageNoteNoText;
+  @BindString(R.string.note_event_title_stub) String eventTitleStub;
 
   @BindView(R.id.note_create_student) TextView student;
   @BindView(R.id.note_create_time) TextView dueDate;
@@ -111,7 +116,7 @@ public final class NoteFragment extends BaseFragment
   }
 
   @Override public void onPermissionDenied(List<DeniedPermission> deniedPermissionList) {
-    Toast.makeText(getActivity(), R.string.message_note_ignored, Toast.LENGTH_LONG).show();
+    Toast.makeText(getActivity(), messageNoteIgnored, Toast.LENGTH_LONG).show();
   }
 
   @Override protected void unwrapArguments(@NonNull Bundle args) {
@@ -128,7 +133,7 @@ public final class NoteFragment extends BaseFragment
   }
 
   @OnClick(R.id.note_create_student) final void onDeleteStudent() {
-    ask(getString(R.string.ask_deassign_student), new OnAskListener() {
+    ask(askMessageDeassignStudent, new OnAskListener() {
       @Override public void onAction() {
         note.student = null;
         student.setVisibility(View.GONE);
@@ -137,7 +142,7 @@ public final class NoteFragment extends BaseFragment
   }
 
   @OnClick(R.id.note_create_time) final void onDeleteDate() {
-    ask(getString(R.string.ask_deassign_date), new OnAskListener() {
+    ask(askMessageDeassignDate, new OnAskListener() {
       @Override public void onAction() {
         note.due = 0L;
         dueDate.setVisibility(View.GONE);
@@ -202,7 +207,7 @@ public final class NoteFragment extends BaseFragment
     final boolean shouldAddEvent = note.due != 0L && hasCalendarPermission && shouldNotify.get();
 
     if (note.text.isEmpty()) {
-      Toast.makeText(getActivity(), R.string.message_note_no_text, Toast.LENGTH_LONG).show();
+      Toast.makeText(getActivity(), messageNoteNoText, Toast.LENGTH_LONG).show();
       return;
     }
 
@@ -215,8 +220,7 @@ public final class NoteFragment extends BaseFragment
   }
 
   private void addCalendarEvent() {
-    final String eventName =
-        note.name.isEmpty() ? getString(R.string.note_event_title_stub) : note.name;
+    final String eventName = note.name.isEmpty() ? eventTitleStub : note.name;
 
     if (note.noteEventId != -1L) {
       Events.updateCalendarEvent(contentResolver, note.noteEventId, eventName, note.text, note.due,

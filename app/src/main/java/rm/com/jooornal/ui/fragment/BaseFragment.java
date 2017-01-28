@@ -13,6 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
+import butterknife.BindString;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import com.canelmas.let.DeniedPermission;
@@ -29,6 +30,8 @@ import rm.com.jooornal.ui.Navigator;
  * случай, если данные ещё не получены
  */
 public abstract class BaseFragment extends Fragment implements RuntimePermissionListener {
+
+  @BindString(R.string.message_permission_needed) String messagePermissionNeeded;
 
   protected Unbinder unbinder;
 
@@ -118,8 +121,7 @@ public abstract class BaseFragment extends Fragment implements RuntimePermission
   }
 
   @Override public void onPermissionDenied(List<DeniedPermission> deniedPermissionList) {
-    Toast.makeText(getActivity(), "Нужно разрешение, чтобы выполнить действие", Toast.LENGTH_LONG)
-        .show();
+    Toast.makeText(getActivity(), messagePermissionNeeded, Toast.LENGTH_LONG).show();
   }
 
   /**

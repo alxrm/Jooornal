@@ -38,6 +38,9 @@ public final class StudentCreateFragment extends BaseFragment
     implements DatePickerDialog.OnDateSetListener {
 
   @BindString(R.string.page_name_student_create) String title;
+  @BindString(R.string.message_form_not_correct) String messageFormNotCorrect;
+  @BindString(R.string.message_birthday_ignored) String messageBirthdayIgnored;
+
   @BindView(R.id.student_create_input_birthday) TextView birthday;
   @BindView(R.id.student_create_input_altphone) EditText alterPhone;
   @BindView(R.id.student_create_input_phone) EditText mainPhone;
@@ -84,7 +87,7 @@ public final class StudentCreateFragment extends BaseFragment
   }
 
   @Override public void onPermissionDenied(List<DeniedPermission> deniedPermissionList) {
-    Toast.makeText(getActivity(), R.string.message_birthday_ignored, Toast.LENGTH_LONG).show();
+    Toast.makeText(getActivity(), messageBirthdayIgnored, Toast.LENGTH_LONG).show();
   }
 
   @Override protected void injectDependencies(@NonNull JooornalApplication app) {
@@ -175,7 +178,7 @@ public final class StudentCreateFragment extends BaseFragment
     final boolean isInvalid = !(hasName && hasSurname && hasPhone && hasBirthday);
 
     if (isInvalid) {
-      Toast.makeText(getActivity(), R.string.message_form_not_correct, Toast.LENGTH_LONG).show();
+      Toast.makeText(getActivity(), messageFormNotCorrect, Toast.LENGTH_LONG).show();
       return;
     }
 

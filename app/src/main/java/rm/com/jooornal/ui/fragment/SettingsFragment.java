@@ -28,6 +28,7 @@ import rm.com.jooornal.inject.qualifiers.NoteNotifications;
 public final class SettingsFragment extends BaseFragment implements ProviderListener<Integer> {
 
   @BindString(R.string.page_name_settings) String title;
+  @BindString(R.string.ask_delete_old_notes) String askMessageDeleteOldNotes;
 
   @BindView(R.id.settings_notifications_notes) SwitchCompat noteNotificationsView;
   @BindView(R.id.settings_notifications_birthday) SwitchCompat birthdayNotificationsView;
@@ -64,7 +65,7 @@ public final class SettingsFragment extends BaseFragment implements ProviderList
   }
 
   @OnClick(R.id.settings_clear_old_notes) final void onClearOldNotes() {
-    ask("Удалить старые заметки?", new OnAskListener() {
+    ask(askMessageDeleteOldNotes, new OnAskListener() {
       @Override public void onAction() {
         final Calendar currentDateCalendar = Calendar.getInstance();
         currentDateCalendar.set(Calendar.MINUTE, 0);
