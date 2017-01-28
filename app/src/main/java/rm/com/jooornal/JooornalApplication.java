@@ -5,6 +5,7 @@ import com.raizlabs.android.dbflow.config.FlowConfig;
 import com.raizlabs.android.dbflow.config.FlowManager;
 import rm.com.jooornal.inject.DaggerJooornalComponent;
 import rm.com.jooornal.inject.JooornalComponent;
+import rm.com.jooornal.inject.modules.JooornalModule;
 
 public final class JooornalApplication extends Application {
 
@@ -14,9 +15,12 @@ public final class JooornalApplication extends Application {
     super.onCreate();
     final FlowConfig databaseConfig =
         new FlowConfig.Builder(this).openDatabasesOnInit(true).build();
+
     FlowManager.init(databaseConfig);
 
-    component = DaggerJooornalComponent.builder().build();
+    component = DaggerJooornalComponent.builder()
+        .jooornalModule(new JooornalModule(this))
+        .build();
   }
 
   final public JooornalComponent injector() {

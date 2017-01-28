@@ -13,7 +13,6 @@ public final class StudentDetailedHolder extends StudentHolder {
   @BindView(R.id.item_student_indicators) RelativeLayout indicators;
   @BindView(R.id.student_call_count) TextView calls;
   @BindView(R.id.student_sms_count) TextView sms;
-  @BindView(R.id.student_notes_count) TextView notes;
 
   public StudentDetailedHolder(View itemView) {
     super(itemView);
@@ -25,6 +24,5 @@ public final class StudentDetailedHolder extends StudentHolder {
 
     calls.setText(String.valueOf(model.getCalls().size()));
     sms.setText(String.valueOf(model.getSmsList().size()));
-    notes.setText(String.valueOf(model.getNotes().size()));
   }
 }

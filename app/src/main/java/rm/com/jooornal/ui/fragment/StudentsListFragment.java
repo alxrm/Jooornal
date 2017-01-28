@@ -32,6 +32,7 @@ public class StudentsListFragment extends BaseContentFragment
 
   @Inject StudentsListAdapter adapter;
   @Inject StudentsListProvider provider;
+  @Inject ContentResolver contentResolver;
 
   @NonNull public static StudentsListFragment newInstance() {
     return new StudentsListFragment();
@@ -82,9 +83,7 @@ public class StudentsListFragment extends BaseContentFragment
     final Student removedStudent = adapter.delete(position);
 
     if (removedStudent.birthDayEventId != -1) {
-      final ContentResolver resolver = getActivity().getContentResolver();
-
-      Events.deleteCalendarEvent(resolver, removedStudent.birthDayEventId);
+      Events.deleteCalendarEvent(contentResolver, removedStudent.birthDayEventId);
     }
 
     removedStudent.delete();

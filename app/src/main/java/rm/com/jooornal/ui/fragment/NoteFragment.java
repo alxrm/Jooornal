@@ -23,9 +23,13 @@ import com.canelmas.let.DeniedPermission;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 import java.util.Calendar;
 import java.util.List;
+import javax.inject.Inject;
+import javax.inject.Provider;
+import rm.com.jooornal.JooornalApplication;
 import rm.com.jooornal.R;
 import rm.com.jooornal.data.entity.Note;
 import rm.com.jooornal.data.entity.Student;
+import rm.com.jooornal.inject.qualifiers.NoteNotifications;
 import rm.com.jooornal.util.Converters;
 import rm.com.jooornal.util.Events;
 
@@ -40,6 +44,9 @@ public final class NoteFragment extends BaseFragment
   @BindView(R.id.note_create_time) TextView dueDate;
   @BindView(R.id.note_create_text) EditText text;
   @BindView(R.id.note_create_title) EditText title;
+
+  @Inject ContentResolver contentResolver;
+  @Inject @NoteNotifications Provider<Boolean> shouldNotify;
 
   private Note note = new Note();
   private boolean hasCalendarPermission = false;
@@ -83,6 +90,11 @@ public final class NoteFragment extends BaseFragment
       student.setVisibility(View.VISIBLE);
       student.setText(Converters.shortNameOf(note.student));
     }
+  }
+
+  @Override protected void injectDependencies(@NonNull JooornalApplication app) {
+    super.injectDependencies(app);
+    app.injector().inject(this);
   }
 
   @Override public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
@@ -131,7 +143,7 @@ public final class NoteFragment extends BaseFragment
         dueDate.setVisibility(View.GONE);
 
         if (note.noteEventId != -1L) {
-          Events.deleteCalendarEvent(getActivity().getContentResolver(), note.noteEventId);
+          Events.deleteCalendarEvent(contentResolver, note.noteEventId);
           note.noteEventId = -1L;
         }
       }
@@ -187,12 +199,14 @@ public final class NoteFragment extends BaseFragment
   }
 
   private void addNote() {
+    final boolean shouldAddEvent = note.due != 0L && hasCalendarPermission && shouldNotify.get();
+
     if (note.text.isEmpty()) {
       Toast.makeText(getActivity(), R.string.message_note_no_text, Toast.LENGTH_LONG).show();
       return;
     }
 
-    if (note.due != 0L && hasCalendarPermission) {
+    if (shouldAddEvent) {
       addCalendarEvent();
     }
 
@@ -201,14 +215,15 @@ public final class NoteFragment extends BaseFragment
   }
 
   private void addCalendarEvent() {
-    final ContentResolver resolver = getActivity().getContentResolver();
     final String eventName =
         note.name.isEmpty() ? getString(R.string.note_event_title_stub) : note.name;
 
     if (note.noteEventId != -1L) {
-      Events.updateCalendarEvent(resolver, note.noteEventId, eventName, note.text, note.due, false);
+      Events.updateCalendarEvent(contentResolver, note.noteEventId, eventName, note.text, note.due,
+          false);
     } else {
-      note.noteEventId = Events.addEventToCalender(resolver, eventName, note.text, note.due, false);
+      note.noteEventId =
+          Events.addEventToCalender(contentResolver, eventName, note.text, note.due, false);
     }
   }
 }

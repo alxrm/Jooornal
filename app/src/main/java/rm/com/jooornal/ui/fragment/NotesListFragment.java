@@ -31,6 +31,7 @@ public final class NotesListFragment extends BaseContentFragment
 
   @Inject NotesListAdapter adapter;
   @Inject NotesListProvider provider;
+  @Inject ContentResolver contentResolver;
 
   public static NotesListFragment newInstance() {
     return new NotesListFragment();
@@ -72,9 +73,7 @@ public final class NotesListFragment extends BaseContentFragment
     final Note removedNote = adapter.delete(position);
 
     if (removedNote.noteEventId != -1) {
-      final ContentResolver resolver = getActivity().getContentResolver();
-
-      Events.deleteCalendarEvent(resolver, removedNote.noteEventId);
+      Events.deleteCalendarEvent(contentResolver, removedNote.noteEventId);
     }
 
     removedNote.delete();

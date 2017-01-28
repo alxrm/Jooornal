@@ -1,4 +1,4 @@
-package rm.com.jooornal.inject;
+package rm.com.jooornal.inject.modules;
 
 import dagger.Module;
 import dagger.Provides;

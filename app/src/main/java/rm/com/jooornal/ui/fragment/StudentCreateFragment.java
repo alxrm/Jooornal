@@ -23,9 +23,13 @@ import com.canelmas.let.DeniedPermission;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 import java.util.Calendar;
 import java.util.List;
+import javax.inject.Inject;
+import javax.inject.Provider;
+import rm.com.jooornal.JooornalApplication;
 import rm.com.jooornal.R;
 import rm.com.jooornal.data.entity.Phone;
 import rm.com.jooornal.data.entity.Student;
+import rm.com.jooornal.inject.qualifiers.BirthdayNotifications;
 import rm.com.jooornal.util.Converters;
 import rm.com.jooornal.util.Events;
 import rm.com.jooornal.util.Logger;
@@ -33,14 +37,19 @@ import rm.com.jooornal.util.Logger;
 public final class StudentCreateFragment extends BaseFragment
     implements DatePickerDialog.OnDateSetListener {
 
-  private final Student student = new Student();
-  private final Phone main = new Phone();
-  private final Phone alter = new Phone();
   @BindString(R.string.page_name_student_create) String title;
   @BindView(R.id.student_create_input_birthday) TextView birthday;
   @BindView(R.id.student_create_input_altphone) EditText alterPhone;
   @BindView(R.id.student_create_input_phone) EditText mainPhone;
+
+  @Inject ContentResolver contentResolver;
+  @Inject @BirthdayNotifications Provider<Boolean> shouldNotify;
+
   private boolean hasCalendarPermission = false;
+
+  private final Student student = new Student();
+  private final Phone main = new Phone();
+  private final Phone alter = new Phone();
 
   {
     main.student = student;
@@ -76,6 +85,11 @@ public final class StudentCreateFragment extends BaseFragment
 
   @Override public void onPermissionDenied(List<DeniedPermission> deniedPermissionList) {
     Toast.makeText(getActivity(), R.string.message_birthday_ignored, Toast.LENGTH_LONG).show();
+  }
+
+  @Override protected void injectDependencies(@NonNull JooornalApplication app) {
+    super.injectDependencies(app);
+    app.injector().inject(this);
   }
 
   @OnTextChanged(R.id.student_create_input_surname)
@@ -169,7 +183,7 @@ public final class StudentCreateFragment extends BaseFragment
       alter.save();
     }
 
-    if (hasCalendarPermission) {
+    if (hasCalendarPermission && shouldNotify.get()) {
       addCalendarEvent();
     }
 
@@ -180,10 +194,9 @@ public final class StudentCreateFragment extends BaseFragment
   }
 
   private void addCalendarEvent() {
-    final ContentResolver resolver = getActivity().getContentResolver();
     final String title = getString(R.string.student_birthday_event, student.name, student.surname);
 
     student.birthDayEventId =
-        Events.addEventToCalender(resolver, title, "", student.birthDate, true);
+        Events.addEventToCalender(contentResolver, title, "", student.birthDate, true);
   }
 }

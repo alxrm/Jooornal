@@ -44,22 +44,4 @@
       android:textSize="12sp"
       />
 
-  <TextView
-      android:id="@+id/student_notes_count"
-      android:layout_width="wrap_content"
-      android:layout_height="22dp"
-      android:layout_alignParentBottom="true"
-      android:layout_toStartOf="@id/student_call_count"
-      android:drawablePadding="6dp"
-      android:drawableStart="@drawable/ic_notes_indicator_black_16dp"
-      android:duplicateParentState="false"
-      android:gravity="center"
-      android:maxLines="1"
-      android:paddingLeft="4dp"
-      android:paddingRight="4dp"
-      android:text="0"
-      android:textColor="@color/color_text_secondary"
-      android:textSize="12sp"
-      />
-
 </RelativeLayout>

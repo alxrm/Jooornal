@@ -1,4 +1,4 @@
-package rm.com.jooornal.inject;
+package rm.com.jooornal.inject.modules;
 
 import android.os.Handler;
 import dagger.Module;

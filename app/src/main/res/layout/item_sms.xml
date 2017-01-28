@@ -47,7 +47,7 @@
         android:layout_margin="2dp"
         android:ellipsize="end"
         android:maxLines="2"
-        android:text="блять мне похоже ещё и экран просмотра смски нужно делать (сука ладно и его сделаю) блять мне похоже ещё и экран просмотра смски нужно делать (сука ладно и его сделаю)"
+        android:text="Привет поставь зачёт"
         android:textColor="@color/color_text_secondary"
         android:textSize="14sp"
         />

@@ -9,7 +9,6 @@
       android:id="@+id/sms_message_text"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:text="блять мне похоже ещё и экран просмотра смски нужно делать (сука ладно и его сделаю)"
       android:textColor="@color/color_text_primary"
       android:textIsSelectable="true"
       android:textSize="18sp"

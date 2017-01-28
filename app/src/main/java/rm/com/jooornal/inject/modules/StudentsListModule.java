@@ -1,4 +1,4 @@
-package rm.com.jooornal.inject;
+package rm.com.jooornal.inject.modules;
 
 import android.os.Handler;
 import android.os.Looper;
@@ -14,14 +14,6 @@ import rm.com.jooornal.ui.adapter.StudentsListAdapter;
 
   @Provides @Singleton static StudentsListAdapter provideStudentsListAdapter() {
     return new StudentsListAdapter();
-  }
-
-  @Provides @Singleton static Handler provideMainThreadHandler() {
-    return new Handler(Looper.getMainLooper());
-  }
-
-  @Provides @Singleton static ExecutorService provideExecutorService() {
-    return Executors.newSingleThreadExecutor();
   }
 
   @Provides @Singleton
