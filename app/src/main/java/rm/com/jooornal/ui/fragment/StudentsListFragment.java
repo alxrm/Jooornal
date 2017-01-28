@@ -40,7 +40,7 @@ public class StudentsListFragment extends BaseContentFragment
 
   @Override public void onViewCreated(View view, Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
-    toggleContent(false);
+    toggleContent(false, true);
 
     adapter.setOnClickListener(this);
     content.setAdapter(adapter);
@@ -54,7 +54,7 @@ public class StudentsListFragment extends BaseContentFragment
 
   @Override public void onProvide(@NonNull List<Student> payload) {
     adapter.updateData(payload);
-    toggleContent(true);
+    toggleContent(true, payload.isEmpty());
   }
 
   @Override public void onItemClick(@NonNull Student item) {

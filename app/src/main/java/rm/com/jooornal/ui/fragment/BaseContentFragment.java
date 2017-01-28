@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import butterknife.BindView;
 import rm.com.jooornal.R;
 
@@ -18,6 +19,7 @@ import rm.com.jooornal.R;
 public abstract class BaseContentFragment extends BaseFragment {
 
   @BindView(R.id.content_loader) ProgressBar loader;
+  @BindView(R.id.content_message_empty) TextView empty;
   @BindView(R.id.content_list) RecyclerView content;
   @BindView(R.id.content_add) FloatingActionButton add;
 
@@ -39,9 +41,10 @@ public abstract class BaseContentFragment extends BaseFragment {
    *
    * @param show флаг, определяющий, показывается или скрывается контент
    */
-  final protected void toggleContent(boolean show) {
+  final protected void toggleContent(boolean show, boolean isEmpty) {
     content.setVisibility(show ? View.VISIBLE : View.GONE);
     loader.setVisibility(show ? View.GONE : View.VISIBLE);
+    empty.setVisibility(isEmpty && show ? View.VISIBLE : View.GONE);
 
     if (show) {
       add.show();

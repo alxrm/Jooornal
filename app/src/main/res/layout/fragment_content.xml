@@ -21,6 +21,16 @@
       android:indeterminate="true"
       />
 
+  <TextView
+      android:id="@+id/content_message_empty"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_centerInParent="true"
+      android:text="Список пуст"
+      android:textColor="@color/color_text_secondary"
+      android:textSize="18sp"
+      />
+
   <android.support.design.widget.FloatingActionButton
       android:id="@+id/content_add"
       android:layout_width="wrap_content"

@@ -21,7 +21,7 @@ public final class StudentMessagesFragment extends BaseContentFragment
 
   @Inject SmsListAdapter adapter;
 
-  private ArrayList<Sms> messages;
+  private ArrayList<Sms> messages = new ArrayList<>();
 
   public static StudentMessagesFragment newInstance(@NonNull List<Sms> smsList) {
     final Bundle args = new Bundle();
@@ -39,7 +39,7 @@ public final class StudentMessagesFragment extends BaseContentFragment
     adapter.setOnClickListener(this);
     content.setAdapter(adapter);
 
-    toggleContent(true);
+    toggleContent(true, messages.isEmpty());
     add.hide();
   }
 

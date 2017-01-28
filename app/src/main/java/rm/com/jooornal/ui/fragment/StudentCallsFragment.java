@@ -19,7 +19,7 @@ public final class StudentCallsFragment extends BaseContentFragment {
 
   @Inject CallsListAdapter adapter;
 
-  private ArrayList<Call> calls;
+  private ArrayList<Call> calls = new ArrayList<>();
 
   public static StudentCallsFragment newInstance(@NonNull List<Call> calls) {
     final Bundle args = new Bundle();
@@ -36,7 +36,7 @@ public final class StudentCallsFragment extends BaseContentFragment {
     adapter.updateData(calls);
     content.setAdapter(adapter);
 
-    toggleContent(true);
+    toggleContent(true, calls.isEmpty());
     add.hide();
   }
 

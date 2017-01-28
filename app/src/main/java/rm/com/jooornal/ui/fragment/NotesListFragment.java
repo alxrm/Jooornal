@@ -33,7 +33,7 @@ public final class NotesListFragment extends BaseContentFragment
 
   @Override public void onViewCreated(View view, Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
-    toggleContent(false);
+    toggleContent(false, true);
 
     adapter.setOnClickListener(this);
     content.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.color_primary_light));
@@ -52,7 +52,7 @@ public final class NotesListFragment extends BaseContentFragment
 
   @Override public void onProvide(@NonNull List<Note> payload) {
     adapter.updateData(payload);
-    toggleContent(true);
+    toggleContent(true, payload.isEmpty());
   }
 
   @OnClick(R.id.content_add)

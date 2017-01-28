@@ -28,6 +28,7 @@ import rm.com.jooornal.data.entity.Phone;
 import rm.com.jooornal.data.entity.Student;
 import rm.com.jooornal.util.Converters;
 import rm.com.jooornal.util.Events;
+import rm.com.jooornal.util.Logger;
 
 /**
  * Created by alex
@@ -100,6 +101,8 @@ public final class StudentCreateFragment extends BaseFragment
   @OnTextChanged(R.id.student_create_input_phone)
   final void onMainPhoneChanged(CharSequence phoneNumber) {
     main.phoneNumber = Converters.databasePhoneNumberOf(phoneNumber.toString());
+
+    Logger.d(main.phoneNumber);
   }
 
   @OnTextChanged(R.id.student_create_input_phone_name)
@@ -110,6 +113,8 @@ public final class StudentCreateFragment extends BaseFragment
   @OnTextChanged(R.id.student_create_input_altphone)
   final void onAlterPhoneChanged(CharSequence phoneNumber) {
     alter.phoneNumber = Converters.databasePhoneNumberOf(phoneNumber.toString());
+
+    Logger.d(alter.phoneNumber);
   }
 
   @OnTextChanged(R.id.student_create_input_altphone_name)

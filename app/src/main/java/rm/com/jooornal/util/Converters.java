@@ -21,7 +21,9 @@ import static rm.com.jooornal.constant.Formats.MASK_PHONE_HOME;
 import static rm.com.jooornal.constant.Formats.PHONE_LENGTH_FULL;
 import static rm.com.jooornal.constant.Formats.PHONE_LENGTH_HOME;
 import static rm.com.jooornal.constant.Formats.PHONE_PREFIX_COUNTRY;
+import static rm.com.jooornal.constant.Formats.PHONE_PREFIX_COUNTRY_REGEX;
 import static rm.com.jooornal.constant.Formats.PHONE_PREFIX_HOME;
+import static rm.com.jooornal.constant.Formats.PHONE_PREFIX_HOME_REGEX;
 import static rm.com.jooornal.constant.StudentInfo.ENTRY_TEXT;
 import static rm.com.jooornal.constant.StudentInfo.ENTRY_TITLE;
 
@@ -47,8 +49,8 @@ public final class Converters {
     return dateStringOf(time, Formats.PATTERN_REGULAR_DATE);
   }
 
-  @NonNull public static String shortDateStringOf(long time) {
-    return dateStringOf(time, Formats.PATTERN_SHORT_DATE);
+  @NonNull public static String timedDateStringOf(long time) {
+    return dateStringOf(time, Formats.PATTERN_TIMED_DATE);
   }
 
   @NonNull public static String databasePhoneNumberOf(@NonNull String phoneNumber) {
@@ -60,7 +62,7 @@ public final class Converters {
     }
 
     if (cleanNumber.length() >= PHONE_LENGTH_FULL && hasWrongCountryCode) {
-      return cleanNumber.replaceFirst("8", PHONE_PREFIX_COUNTRY);
+      return cleanNumber.replaceFirst("8", PHONE_PREFIX_COUNTRY_REGEX);
     }
 
     return cleanNumber;
@@ -71,7 +73,7 @@ public final class Converters {
     final boolean isCell = phoneNumber.contains(PHONE_PREFIX_COUNTRY) || phoneNumber.length() > 11;
 
     if (isHome) {
-      final String simplified = phoneNumber.replaceAll(PHONE_PREFIX_HOME, "");
+      final String simplified = phoneNumber.replaceAll(PHONE_PREFIX_HOME_REGEX, "");
       final CaretString caret = new CaretString(simplified, simplified.length());
       final Mask.Result result = MASK_PHONE_HOME.apply(caret, true);
 
@@ -94,7 +96,7 @@ public final class Converters {
 
     infoEntries.add(new StudentInfoEntry(ENTRY_TITLE, "Полное имя"));
     infoEntries.add(new StudentInfoEntry(ENTRY_TEXT,
-        String.format("%s %s %s", student.name, student.surname, student.patronymic)));
+        String.format("%s %s %s", student.surname, student.name, student.patronymic)));
 
     infoEntries.add(new StudentInfoEntry(ENTRY_TITLE, "Дата рождения"));
     infoEntries.add(new StudentInfoEntry(ENTRY_TEXT, dateStringOf(student.birthDate)));

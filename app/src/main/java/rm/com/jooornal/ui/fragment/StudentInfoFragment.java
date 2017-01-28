@@ -41,7 +41,7 @@ public final class StudentInfoFragment extends BaseContentFragment {
     content.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.color_primary_light));
     content.setAdapter(adapter);
 
-    toggleContent(true);
+    toggleContent(true, infoEntries.isEmpty());
     add.hide();
   }
 
