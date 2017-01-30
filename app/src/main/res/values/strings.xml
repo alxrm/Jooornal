@@ -28,4 +28,5 @@
   <string name="settings_block_title_notifications">Уведомления</string>
   <string name="settings_title_notifications_notes">О заметках</string>
   <string name="settings_title_notifications_birthday">О днях рождения</string>
+  <string name="page_name_student_edit">Изменить студента</string>
 </resources>

@@ -3,6 +3,9 @@ package rm.com.jooornal.ui.fragment;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import java.util.List;
 import javax.inject.Inject;
@@ -40,6 +43,19 @@ public final class StudentInfoFragment extends BaseContentFragment {
 
     toggleContent(true, infoEntries.isEmpty());
     add.hide();
+  }
+
+  @Override public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+    super.onCreateOptionsMenu(menu, inflater);
+    inflater.inflate(R.menu.menu_student_info, menu);
+  }
+
+  @Override public boolean onOptionsItemSelected(MenuItem item) {
+    if (item.getItemId() == R.id.menu_student_info_edit) {
+      navigateTo(StudentEditFragment.newInstance(student));
+    }
+
+    return super.onOptionsItemSelected(item);
   }
 
   @Override protected void unwrapArguments(@NonNull Bundle args) {

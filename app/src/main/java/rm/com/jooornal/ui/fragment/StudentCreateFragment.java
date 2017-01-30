@@ -34,7 +34,7 @@ import rm.com.jooornal.util.Converters;
 import rm.com.jooornal.util.Events;
 import rm.com.jooornal.util.Logger;
 
-public final class StudentCreateFragment extends BaseFragment
+public class StudentCreateFragment extends BaseFragment
     implements DatePickerDialog.OnDateSetListener {
 
   @BindString(R.string.page_name_student_create) String title;
@@ -42,17 +42,15 @@ public final class StudentCreateFragment extends BaseFragment
   @BindString(R.string.message_birthday_ignored) String messageBirthdayIgnored;
 
   @BindView(R.id.student_create_input_birthday) TextView birthday;
-  @BindView(R.id.student_create_input_altphone) EditText alterPhone;
-  @BindView(R.id.student_create_input_phone) EditText mainPhone;
 
   @Inject ContentResolver contentResolver;
   @Inject @BirthdayNotifications Provider<Boolean> shouldNotify;
 
-  private boolean hasCalendarPermission = false;
+  protected Student student = new Student();
+  protected Phone main = new Phone();
+  protected Phone alter = new Phone();
 
-  private final Student student = new Student();
-  private final Phone main = new Phone();
-  private final Phone alter = new Phone();
+  private boolean hasCalendarPermission = false;
 
   {
     main.student = student;
@@ -113,8 +111,6 @@ public final class StudentCreateFragment extends BaseFragment
   @OnTextChanged(R.id.student_create_input_phone)
   final void onMainPhoneChanged(CharSequence phoneNumber) {
     main.phoneNumber = Converters.databasePhoneNumberOf(phoneNumber.toString());
-
-    Logger.d(main.phoneNumber);
   }
 
   @OnTextChanged(R.id.student_create_input_phone_name)
@@ -125,8 +121,6 @@ public final class StudentCreateFragment extends BaseFragment
   @OnTextChanged(R.id.student_create_input_altphone)
   final void onAlterPhoneChanged(CharSequence phoneNumber) {
     alter.phoneNumber = Converters.databasePhoneNumberOf(phoneNumber.toString());
-
-    Logger.d(alter.phoneNumber);
   }
 
   @OnTextChanged(R.id.student_create_input_altphone_name)
