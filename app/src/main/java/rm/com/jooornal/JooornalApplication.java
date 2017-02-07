@@ -7,6 +7,9 @@ import rm.com.jooornal.inject.DaggerJooornalComponent;
 import rm.com.jooornal.inject.JooornalComponent;
 import rm.com.jooornal.inject.modules.JooornalModule;
 
+/**
+ * класс приложения, здесь происходит инициализация
+ */
 public final class JooornalApplication extends Application {
 
   private JooornalComponent component;
@@ -23,6 +26,9 @@ public final class JooornalApplication extends Application {
         .build();
   }
 
+  /**
+   * @return возвращает контейнер зависимостей
+   */
   final public JooornalComponent injector() {
     return component;
   }

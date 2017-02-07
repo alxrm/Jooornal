@@ -227,7 +227,7 @@ public final class NoteFragment extends BaseFragment
           false);
     } else {
       note.noteEventId =
-          Events.addEventToCalender(contentResolver, eventName, note.text, note.due, false);
+          Events.addEventToCalendar(contentResolver, eventName, note.text, note.due, false);
     }
   }
 }

@@ -11,7 +11,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 import butterknife.BindString;
@@ -32,7 +31,6 @@ import rm.com.jooornal.data.entity.Student;
 import rm.com.jooornal.inject.qualifiers.BirthdayNotifications;
 import rm.com.jooornal.util.Converters;
 import rm.com.jooornal.util.Events;
-import rm.com.jooornal.util.Logger;
 
 public class StudentCreateFragment extends BaseFragment
     implements DatePickerDialog.OnDateSetListener {
@@ -194,6 +192,6 @@ public class StudentCreateFragment extends BaseFragment
     final String title = getString(R.string.student_birthday_event, student.name, student.surname);
 
     student.birthDayEventId =
-        Events.addEventToCalender(contentResolver, title, "", student.birthDate, true);
+        Events.addEventToCalendar(contentResolver, title, "", student.birthDate, true);
   }
 }
