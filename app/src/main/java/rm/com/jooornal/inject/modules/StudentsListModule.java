@@ -10,6 +10,9 @@ import javax.inject.Singleton;
 import rm.com.jooornal.data.provider.StudentsListProvider;
 import rm.com.jooornal.ui.adapter.StudentsListAdapter;
 
+/**
+ * класс инициализации зависимостей для экрана списка студентов
+ */
 @Module public final class StudentsListModule {
 
   @Provides @Singleton static StudentsListAdapter provideStudentsListAdapter() {

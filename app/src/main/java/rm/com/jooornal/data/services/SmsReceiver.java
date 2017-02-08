@@ -21,6 +21,9 @@ import static rm.com.jooornal.util.Lists.listOfArray;
 import static rm.com.jooornal.util.Lists.map;
 import static rm.com.jooornal.util.Lists.reduce;
 
+/**
+ * фоновый сервис, отслеживающий входящие СМС сообщения
+ */
 @SuppressWarnings("deprecation") public final class SmsReceiver extends BroadcastReceiver
     implements ProviderListener<Phone> {
 
@@ -30,6 +33,12 @@ import static rm.com.jooornal.util.Lists.reduce;
 
   private String fullMessageText = "";
 
+  /**
+   * получено новое событие входящего сообщения
+   *
+   * @param context контейнер информации приложения
+   * @param intent объект события
+   */
   @Override public void onReceive(Context context, Intent intent) {
     ((JooornalApplication) context.getApplicationContext()).injector().inject(this);
 
@@ -44,10 +53,24 @@ import static rm.com.jooornal.util.Lists.reduce;
     provider.provide(from, this);
   }
 
+  /**
+   * результат запроса провайдера, который должен был найти, есть ли в базе студент с номером
+   * телефона, сообщение от которого только что пришло
+   *
+   * получив телефон, в базу данных добавляется новое СМС сообщение
+   *
+   * @param payload сам результат, телефон студента
+   */
   @Override public void onProviderResult(@NonNull final Phone payload) {
     saveMessage(fullMessageText, payload);
   }
 
+  /**
+   * сохранение СМС сообщения в базу данных
+   *
+   * @param msgText полный текст сообщения
+   * @param phone телефон отправителя
+   */
   private void saveMessage(@NonNull String msgText, @NonNull Phone phone) {
     final Sms sms = new Sms();
 
@@ -59,6 +82,12 @@ import static rm.com.jooornal.util.Lists.reduce;
     sms.save();
   }
 
+  /**
+   * распаковка частей сообщения в формате PDU
+   *
+   * @param intent объект события, содержащий список частей сообщения
+   * @return список частей сообщения
+   */
   @NonNull private List<SmsMessage> unwrapMessage(@NonNull Intent intent) {
     final List<Object> pduChunks = listOfArray((Object[]) intent.getExtras().get(KEY_PDU_CHUNKS));
 
@@ -69,6 +98,12 @@ import static rm.com.jooornal.util.Lists.reduce;
     });
   }
 
+  /**
+   * декодирование частей сообщения из формата PDU в одну строку с полным текстом сообщения
+   *
+   * @param receivedChunks набор частей в формате PDU
+   * @return строка с полным текстом сообщения
+   */
   @NonNull private String unwrapMessageText(@NonNull List<SmsMessage> receivedChunks) {
     return reduce(receivedChunks, "", new Accumulator<SmsMessage, String>() {
       @Override public String collect(String result, SmsMessage item) {

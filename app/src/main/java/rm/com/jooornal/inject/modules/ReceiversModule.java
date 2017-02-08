@@ -7,6 +7,9 @@ import java.util.concurrent.ExecutorService;
 import javax.inject.Singleton;
 import rm.com.jooornal.data.provider.PhoneProvider;
 
+/**
+ * класс инициализации зависимостей для фоновых сервисов
+ */
 @Module public final class ReceiversModule {
 
   @Provides @Singleton static PhoneProvider providePhone(ExecutorService service, Handler handler) {

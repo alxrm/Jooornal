@@ -8,11 +8,13 @@ import com.raizlabs.android.dbflow.annotation.PrimaryKey;
 import com.raizlabs.android.dbflow.annotation.Table;
 import com.raizlabs.android.dbflow.sql.language.SQLite;
 import com.raizlabs.android.dbflow.structure.BaseModel;
-import java.util.ArrayList;
 import java.util.List;
 import rm.com.jooornal.data.JoornalDatabase;
 import rm.com.jooornal.util.Guids;
 
+/**
+ * класс, описывающий данные студента
+ */
 @SuppressWarnings("WeakerAccess") @Table(database = JoornalDatabase.class)
 public final class Student extends BaseModel implements Parcelable {
   @PrimaryKey public String id = Guids.randomGuid();

@@ -13,10 +13,19 @@ import rm.com.jooornal.data.provider.PhoneProvider;
 import rm.com.jooornal.data.provider.ProviderListener;
 import rm.com.jooornal.util.Intents;
 
+/**
+ * фоновый сервис, отвечающий за отслеживание входящих вызовов
+ */
 public final class CallReceiver extends BroadcastReceiver implements ProviderListener<Phone> {
 
   @Inject PhoneProvider provider;
 
+  /**
+   * получено новое событие входящего вызова
+   *
+   * @param context контейнер информации приложения
+   * @param intent объект события
+   */
   @Override public void onReceive(Context context, Intent intent) {
     ((JooornalApplication) context.getApplicationContext()).injector().inject(this);
 
@@ -32,6 +41,14 @@ public final class CallReceiver extends BroadcastReceiver implements ProviderLis
     }
   }
 
+  /**
+   * результат запроса провайдера, который должен был найти, есть ли в базе студент с номером
+   * телефона, звонок с которого только что произошёл
+   *
+   * получив телефон, в базу данных добавляется новый звонок
+   *
+   * @param payload сам результат, телефон студента
+   */
   @Override public void onProviderResult(@NonNull Phone payload) {
     final Call call = new Call();
 

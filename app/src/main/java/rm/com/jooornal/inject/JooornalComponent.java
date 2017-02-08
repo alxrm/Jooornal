@@ -19,14 +19,13 @@ import rm.com.jooornal.ui.fragment.StudentInfoFragment;
 import rm.com.jooornal.ui.fragment.StudentMessagesFragment;
 import rm.com.jooornal.ui.fragment.StudentsListFragment;
 
-@Singleton
-@Component(modules = {
-    JooornalModule.class,
-    StudentsListModule.class,
-    StudentPageModule.class,
-    NotesListModule.class,
-    ReceiversModule.class,
-    SettingsModule.class
+/**
+ * карта классов, в которые необходимо внедрить зависимости
+ * это нужно для специальной библиотеки
+ */
+@Singleton @Component(modules = {
+    JooornalModule.class, StudentsListModule.class, StudentPageModule.class, NotesListModule.class,
+    ReceiversModule.class, SettingsModule.class
 }) public interface JooornalComponent {
   void inject(SettingsFragment fragment);
 

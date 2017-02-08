@@ -1,5 +1,8 @@
 package rm.com.jooornal.constant;
 
+/**
+ * константы с цветами
+ */
 public interface Colors {
   int[] STUDENT_ICON_COLORS = {
       0xffe57373, 0xfff06292, 0xffba68c8, 0xff9575cd, 0xff7986cb, 0xff64b5f6, 0xff4fc3f7,

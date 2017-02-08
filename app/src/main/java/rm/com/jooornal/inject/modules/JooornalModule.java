@@ -13,7 +13,9 @@ import rm.com.jooornal.JooornalApplication;
 
 import static android.content.Context.MODE_PRIVATE;
 
-
+/**
+ * класс инициализации зависимостей на уровне приложения
+ */
 @Module public final class JooornalModule {
   private static final String PREFERENCES_NAME = "jooornal";
 

@@ -11,6 +11,9 @@ import rm.com.jooornal.data.provider.DeleteOldNotesProvider;
 import rm.com.jooornal.inject.qualifiers.BirthdayNotifications;
 import rm.com.jooornal.inject.qualifiers.NoteNotifications;
 
+/**
+ * класс инициализации зависимостей для экрана настроек
+ */
 @Module public final class SettingsModule {
   private static final boolean DEFAULT_NOTE_NOTIFICATIONS = true;
   private static final boolean DEFAULT_BIRTHDAY_NOTIFICATIONS = true;

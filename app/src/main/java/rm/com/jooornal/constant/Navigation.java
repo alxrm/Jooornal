@@ -9,6 +9,9 @@ import rm.com.jooornal.ui.fragment.NotesListFragment;
 import rm.com.jooornal.ui.fragment.SettingsFragment;
 import rm.com.jooornal.ui.fragment.StudentsListFragment;
 
+/**
+ * константы, связанные с навигацией
+ */
 public interface Navigation {
   float ICON_MENU = 0F;
   float ICON_ARROW = 1F;

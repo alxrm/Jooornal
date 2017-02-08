@@ -3,6 +3,9 @@ package rm.com.jooornal.constant;
 import android.support.v4.util.SparseArrayCompat;
 import rm.com.jooornal.R;
 
+/**
+ * константы, связанные с раздробленным отображением информации о студенте
+ */
 public interface StudentInfo {
   int ENTRY_TITLE = 1;
   int ENTRY_TEXT = 2;

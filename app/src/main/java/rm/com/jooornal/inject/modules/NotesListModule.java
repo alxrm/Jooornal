@@ -8,6 +8,9 @@ import javax.inject.Singleton;
 import rm.com.jooornal.data.provider.NotesListProvider;
 import rm.com.jooornal.ui.adapter.NotesListAdapter;
 
+/**
+ * класс инициализации зависимостей для списка заметок
+ */
 @Module public final class NotesListModule {
 
   @Provides @Singleton static NotesListAdapter provideNotesListAdapter() {

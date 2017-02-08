@@ -6,7 +6,9 @@ import java.util.concurrent.ExecutorService;
 import rm.com.jooornal.util.Conditions;
 
 @SuppressWarnings("WeakerAccess")
-abstract class AbstractAsyncProvider<T> implements AsyncProvider<T> {
+/**
+ * абстрактный класс асинхронного провайдера, здесь содержится базовая логика асинхронной операции
+ */ abstract class AbstractAsyncProvider<T> implements AsyncProvider<T> {
 
   protected final ExecutorService executor;
   protected final Handler mainThreadHook;
@@ -18,12 +20,17 @@ abstract class AbstractAsyncProvider<T> implements AsyncProvider<T> {
     this.mainThreadHook = mainThreadHook;
   }
 
+  /**
+   * создание новой задачи в очереди в другом потоке, чтобы операция выполнялась асинхронно
+   *
+   * @param callback объект слушателя результата
+   */
   @Override public void provide(@NonNull final ProviderListener<T> callback) {
     Conditions.checkNotNull(callback);
 
     executor.submit(new Runnable() {
       @Override public void run() {
-        cachedResult = get();
+        cachedResult = execute();
 
         if (cachedResult != null) {
           postCallback(cachedResult, callback);
@@ -32,8 +39,20 @@ abstract class AbstractAsyncProvider<T> implements AsyncProvider<T> {
     });
   }
 
-  protected abstract T get();
+  /**
+   * получение результата
+   *
+   * @return объект результата
+   */
+  protected abstract T execute();
 
+  /**
+   * создание задачи в главном потоке, в которой слушателю передаётся объект с результатом операции,
+   * чтобы результат асинхронной операции вернулся к вызывающей стороне
+   *
+   * @param result объект результата
+   * @param callback объект слушателя результата
+   */
   protected void postCallback(final T result, final ProviderListener<T> callback) {
     mainThreadHook.post(new Runnable() {
       @Override public void run() {

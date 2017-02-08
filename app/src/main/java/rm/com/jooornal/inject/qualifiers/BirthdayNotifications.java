@@ -5,8 +5,8 @@ import javax.inject.Qualifier;
 
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
-
-@Qualifier
-@Retention(RUNTIME)
-public @interface BirthdayNotifications {
+/**
+ * аннотация для настроек уведомлений о днях рождения
+ */
+@Qualifier @Retention(RUNTIME) public @interface BirthdayNotifications {
 }

@@ -8,6 +8,9 @@ import java.util.concurrent.ExecutorService;
 import rm.com.jooornal.data.entity.Note;
 import rm.com.jooornal.data.entity.Note_Table;
 
+/**
+ * провайдер удаления старых заметок
+ */
 public final class DeleteOldNotesProvider extends ParametrisedAsyncProvider<Long, Integer> {
 
   public DeleteOldNotesProvider(@NonNull ExecutorService executor,
@@ -15,7 +18,12 @@ public final class DeleteOldNotesProvider extends ParametrisedAsyncProvider<Long
     super(executor, mainThreadHook);
   }
 
-  @Override protected Integer get() {
+  /**
+   * удаление заметок из бд
+   *
+   * @return количество удалённых заметок
+   */
+  @Override protected Integer execute() {
     if (currentParam == null) {
       return 0;
     }

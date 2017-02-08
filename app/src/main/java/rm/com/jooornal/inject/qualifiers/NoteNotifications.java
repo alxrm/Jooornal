@@ -5,8 +5,8 @@ import javax.inject.Qualifier;
 
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
-
-@Qualifier
-@Retention(RUNTIME)
-public @interface NoteNotifications {
+/**
+ * аннотация для настроек уведомлений о заметках
+ */
+@Qualifier @Retention(RUNTIME) public @interface NoteNotifications {
 }

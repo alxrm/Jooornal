@@ -2,6 +2,9 @@ package rm.com.jooornal.constant;
 
 import com.redmadrobot.inputmask.helper.Mask;
 
+/**
+ * константы для форматирования данных
+ */
 public interface Formats {
   String PATTERN_TIMED_DATE = "d MMM в H:mm";
   String PATTERN_REGULAR_DATE = "d MMM yyyy г.";

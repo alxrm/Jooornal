@@ -7,6 +7,9 @@ import rm.com.jooornal.ui.adapter.CallsListAdapter;
 import rm.com.jooornal.ui.adapter.SmsListAdapter;
 import rm.com.jooornal.ui.adapter.StudentInfoAdapter;
 
+/**
+ * класс инициализации зависимостей для экрана страницы студента
+ */
 @Module public final class StudentPageModule {
 
   @Provides @Singleton static CallsListAdapter provideCallsListAdapter() {

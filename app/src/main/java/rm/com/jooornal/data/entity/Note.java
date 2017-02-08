@@ -10,6 +10,9 @@ import com.raizlabs.android.dbflow.structure.BaseModel;
 import rm.com.jooornal.data.JoornalDatabase;
 import rm.com.jooornal.util.Guids;
 
+/**
+ * класс, описывающий данные заметки
+ */
 @SuppressWarnings("WeakerAccess")
 @Table(database = JoornalDatabase.class)
 public final class Note extends BaseModel implements Parcelable {

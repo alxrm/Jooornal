@@ -1,5 +1,8 @@
 package rm.com.jooornal.data.entity;
 
+/**
+ * класс, описывающий элемент описания студента
+ */
 public final class StudentInfoEntry {
 
   /**
