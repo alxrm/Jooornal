@@ -14,6 +14,9 @@ public final class JooornalApplication extends Application {
 
   private JooornalComponent component;
 
+  /**
+   * инициализация приложения, вместе с ней инициализируются контейнер зависимостей и база данных
+   */
   @Override public void onCreate() {
     super.onCreate();
     final FlowConfig databaseConfig =
@@ -21,9 +24,7 @@ public final class JooornalApplication extends Application {
 
     FlowManager.init(databaseConfig);
 
-    component = DaggerJooornalComponent.builder()
-        .jooornalModule(new JooornalModule(this))
-        .build();
+    component = DaggerJooornalComponent.builder().jooornalModule(new JooornalModule(this)).build();
   }
 
   /**
