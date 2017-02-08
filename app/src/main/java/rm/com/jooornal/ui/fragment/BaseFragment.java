@@ -71,6 +71,13 @@ public abstract class BaseFragment extends Fragment implements RuntimePermission
     unbinder = ButterKnife.bind(this, view);
   }
 
+  /**
+   * метод, вызываемый после запроса прав доступа
+   *
+   * @param requestCode код запроса на разрешение
+   * @param permissions массив названий прав доступа
+   * @param grantResults результаты запроса
+   */
   @Override public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
       @NonNull int[] grantResults) {
     Let.handle(this, requestCode, permissions, grantResults);
@@ -116,10 +123,21 @@ public abstract class BaseFragment extends Fragment implements RuntimePermission
     }
   }
 
+  /**
+   * метод, нужный для того, чтобы добавлять пояснения к диалогу запроса прав доступа
+   *
+   * @param permissionList список прав доступа
+   * @param permissionRequest запрос на права
+   */
   @Override public void onShowPermissionRationale(List<String> permissionList,
       RuntimePermissionRequest permissionRequest) {
   }
 
+  /**
+   * разрешение не дано
+   *
+   * @param deniedPermissionList список прав доступа, разрешение на которые не получено
+   */
   @Override public void onPermissionDenied(List<DeniedPermission> deniedPermissionList) {
     Toast.makeText(getActivity(), messagePermissionNeeded, Toast.LENGTH_LONG).show();
   }
@@ -140,6 +158,11 @@ public abstract class BaseFragment extends Fragment implements RuntimePermission
    */
   abstract boolean hasBackButton();
 
+  /**
+   * абстрактный метод, который помечает, является ли экран вложенным
+   *
+   * @return флаг вложенности
+   */
   abstract boolean isNested();
 
   /**
@@ -150,6 +173,11 @@ public abstract class BaseFragment extends Fragment implements RuntimePermission
   protected void unwrapArguments(@NonNull Bundle args) {
   }
 
+  /**
+   * метод вызываемый при необходимости внедрить зависимости
+   *
+   * @param app объект приложения, через который можно вызвать контейнер зависимостей
+   */
   protected void injectDependencies(@NonNull JooornalApplication app) {
   }
 
@@ -173,6 +201,11 @@ public abstract class BaseFragment extends Fragment implements RuntimePermission
     return (Navigator) getActivity();
   }
 
+  /**
+   * метод получения объекта приложения
+   *
+   * @return объект приложения
+   */
   @Nullable final protected JooornalApplication getApplication() {
     final Activity owner = getActivity();
     final Application app = owner != null ? owner.getApplication() : null;
@@ -193,6 +226,11 @@ public abstract class BaseFragment extends Fragment implements RuntimePermission
     }
   }
 
+  /**
+   * метод блокировки бокового меню
+   *
+   * @param should флаг блокировки
+   */
   final protected void lockMenu(boolean should) {
     final Navigator navigator = getNavigator();
 
@@ -201,6 +239,12 @@ public abstract class BaseFragment extends Fragment implements RuntimePermission
     }
   }
 
+  /**
+   * метод для создания диалога с запросом на подтверждение действия
+   *
+   * @param message сообщение с вопросом
+   * @param action действие, которое выполнится после подтверждения
+   */
   final protected void ask(String message, final OnAskListener action) {
     new AlertDialog.Builder(getActivity()).setMessage(message)
         .setNegativeButton(R.string.ask_negative, new DialogInterface.OnClickListener() {
@@ -229,6 +273,9 @@ public abstract class BaseFragment extends Fragment implements RuntimePermission
     }
   }
 
+  /**
+   * действие, которое выполнится после запроса на подтверждение
+   */
   protected interface OnAskListener {
     void onAction();
   }

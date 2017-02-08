@@ -53,12 +53,23 @@ abstract class BaseAdapter<M, VH extends BaseHolder<M>> extends RecyclerView.Ada
     notifyDataSetChanged();
   }
 
+  /**
+   * удаление элемента из списка
+   *
+   * @param position позиция удалённого элемента
+   * @return удалённый элемент
+   */
   @NonNull final public M delete(int position) {
     final M deleted = data.remove(position);
     notifyDataSetChanged();
     return deleted;
   }
 
+  /**
+   * подключение к слушателю нажатий
+   *
+   * @param clickListener объект слушателя
+   */
   final public void setOnClickListener(@NonNull BaseHolder.OnClickListener<M> clickListener) {
     this.clickListener = clickListener;
   }

@@ -33,6 +33,9 @@ import rm.com.jooornal.inject.qualifiers.NoteNotifications;
 import rm.com.jooornal.util.Converters;
 import rm.com.jooornal.util.Events;
 
+/**
+ * экран заметки(текущей или новой)
+ */
 public final class NoteFragment extends BaseFragment
     implements StudentPickerFragment.OnStudentPickerListener, DatePickerDialog.OnDateSetListener {
 
@@ -56,10 +59,21 @@ public final class NoteFragment extends BaseFragment
   private Note note = new Note();
   private boolean hasCalendarPermission = false;
 
+  /**
+   * создание экрана новой заметки
+   *
+   * @return объект экрана
+   */
   @NonNull public static NoteFragment newInstance() {
     return new NoteFragment();
   }
 
+  /**
+   * создание экрана существующей заметки
+   *
+   * @param note объект с данными заметки
+   * @return объект экрана
+   */
   @NonNull public static NoteFragment newInstance(@NonNull Note note) {
     final Bundle args = new Bundle();
     final NoteFragment fragment = new NoteFragment();
@@ -70,16 +84,35 @@ public final class NoteFragment extends BaseFragment
     return fragment;
   }
 
+  /**
+   * создание экрана, в нём происходит запрос на получение прав доступа
+   *
+   * @param savedInstanceState сохранённое состояние, не используется здесь
+   */
   @Override public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     askAndSavePermission();
   }
 
+  /**
+   * создание интерфейса экрана
+   *
+   * @param inflater объект создания объекта интерфейса из XML вёрстки
+   * @param container родительский объект интерфейса
+   * @param savedInstanceState сохранённое состояние экрана(не используется)
+   * @return объект созданного интерфейса
+   */
   @Nullable @Override public View onCreateView(LayoutInflater inflater, ViewGroup container,
       Bundle savedInstanceState) {
     return inflater.inflate(R.layout.fragment_note_page, container, false);
   }
 
+  /**
+   * интерфейс экрана создан, привязка к данным
+   *
+   * @param view корневой элемент, в котором отрисовываются элементы экрана
+   * @param savedInstanceState сохранённое состояние, не используется здесь
+   */
   @Override public void onViewCreated(View view, Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
 
@@ -97,41 +130,82 @@ public final class NoteFragment extends BaseFragment
     }
   }
 
+  /**
+   * внедрение зависимостей(например классы для запроса к настройкам)
+   *
+   * @param app объект приложения, через который можно вызвать контейнер зависимостей
+   */
   @Override protected void injectDependencies(@NonNull JooornalApplication app) {
     super.injectDependencies(app);
     app.injector().inject(this);
   }
 
+  /**
+   * создание меню в верхнем баре
+   *
+   * @param menu объект меню, к которому происходит привязка
+   * @param inflater объект класса, для создания объекта меню из XML разметки
+   */
   @Override public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
     super.onCreateOptionsMenu(menu, inflater);
     inflater.inflate(R.menu.menu_create_new, menu);
   }
 
+  /**
+   * выбран элемент меню
+   *
+   * @param item выбранный элемент
+   * @return флаг, обработан ли элемент меню
+   */
   @Override public boolean onOptionsItemSelected(MenuItem item) {
     if (item.getItemId() == R.id.menu_create_done) {
-      addNote();
+      saveNote();
+      navigateUp();
     }
 
     return super.onOptionsItemSelected(item);
   }
 
+  /**
+   * в доступе отказано, выводится всплывающее сообщение с пояснением
+   *
+   * @param deniedPermissionList список прав доступа, разрешение на которые не получено
+   */
   @Override public void onPermissionDenied(List<DeniedPermission> deniedPermissionList) {
     Toast.makeText(getActivity(), messageNoteIgnored, Toast.LENGTH_LONG).show();
   }
 
+  /**
+   * распаковка аргументов, переданных при создании экрана
+   *
+   * @param args сами параметры с пометкой, что они не пустые
+   */
   @Override protected void unwrapArguments(@NonNull Bundle args) {
     super.unwrapArguments(args);
     note = args.getParcelable(KEY_NOTE);
   }
 
+  /**
+   * изменён текст заметки
+   *
+   * @param text строка с текстом
+   */
   @OnTextChanged(R.id.note_create_text) final void onNoteTextChanged(CharSequence text) {
     note.text = text.toString();
   }
 
+  /**
+   * изменён заголовок заметки
+   *
+   * @param title строка с заголовком
+   */
   @OnTextChanged(R.id.note_create_title) final void onNoteTitleChanged(CharSequence title) {
     note.name = title.toString();
   }
 
+  /**
+   * удалить привязку к студенту, вызывается диалог для подтверждения действия
+   */
   @OnClick(R.id.note_create_student) final void onDeleteStudent() {
     ask(askMessageDeassignStudent, new OnAskListener() {
       @Override public void onAction() {
@@ -141,6 +215,10 @@ public final class NoteFragment extends BaseFragment
     });
   }
 
+  /**
+   * удалить привязку к дате, вызывается диалог для подтверждения действия, также удаляется событие
+   * из календаря, если оно было
+   */
   @OnClick(R.id.note_create_time) final void onDeleteDate() {
     ask(askMessageDeassignDate, new OnAskListener() {
       @Override public void onAction() {
@@ -155,6 +233,9 @@ public final class NoteFragment extends BaseFragment
     });
   }
 
+  /**
+   * добавление привязки к студенту, открывается новый экран со списком студентов
+   */
   @OnClick(R.id.note_create_assign_student) final void onAssignStudent() {
     final StudentPickerFragment pickerFragment = StudentPickerFragment.newInstance();
     pickerFragment.setPickerListener(this);
@@ -162,12 +243,20 @@ public final class NoteFragment extends BaseFragment
     navigateTo(pickerFragment);
   }
 
+  /**
+   * выбран студент в другом экране
+   *
+   * @param picked объект выбранного студента
+   */
   @Override public void onStudentPicked(@NonNull Student picked) {
     note.student = picked;
     student.setVisibility(View.VISIBLE);
     student.setText(Converters.shortNameOf(picked));
   }
 
+  /**
+   * добавление привязки заметки к дате, открывается диалог с выбором даты
+   */
   @OnClick(R.id.note_create_assign_time) final void onAssignDueDate() {
     final Calendar birth = Calendar.getInstance();
     final DatePickerDialog dpd =
@@ -177,6 +266,14 @@ public final class NoteFragment extends BaseFragment
     dpd.show(getFragmentManager(), "dpd");
   }
 
+  /**
+   * выбрана дата уведомления в диалоге
+   *
+   * @param view элемент интерфейса с диалогом
+   * @param year номер года
+   * @param monthOfYear месяц
+   * @param dayOfMonth день
+   */
   @Override
   public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
     final long time = Converters.timeOf(year, monthOfYear, dayOfMonth);
@@ -186,24 +283,45 @@ public final class NoteFragment extends BaseFragment
     dueDate.setText(Converters.dateStringOf(time));
   }
 
+  /**
+   * получение заголовка экрана
+   *
+   * @return строка с заголовком
+   */
   @NonNull @Override String getTitle() {
     return pageTitle;
   }
 
+  /**
+   * есть ли в экране кнопка перехода назад в верхнем баре
+   *
+   * @return флаг наличия кнопки
+   */
   @Override boolean hasBackButton() {
     return true;
   }
 
+  /**
+   * является ли экран вложенным
+   *
+   * @return флаг вложенности
+   */
   @Override boolean isNested() {
     return false;
   }
 
+  /**
+   * метод запроса прав доступа на работу с системным календарём
+   */
   @AskPermission({ Manifest.permission.READ_CALENDAR, Manifest.permission.WRITE_CALENDAR })
   private void askAndSavePermission() {
     hasCalendarPermission = true;
   }
 
-  private void addNote() {
+  /**
+   * сохренение заметки в БД, если у заметки есть привязка к дате, создаётся событие в календаре
+   */
+  private void saveNote() {
     final boolean shouldAddEvent = note.due != 0L && hasCalendarPermission && shouldNotify.get();
 
     if (note.text.isEmpty()) {
@@ -216,9 +334,11 @@ public final class NoteFragment extends BaseFragment
     }
 
     note.save();
-    navigateUp();
   }
 
+  /**
+   * создание события в календаре
+   */
   private void addCalendarEvent() {
     final String eventName = note.name.isEmpty() ? eventTitleStub : note.name;
 

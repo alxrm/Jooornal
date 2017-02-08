@@ -14,5 +14,5 @@ public interface ProviderListener<T> {
    *
    * @param payload сам результат, экземпляр типа данных результата
    */
-  void onProvide(@NonNull T payload);
+  void onProviderResult(@NonNull T payload);
 }

@@ -11,6 +11,9 @@ import rm.com.jooornal.R;
 import rm.com.jooornal.data.entity.Student;
 import rm.com.jooornal.util.Converters;
 
+/**
+ * элемент списка студентов
+ */
 public class StudentHolder extends BaseHolder<Student> {
 
   @BindView(R.id.item_student_name) TextView name;
@@ -21,6 +24,11 @@ public class StudentHolder extends BaseHolder<Student> {
     super(itemView);
   }
 
+  /**
+   * привязка данных студента
+   *
+   * @param model данные, которые должны быть привязаны и отрисованы
+   */
   @Override public void bind(@NonNull final Student model) {
     final String shortName = Converters.shortNameOf(model);
     final String letters = Converters.iconLettersOf(model.surname, model.name);

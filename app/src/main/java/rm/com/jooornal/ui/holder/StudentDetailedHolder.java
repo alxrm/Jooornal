@@ -8,6 +8,9 @@ import butterknife.BindView;
 import rm.com.jooornal.R;
 import rm.com.jooornal.data.entity.Student;
 
+/**
+ * элемент списка студентов с дополнительными данными(количество смс и звонков)
+ */
 public final class StudentDetailedHolder extends StudentHolder {
 
   @BindView(R.id.item_student_indicators) RelativeLayout indicators;
@@ -18,6 +21,11 @@ public final class StudentDetailedHolder extends StudentHolder {
     super(itemView);
   }
 
+  /**
+   * привязка основных и дополнительных данных объекта студента
+   *
+   * @param model данные, которые должны быть привязаны и отрисованы
+   */
   @Override public void bind(@NonNull Student model) {
     super.bind(model);
     indicators.setVisibility(View.VISIBLE);

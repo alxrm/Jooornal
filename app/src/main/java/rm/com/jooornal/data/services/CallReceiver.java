@@ -32,7 +32,7 @@ public final class CallReceiver extends BroadcastReceiver implements ProviderLis
     }
   }
 
-  @Override public void onProvide(@NonNull Phone payload) {
+  @Override public void onProviderResult(@NonNull Phone payload) {
     final Call call = new Call();
 
     call.student = payload.student;

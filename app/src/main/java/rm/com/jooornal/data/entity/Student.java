@@ -2,16 +2,15 @@ package rm.com.jooornal.data.entity;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.provider.CalendarContract;
 import com.raizlabs.android.dbflow.annotation.Column;
 import com.raizlabs.android.dbflow.annotation.OneToMany;
 import com.raizlabs.android.dbflow.annotation.PrimaryKey;
 import com.raizlabs.android.dbflow.annotation.Table;
 import com.raizlabs.android.dbflow.sql.language.SQLite;
 import com.raizlabs.android.dbflow.structure.BaseModel;
+import java.util.ArrayList;
 import java.util.List;
 import rm.com.jooornal.data.JoornalDatabase;
-import rm.com.jooornal.util.Events;
 import rm.com.jooornal.util.Guids;
 
 @SuppressWarnings("WeakerAccess") @Table(database = JoornalDatabase.class)
@@ -113,5 +112,9 @@ public final class Student extends BaseModel implements Parcelable {
     }
 
     return notes;
+  }
+
+  public void refreshPhones() {
+    phones = SQLite.select().from(Phone.class).where(Phone_Table.student_id.eq(id)).queryList();
   }
 }

@@ -44,7 +44,7 @@ import static rm.com.jooornal.util.Lists.reduce;
     provider.provide(from, this);
   }
 
-  @Override public void onProvide(@NonNull final Phone payload) {
+  @Override public void onProviderResult(@NonNull final Phone payload) {
     saveMessage(fullMessageText, payload);
   }
 

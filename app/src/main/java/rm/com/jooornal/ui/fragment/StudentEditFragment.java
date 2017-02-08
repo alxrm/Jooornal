@@ -11,6 +11,9 @@ import rm.com.jooornal.data.entity.Student;
 import rm.com.jooornal.util.Conditions;
 import rm.com.jooornal.util.Converters;
 
+/**
+ * экран изменения данных студента
+ */
 public final class StudentEditFragment extends StudentCreateFragment {
   private static final String KEY_STUDENT = "KEY_STUDENT";
 
@@ -24,6 +27,12 @@ public final class StudentEditFragment extends StudentCreateFragment {
   @BindView(R.id.student_create_input_phone_name) EditText mainPhoneName;
   @BindView(R.id.student_create_input_altphone_name) EditText alterPhoneName;
 
+  /**
+   * создание объекта экрана изменения данных студента
+   *
+   * @param student объект студента, содержащий данные
+   * @return объект экрана
+   */
   public static StudentEditFragment newInstance(@NonNull Student student) {
     Bundle args = new Bundle();
     StudentEditFragment fragment = new StudentEditFragment();
@@ -33,6 +42,12 @@ public final class StudentEditFragment extends StudentCreateFragment {
     return fragment;
   }
 
+  /**
+   * интерфейс экрана создан, привязка к данным
+   *
+   * @param view корневой элемент, в котором отрисовываются элементы экрана
+   * @param savedInstanceState сохранённое состояние, не используется здесь
+   */
   @Override public void onViewCreated(View view, Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
 
@@ -46,18 +61,29 @@ public final class StudentEditFragment extends StudentCreateFragment {
     birthday.setText(Converters.dateStringOf(student.birthDate));
   }
 
+  /**
+   * распаковка аргументов, переданных при создании экрана
+   *
+   * @param args сами параметры с пометкой, что они не пустые
+   */
   @Override protected void unwrapArguments(@NonNull Bundle args) {
     super.unwrapArguments(args);
     student = args.getParcelable(KEY_STUDENT);
     Conditions.checkNotNull(student);
 
     this.main = student.getPhones().get(0);
+    this.alter.student = student;
 
     if (student.getPhones().size() > 1) {
       this.alter = student.getPhones().get(1);
     }
   }
 
+  /**
+   * возвращает название экрана
+   *
+   * @return строка с названием
+   */
   @NonNull @Override public String getTitle() {
     return titleEdit;
   }

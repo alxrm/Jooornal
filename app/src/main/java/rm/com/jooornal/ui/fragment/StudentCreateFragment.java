@@ -31,7 +31,11 @@ import rm.com.jooornal.data.entity.Student;
 import rm.com.jooornal.inject.qualifiers.BirthdayNotifications;
 import rm.com.jooornal.util.Converters;
 import rm.com.jooornal.util.Events;
+import rm.com.jooornal.util.Logger;
 
+/**
+ * экран добавления студента
+ */
 public class StudentCreateFragment extends BaseFragment
     implements DatePickerDialog.OnDateSetListener {
 
@@ -50,82 +54,164 @@ public class StudentCreateFragment extends BaseFragment
 
   private boolean hasCalendarPermission = false;
 
+  /**
+   * блок инициализации полей
+   */
   {
     main.student = student;
     alter.student = student;
   }
 
+  /**
+   * создание объекта экрана добавления студента
+   *
+   * @return объект экрана
+   */
   @NonNull public static StudentCreateFragment newInstance() {
     return new StudentCreateFragment();
   }
 
+  /**
+   * создание экрана, в нём происходит запрос на получение прав доступа
+   *
+   * @param savedInstanceState сохранённое состояние, не используется здесь
+   */
   @Override public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     askAndSaveCalendarPermission();
   }
 
+  /**
+   * создание интерфейса экрана
+   *
+   * @param inflater объект создания объекта интерфейса из XML вёрстки
+   * @param container родительский объект интерфейса
+   * @param savedInstanceState сохранённое состояние экрана(не используется)
+   * @return объект созданного интерфейса
+   */
   @Nullable @Override public View onCreateView(LayoutInflater inflater, ViewGroup container,
       Bundle savedInstanceState) {
     return inflater.inflate(R.layout.fragment_student_create, container, false);
   }
 
+  /**
+   * создание меню в верхнем баре
+   *
+   * @param menu объект меню, к которому происходит привязка
+   * @param inflater объект класса, для создания объекта меню из XML разметки
+   */
   @Override public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
     super.onCreateOptionsMenu(menu, inflater);
     inflater.inflate(R.menu.menu_create_new, menu);
   }
 
+  /**
+   * выбран элемент меню
+   *
+   * @param item выбранный элемент
+   * @return флаг, обработан ли элемент меню
+   */
   @Override public boolean onOptionsItemSelected(MenuItem item) {
     if (item.getItemId() == R.id.menu_create_done) {
-      addStudent();
+      saveStudent();
+      navigateUp();
     }
 
     return super.onOptionsItemSelected(item);
   }
 
+  /**
+   * в доступе отказано, выводится всплывающее сообщение с пояснением
+   *
+   * @param deniedPermissionList список прав доступа, разрешение на которые не получено
+   */
   @Override public void onPermissionDenied(List<DeniedPermission> deniedPermissionList) {
     Toast.makeText(getActivity(), messageBirthdayIgnored, Toast.LENGTH_LONG).show();
   }
 
+  /**
+   * внедрение зависимостей
+   *
+   * @param app объект приложения, через который можно вызвать контейнер зависимостей
+   */
   @Override protected void injectDependencies(@NonNull JooornalApplication app) {
     super.injectDependencies(app);
     app.injector().inject(this);
   }
 
-  @OnTextChanged(R.id.student_create_input_surname)
-  final void onSurnameChanged(CharSequence studentLastName) {
+  /**
+   * изменена фамилия
+   *
+   * @param studentLastName строка с фамилией
+   */
+  @OnTextChanged(R.id.student_create_input_surname) final void onSurnameChanged(
+      CharSequence studentLastName) {
     student.surname = studentLastName.toString();
   }
 
-  @OnTextChanged(R.id.student_create_input_name)
-  final void onFirstNameChanged(CharSequence studentFirstName) {
+  /**
+   * изменено имя
+   *
+   * @param studentFirstName строка с именем
+   */
+  @OnTextChanged(R.id.student_create_input_name) final void onFirstNameChanged(
+      CharSequence studentFirstName) {
     student.name = studentFirstName.toString();
   }
 
-  @OnTextChanged(R.id.student_create_input_patronymic)
-  final void onPatronymicChanged(CharSequence patronymic) {
+  /**
+   * изменено отчество
+   *
+   * @param patronymic строка с отчеством
+   */
+  @OnTextChanged(R.id.student_create_input_patronymic) final void onPatronymicChanged(
+      CharSequence patronymic) {
     student.patronymic = patronymic.toString();
   }
 
-  @OnTextChanged(R.id.student_create_input_phone)
-  final void onMainPhoneChanged(CharSequence phoneNumber) {
+  /**
+   * изменён первый номер телефона
+   *
+   * @param phoneNumber строка с номером
+   */
+  @OnTextChanged(R.id.student_create_input_phone) final void onMainPhoneChanged(
+      CharSequence phoneNumber) {
     main.phoneNumber = Converters.databasePhoneNumberOf(phoneNumber.toString());
   }
 
-  @OnTextChanged(R.id.student_create_input_phone_name)
-  final void onMainPhoneNameChanged(CharSequence name) {
+  /**
+   * изменено название первого номера телефона
+   *
+   * @param name строка с названием
+   */
+  @OnTextChanged(R.id.student_create_input_phone_name) final void onMainPhoneNameChanged(
+      CharSequence name) {
     main.alias = name.toString();
   }
 
-  @OnTextChanged(R.id.student_create_input_altphone)
-  final void onAlterPhoneChanged(CharSequence phoneNumber) {
+  /**
+   * изменён второй номер телефона
+   *
+   * @param phoneNumber строка с номером
+   */
+  @OnTextChanged(R.id.student_create_input_altphone) final void onAlterPhoneChanged(
+      CharSequence phoneNumber) {
     alter.phoneNumber = Converters.databasePhoneNumberOf(phoneNumber.toString());
   }
 
-  @OnTextChanged(R.id.student_create_input_altphone_name)
-  final void onAlterPhoneNameChanged(CharSequence name) {
+  /**
+   * изменено название второго номера телефона
+   *
+   * @param name строка с названием
+   */
+  @OnTextChanged(R.id.student_create_input_altphone_name) final void onAlterPhoneNameChanged(
+      CharSequence name) {
     alter.alias = name.toString();
   }
 
+  /**
+   * выбор даты рождения, открывается диалог с выбором даты
+   */
   @OnClick(R.id.student_create_wrapper_birthday) final void onSetBirthday() {
     final Calendar birth = Calendar.getInstance();
     final DatePickerDialog dpd =
@@ -135,33 +221,62 @@ public class StudentCreateFragment extends BaseFragment
     dpd.show(getFragmentManager(), "dpd");
   }
 
-  @Override
-  public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
+  /**
+   * дата рождения выбрана
+   *
+   * @param view объект интерфейса с диалогом
+   * @param year номер года
+   * @param monthOfYear номер месяца
+   * @param dayOfMonth номер дня
+   */
+  @Override public void onDateSet(DatePickerDialog view, int year, int monthOfYear,
+      int dayOfMonth) {
     final long time = Converters.timeOf(year, monthOfYear, dayOfMonth);
 
     student.birthDate = time;
     birthday.setText(Converters.dateStringOf(time));
   }
 
+  /**
+   * возвращает название экрана
+   *
+   * @return строка с названием
+   */
   @NonNull @Override public String getTitle() {
     return title;
   }
 
+  /**
+   * возвращает флаг о наличии кнопки назад
+   *
+   * @return флаг наличия
+   */
   @Override boolean hasBackButton() {
     return true;
   }
 
+  /**
+   * возвращает флаг, является ли экран вложенным
+   *
+   * @return флаг вложенности
+   */
   @Override boolean isNested() {
     return false;
   }
 
+  /**
+   * запрос на разрешение прав доступа к системному календарю
+   */
   @AskPermission({
       Manifest.permission.READ_CALENDAR, Manifest.permission.WRITE_CALENDAR
   }) private void askAndSaveCalendarPermission() {
     hasCalendarPermission = true;
   }
 
-  private void addStudent() {
+  /**
+   * сохранение данных студента в БД
+   */
+  private void saveStudent() {
     final boolean hasName = !student.name.isEmpty();
     final boolean hasSurname = !student.surname.isEmpty();
     final boolean hasPhone = !main.phoneNumber.isEmpty();
@@ -176,6 +291,8 @@ public class StudentCreateFragment extends BaseFragment
 
     if (hasAlterPhone) {
       alter.save();
+    } else {
+      alter.delete();
     }
 
     if (hasCalendarPermission && shouldNotify.get()) {
@@ -183,11 +300,13 @@ public class StudentCreateFragment extends BaseFragment
     }
 
     main.save();
+    student.refreshPhones();
     student.save();
-
-    navigateUp();
   }
 
+  /**
+   * добавление события о дне рождения студента в календарь
+   */
   private void addCalendarEvent() {
     final String title = getString(R.string.student_birthday_event, student.name, student.surname);
 

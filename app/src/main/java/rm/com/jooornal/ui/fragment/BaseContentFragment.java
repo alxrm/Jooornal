@@ -19,6 +19,9 @@ import rm.com.jooornal.R;
 import static android.support.v7.widget.helper.ItemTouchHelper.LEFT;
 import static android.support.v7.widget.helper.ItemTouchHelper.RIGHT;
 
+/**
+ * абстрактный класс экрана, в котором есть список
+ */
 public abstract class BaseContentFragment extends BaseFragment {
 
   @BindView(R.id.content_loader) ProgressBar loader;
@@ -39,6 +42,11 @@ public abstract class BaseContentFragment extends BaseFragment {
     return inflater.inflate(R.layout.fragment_content, container, false);
   }
 
+  /**
+   * выполнен свайп по элементу списка
+   *
+   * @param position позиция элемента в списке
+   */
   void onItemSwiped(int position) {
   }
 
@@ -59,6 +67,11 @@ public abstract class BaseContentFragment extends BaseFragment {
     }
   }
 
+  /**
+   * метод для добавления возможности делать свайпы в списке
+   *
+   * @param listView объект списка
+   */
   final protected void addSwipeBehaviour(@NonNull RecyclerView listView) {
     final Callback callback = new SimpleCallback(0, LEFT | RIGHT) {
       @Override public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder,

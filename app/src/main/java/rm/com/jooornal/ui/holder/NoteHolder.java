@@ -9,6 +9,9 @@ import rm.com.jooornal.R;
 import rm.com.jooornal.data.entity.Note;
 import rm.com.jooornal.util.Converters;
 
+/**
+ * элемент списка заметок
+ */
 public final class NoteHolder extends BaseHolder<Note> {
 
   @BindString(R.string.item_note_noname) String noName;
@@ -22,6 +25,11 @@ public final class NoteHolder extends BaseHolder<Note> {
     super(itemView);
   }
 
+  /**
+   * привязка данных заметки
+   *
+   * @param model данные, которые должны быть привязаны и отрисованы
+   */
   @Override public void bind(@NonNull final Note model) {
     final String titleText = model.name.isEmpty() ? noName : model.name;
 

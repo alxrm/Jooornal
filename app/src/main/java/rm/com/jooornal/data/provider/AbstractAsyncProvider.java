@@ -37,7 +37,7 @@ abstract class AbstractAsyncProvider<T> implements AsyncProvider<T> {
   protected void postCallback(final T result, final ProviderListener<T> callback) {
     mainThreadHook.post(new Runnable() {
       @Override public void run() {
-        callback.onProvide(result);
+        callback.onProviderResult(result);
       }
     });
   }
