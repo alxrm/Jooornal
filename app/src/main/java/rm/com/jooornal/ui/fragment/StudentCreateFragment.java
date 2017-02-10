@@ -114,7 +114,7 @@ public class StudentCreateFragment extends BaseFormFragment
    * @param studentLastName строка с фамилией
    */
   @OnTextChanged(R.id.student_create_input_surname)
-  final void onSurnameChanged(CharSequence studentLastName) {
+  final void onSurnameChanged(@NonNull CharSequence studentLastName) {
     student.surname = studentLastName.toString();
   }
 
@@ -124,7 +124,7 @@ public class StudentCreateFragment extends BaseFormFragment
    * @param studentFirstName строка с именем
    */
   @OnTextChanged(R.id.student_create_input_name)
-  final void onFirstNameChanged(CharSequence studentFirstName) {
+  final void onFirstNameChanged(@NonNull CharSequence studentFirstName) {
     student.name = studentFirstName.toString();
   }
 
@@ -134,7 +134,7 @@ public class StudentCreateFragment extends BaseFormFragment
    * @param patronymic строка с отчеством
    */
   @OnTextChanged(R.id.student_create_input_patronymic)
-  final void onPatronymicChanged(CharSequence patronymic) {
+  final void onPatronymicChanged(@NonNull CharSequence patronymic) {
     student.patronymic = patronymic.toString();
   }
 
@@ -144,7 +144,7 @@ public class StudentCreateFragment extends BaseFormFragment
    * @param phoneNumber строка с номером
    */
   @OnTextChanged(R.id.student_create_input_phone)
-  final void onMainPhoneChanged(CharSequence phoneNumber) {
+  final void onMainPhoneChanged(@NonNull CharSequence phoneNumber) {
     main.phoneNumber = Converters.databasePhoneNumberOf(phoneNumber.toString());
   }
 
@@ -154,7 +154,7 @@ public class StudentCreateFragment extends BaseFormFragment
    * @param name строка с названием
    */
   @OnTextChanged(R.id.student_create_input_phone_name)
-  final void onMainPhoneNameChanged(CharSequence name) {
+  final void onMainPhoneNameChanged(@NonNull CharSequence name) {
     main.alias = name.toString();
   }
 
@@ -164,7 +164,7 @@ public class StudentCreateFragment extends BaseFormFragment
    * @param phoneNumber строка с номером
    */
   @OnTextChanged(R.id.student_create_input_altphone)
-  final void onAlterPhoneChanged(CharSequence phoneNumber) {
+  final void onAlterPhoneChanged(@NonNull CharSequence phoneNumber) {
     alter.phoneNumber = Converters.databasePhoneNumberOf(phoneNumber.toString());
   }
 
@@ -174,7 +174,7 @@ public class StudentCreateFragment extends BaseFormFragment
    * @param name строка с названием
    */
   @OnTextChanged(R.id.student_create_input_altphone_name)
-  final void onAlterPhoneNameChanged(CharSequence name) {
+  final void onAlterPhoneNameChanged(@NonNull CharSequence name) {
     alter.alias = name.toString();
   }
 

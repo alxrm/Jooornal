@@ -15,7 +15,7 @@
   <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
   
   <style name="AppTheme.FormInputTheme" parent="Widget.AppCompat.EditText">
-    <item name="android:maxLines">1</item>
+    <item name="android:singleLine">true</item>
     <item name="android:paddingBottom">16dp</item>
     <item name="android:textSize">16sp</item>
   </style>

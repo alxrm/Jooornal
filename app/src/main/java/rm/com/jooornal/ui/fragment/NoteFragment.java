@@ -164,7 +164,8 @@ public final class NoteFragment extends BaseFormFragment
    *
    * @param text строка с текстом
    */
-  @OnTextChanged(R.id.note_create_text) final void onNoteTextChanged(CharSequence text) {
+  @OnTextChanged(R.id.note_create_text)
+  final void onNoteTextChanged(@NonNull CharSequence text) {
     note.text = text.toString();
   }
 
@@ -173,7 +174,8 @@ public final class NoteFragment extends BaseFormFragment
    *
    * @param title строка с заголовком
    */
-  @OnTextChanged(R.id.note_create_title) final void onNoteTitleChanged(CharSequence title) {
+  @OnTextChanged(R.id.note_create_title)
+  final void onNoteTitleChanged(@NonNull CharSequence title) {
     note.name = title.toString();
   }
 
