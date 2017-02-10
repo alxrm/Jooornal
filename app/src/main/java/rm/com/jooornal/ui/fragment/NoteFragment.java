@@ -36,7 +36,7 @@ import rm.com.jooornal.util.Events;
 /**
  * экран заметки(текущей или новой)
  */
-public final class NoteFragment extends BaseFragment
+public final class NoteFragment extends BaseFormFragment
     implements StudentPickerFragment.OnStudentPickerListener, DatePickerDialog.OnDateSetListener {
 
   private static final String KEY_NOTE = "KEY_NOTE";
@@ -138,32 +138,6 @@ public final class NoteFragment extends BaseFragment
   @Override protected void injectDependencies(@NonNull JooornalApplication app) {
     super.injectDependencies(app);
     app.injector().inject(this);
-  }
-
-  /**
-   * создание меню в верхнем баре
-   *
-   * @param menu объект меню, к которому происходит привязка
-   * @param inflater объект класса, для создания объекта меню из XML разметки
-   */
-  @Override public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-    super.onCreateOptionsMenu(menu, inflater);
-    inflater.inflate(R.menu.menu_create_new, menu);
-  }
-
-  /**
-   * выбран элемент меню
-   *
-   * @param item выбранный элемент
-   * @return флаг, обработан ли элемент меню
-   */
-  @Override public boolean onOptionsItemSelected(MenuItem item) {
-    if (item.getItemId() == R.id.menu_create_done) {
-      saveNote();
-      navigateUp();
-    }
-
-    return super.onOptionsItemSelected(item);
   }
 
   /**
@@ -274,8 +248,8 @@ public final class NoteFragment extends BaseFragment
    * @param monthOfYear месяц
    * @param dayOfMonth день
    */
-  @Override
-  public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
+  @Override public void onDateSet(DatePickerDialog view, int year, int monthOfYear,
+      int dayOfMonth) {
     final long time = Converters.timeOf(year, monthOfYear, dayOfMonth);
 
     note.due = time;
@@ -293,24 +267,6 @@ public final class NoteFragment extends BaseFragment
   }
 
   /**
-   * есть ли в экране кнопка перехода назад в верхнем баре
-   *
-   * @return флаг наличия кнопки
-   */
-  @Override boolean hasBackButton() {
-    return true;
-  }
-
-  /**
-   * является ли экран вложенным
-   *
-   * @return флаг вложенности
-   */
-  @Override boolean isNested() {
-    return false;
-  }
-
-  /**
    * метод запроса прав доступа на работу с системным календарём
    */
   @AskPermission({ Manifest.permission.READ_CALENDAR, Manifest.permission.WRITE_CALENDAR })
@@ -319,14 +275,15 @@ public final class NoteFragment extends BaseFragment
   }
 
   /**
-   * сохренение заметки в БД, если у заметки есть привязка к дате, создаётся событие в календаре
+   * сохранение заметки в БД, если у заметки есть привязка к дате, создаётся событие в календаре
+   *
+   * @return флаг, успешно ли прошло сохранение
    */
-  private void saveNote() {
+  @Override boolean saveFormData() {
     final boolean shouldAddEvent = note.due != 0L && hasCalendarPermission && shouldNotify.get();
 
     if (note.text.isEmpty()) {
-      Toast.makeText(getActivity(), messageNoteNoText, Toast.LENGTH_LONG).show();
-      return;
+      return false;
     }
 
     if (shouldAddEvent) {
@@ -334,6 +291,15 @@ public final class NoteFragment extends BaseFragment
     }
 
     note.save();
+
+    return true;
+  }
+
+  /**
+   * показывает всплывающее сообщение с ошибкой в случае, если у заметки нет текста(он обязателен)
+   */
+  @Override void showInvalidDataError() {
+    Toast.makeText(getActivity(), messageNoteNoText, Toast.LENGTH_LONG).show();
   }
 
   /**

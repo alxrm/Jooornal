@@ -6,9 +6,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -31,12 +28,11 @@ import rm.com.jooornal.data.entity.Student;
 import rm.com.jooornal.inject.qualifiers.BirthdayNotifications;
 import rm.com.jooornal.util.Converters;
 import rm.com.jooornal.util.Events;
-import rm.com.jooornal.util.Logger;
 
 /**
  * экран добавления студента
  */
-public class StudentCreateFragment extends BaseFragment
+public class StudentCreateFragment extends BaseFormFragment
     implements DatePickerDialog.OnDateSetListener {
 
   @BindString(R.string.page_name_student_create) String title;
@@ -56,8 +52,7 @@ public class StudentCreateFragment extends BaseFragment
 
   /**
    * блок инициализации полей
-   */
-  {
+   */ {
     main.student = student;
     alter.student = student;
   }
@@ -95,32 +90,6 @@ public class StudentCreateFragment extends BaseFragment
   }
 
   /**
-   * создание меню в верхнем баре
-   *
-   * @param menu объект меню, к которому происходит привязка
-   * @param inflater объект класса, для создания объекта меню из XML разметки
-   */
-  @Override public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-    super.onCreateOptionsMenu(menu, inflater);
-    inflater.inflate(R.menu.menu_create_new, menu);
-  }
-
-  /**
-   * выбран элемент меню
-   *
-   * @param item выбранный элемент
-   * @return флаг, обработан ли элемент меню
-   */
-  @Override public boolean onOptionsItemSelected(MenuItem item) {
-    if (item.getItemId() == R.id.menu_create_done) {
-      saveStudent();
-      navigateUp();
-    }
-
-    return super.onOptionsItemSelected(item);
-  }
-
-  /**
    * в доступе отказано, выводится всплывающее сообщение с пояснением
    *
    * @param deniedPermissionList список прав доступа, разрешение на которые не получено
@@ -144,8 +113,8 @@ public class StudentCreateFragment extends BaseFragment
    *
    * @param studentLastName строка с фамилией
    */
-  @OnTextChanged(R.id.student_create_input_surname) final void onSurnameChanged(
-      CharSequence studentLastName) {
+  @OnTextChanged(R.id.student_create_input_surname)
+  final void onSurnameChanged(CharSequence studentLastName) {
     student.surname = studentLastName.toString();
   }
 
@@ -154,8 +123,8 @@ public class StudentCreateFragment extends BaseFragment
    *
    * @param studentFirstName строка с именем
    */
-  @OnTextChanged(R.id.student_create_input_name) final void onFirstNameChanged(
-      CharSequence studentFirstName) {
+  @OnTextChanged(R.id.student_create_input_name)
+  final void onFirstNameChanged(CharSequence studentFirstName) {
     student.name = studentFirstName.toString();
   }
 
@@ -164,8 +133,8 @@ public class StudentCreateFragment extends BaseFragment
    *
    * @param patronymic строка с отчеством
    */
-  @OnTextChanged(R.id.student_create_input_patronymic) final void onPatronymicChanged(
-      CharSequence patronymic) {
+  @OnTextChanged(R.id.student_create_input_patronymic)
+  final void onPatronymicChanged(CharSequence patronymic) {
     student.patronymic = patronymic.toString();
   }
 
@@ -174,8 +143,8 @@ public class StudentCreateFragment extends BaseFragment
    *
    * @param phoneNumber строка с номером
    */
-  @OnTextChanged(R.id.student_create_input_phone) final void onMainPhoneChanged(
-      CharSequence phoneNumber) {
+  @OnTextChanged(R.id.student_create_input_phone)
+  final void onMainPhoneChanged(CharSequence phoneNumber) {
     main.phoneNumber = Converters.databasePhoneNumberOf(phoneNumber.toString());
   }
 
@@ -184,8 +153,8 @@ public class StudentCreateFragment extends BaseFragment
    *
    * @param name строка с названием
    */
-  @OnTextChanged(R.id.student_create_input_phone_name) final void onMainPhoneNameChanged(
-      CharSequence name) {
+  @OnTextChanged(R.id.student_create_input_phone_name)
+  final void onMainPhoneNameChanged(CharSequence name) {
     main.alias = name.toString();
   }
 
@@ -194,8 +163,8 @@ public class StudentCreateFragment extends BaseFragment
    *
    * @param phoneNumber строка с номером
    */
-  @OnTextChanged(R.id.student_create_input_altphone) final void onAlterPhoneChanged(
-      CharSequence phoneNumber) {
+  @OnTextChanged(R.id.student_create_input_altphone)
+  final void onAlterPhoneChanged(CharSequence phoneNumber) {
     alter.phoneNumber = Converters.databasePhoneNumberOf(phoneNumber.toString());
   }
 
@@ -204,8 +173,8 @@ public class StudentCreateFragment extends BaseFragment
    *
    * @param name строка с названием
    */
-  @OnTextChanged(R.id.student_create_input_altphone_name) final void onAlterPhoneNameChanged(
-      CharSequence name) {
+  @OnTextChanged(R.id.student_create_input_altphone_name)
+  final void onAlterPhoneNameChanged(CharSequence name) {
     alter.alias = name.toString();
   }
 
@@ -247,36 +216,11 @@ public class StudentCreateFragment extends BaseFragment
   }
 
   /**
-   * возвращает флаг о наличии кнопки назад
-   *
-   * @return флаг наличия
-   */
-  @Override boolean hasBackButton() {
-    return true;
-  }
-
-  /**
-   * возвращает флаг, является ли экран вложенным
-   *
-   * @return флаг вложенности
-   */
-  @Override boolean isNested() {
-    return false;
-  }
-
-  /**
-   * запрос на разрешение прав доступа к системному календарю
-   */
-  @AskPermission({
-      Manifest.permission.READ_CALENDAR, Manifest.permission.WRITE_CALENDAR
-  }) private void askAndSaveCalendarPermission() {
-    hasCalendarPermission = true;
-  }
-
-  /**
    * сохранение данных студента в БД
+   *
+   * @return возвращает флаг, успешно ли произошло сохранение
    */
-  private void saveStudent() {
+  @Override boolean saveFormData() {
     final boolean hasName = !student.name.isEmpty();
     final boolean hasSurname = !student.surname.isEmpty();
     final boolean hasPhone = !main.phoneNumber.isEmpty();
@@ -285,8 +229,7 @@ public class StudentCreateFragment extends BaseFragment
     final boolean isInvalid = !(hasName && hasSurname && hasPhone && hasBirthday);
 
     if (isInvalid) {
-      Toast.makeText(getActivity(), messageFormNotCorrect, Toast.LENGTH_LONG).show();
-      return;
+      return false;
     }
 
     if (hasAlterPhone) {
@@ -302,6 +245,25 @@ public class StudentCreateFragment extends BaseFragment
     main.save();
     student.refreshPhones();
     student.save();
+
+    return true;
+  }
+
+  /**
+   * показывает всплывающее сообщение в случае ошибочных данных или их нехватки, при заполнении
+   * формы
+   */
+  @Override void showInvalidDataError() {
+    Toast.makeText(getActivity(), messageFormNotCorrect, Toast.LENGTH_LONG).show();
+  }
+
+  /**
+   * запрос на разрешение прав доступа к системному календарю
+   */
+  @AskPermission({
+      Manifest.permission.READ_CALENDAR, Manifest.permission.WRITE_CALENDAR
+  }) private void askAndSaveCalendarPermission() {
+    hasCalendarPermission = true;
   }
 
   /**
