@@ -33,6 +33,8 @@ import rm.com.jooornal.inject.qualifiers.NoteNotifications;
 import rm.com.jooornal.util.Converters;
 import rm.com.jooornal.util.Events;
 
+import static rm.com.jooornal.constant.Events.EVENT_NULL_ID;
+
 /**
  * экран заметки(текущей или новой)
  */
@@ -201,9 +203,9 @@ public final class NoteFragment extends BaseFormFragment
         note.due = 0L;
         dueDate.setVisibility(View.GONE);
 
-        if (note.noteEventId != -1L) {
+        if (note.noteEventId != EVENT_NULL_ID) {
           Events.deleteCalendarEvent(contentResolver, note.noteEventId);
-          note.noteEventId = -1L;
+          note.noteEventId = EVENT_NULL_ID;
         }
       }
     });
@@ -310,7 +312,7 @@ public final class NoteFragment extends BaseFormFragment
   private void addCalendarEvent() {
     final String eventName = note.name.isEmpty() ? eventTitleStub : note.name;
 
-    if (note.noteEventId != -1L) {
+    if (note.noteEventId != EVENT_NULL_ID) {
       Events.updateCalendarEvent(contentResolver, note.noteEventId, eventName, note.text, note.due,
           false);
     } else {

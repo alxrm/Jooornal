@@ -9,8 +9,11 @@ import com.raizlabs.android.dbflow.annotation.Table;
 import com.raizlabs.android.dbflow.sql.language.SQLite;
 import com.raizlabs.android.dbflow.structure.BaseModel;
 import java.util.List;
+import rm.com.jooornal.constant.Events;
 import rm.com.jooornal.data.JoornalDatabase;
 import rm.com.jooornal.util.Guids;
+
+import static rm.com.jooornal.constant.Events.EVENT_NULL_ID;
 
 /**
  * класс, описывающий данные студента
@@ -22,7 +25,7 @@ public final class Student extends BaseModel implements Parcelable {
   @Column public String surname = "";
   @Column public String patronymic = "";
   @Column public long birthDate = 0L;
-  @Column public long birthDayEventId = -1L;
+  @Column public long birthDayEventId = EVENT_NULL_ID;
 
   List<Phone> phones;
   List<Sms> smsList;

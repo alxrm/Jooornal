@@ -24,6 +24,8 @@ import rm.com.jooornal.ui.adapter.StudentsListAdapter;
 import rm.com.jooornal.ui.holder.BaseHolder;
 import rm.com.jooornal.util.Events;
 
+import static rm.com.jooornal.constant.Events.EVENT_NULL_ID;
+
 /**
  * экран списка студентов
  */
@@ -127,7 +129,7 @@ public class StudentsListFragment extends BaseContentFragment
   @Override void onItemSwiped(int position) {
     final Student removedStudent = adapter.delete(position);
 
-    if (removedStudent.birthDayEventId != -1) {
+    if (removedStudent.birthDayEventId != EVENT_NULL_ID) {
       Events.deleteCalendarEvent(contentResolver, removedStudent.birthDayEventId);
     }
 

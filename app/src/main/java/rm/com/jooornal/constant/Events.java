@@ -8,4 +8,5 @@ public interface Events {
   String EVENT_TIMEZONE_MSK = "UTC/GMT +4:00";
   String EVENT_FREQUENCY_YEARLY = "FREQ=YEARLY";
   int CALENDAR_DEFAULT = 1;
+  long EVENT_NULL_ID = -1L;
 }

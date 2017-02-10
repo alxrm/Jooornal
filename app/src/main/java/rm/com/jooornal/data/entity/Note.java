@@ -7,8 +7,11 @@ import com.raizlabs.android.dbflow.annotation.ForeignKey;
 import com.raizlabs.android.dbflow.annotation.PrimaryKey;
 import com.raizlabs.android.dbflow.annotation.Table;
 import com.raizlabs.android.dbflow.structure.BaseModel;
+import rm.com.jooornal.constant.Events;
 import rm.com.jooornal.data.JoornalDatabase;
 import rm.com.jooornal.util.Guids;
+
+import static rm.com.jooornal.constant.Events.*;
 
 /**
  * класс, описывающий данные заметки
@@ -22,7 +25,7 @@ public final class Note extends BaseModel implements Parcelable {
   @Column public String text = "";
   @Column public long time = System.currentTimeMillis();
   @Column public long due = 0L;
-  @Column public long noteEventId = -1L;
+  @Column public long noteEventId = EVENT_NULL_ID;
 
   public static final Creator<Note> CREATOR = new Creator<Note>() {
     @Override public Note createFromParcel(Parcel in) {

@@ -23,6 +23,8 @@ import rm.com.jooornal.ui.adapter.NotesListAdapter;
 import rm.com.jooornal.ui.holder.BaseHolder;
 import rm.com.jooornal.util.Events;
 
+import static rm.com.jooornal.constant.Events.EVENT_NULL_ID;
+
 /**
  * экран со списком заметок
  */
@@ -107,7 +109,7 @@ public final class NotesListFragment extends BaseContentFragment
   @Override void onItemSwiped(int position) {
     final Note removedNote = adapter.delete(position);
 
-    if (removedNote.noteEventId != -1) {
+    if (removedNote.noteEventId != EVENT_NULL_ID) {
       Events.deleteCalendarEvent(contentResolver, removedNote.noteEventId);
     }
 
