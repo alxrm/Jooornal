@@ -9,7 +9,7 @@ buildscript {
 
   dependencies {
     classpath "com.android.tools.build:gradle:$versions.androidBuild"
-    classpath 'com.github.ben-manes:gradle-versions-plugin:0.13.0'
+    classpath 'com.github.ben-manes:gradle-versions-plugin:0.14.0'
     classpath 'com.canelmas.let:let-plugin:0.1.11'
 
     // NOTE: Do not place your application dependencies here; they belong

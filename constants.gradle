@@ -9,7 +9,7 @@ ext {
               fabric      : "1.21.6",
               kotlin      : "1.0.5-2",
               leakCanary  : "1.4-beta2",
-              butterknife : "8.4.0",
+              butterknife : "8.5.1",
               okHttp      : "3.2.0",
               okio        : "1.11.0",
               playServices: "9.8.0",
@@ -21,9 +21,9 @@ ext {
               realm       : "2.2.1",
               androidJobs : "1.1.4",
               bolts       : "1.4.0",
-              dagger      : "2.8",
+              dagger      : "2.9",
               redex       : "1.1.0",
-              datePicker  : "3.1.0",
+              datePicker  : "3.1.1",
               dbflow      : "4.0.0-beta5"]
 
   kotlin = [plugin: "org.jetbrains.kotlin:kotlin-gradle-plugin:$versions.kotlin",

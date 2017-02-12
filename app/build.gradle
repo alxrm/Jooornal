@@ -39,7 +39,7 @@ dependencies {
   compile dbflow.lib
 
   compile "com.wdullaer:materialdatetimepicker:$versions.datePicker"
-  compile 'com.redmadrobot:inputmask:2.2.0'
+  compile 'com.redmadrobot:inputmask:2.2.1'
 
   annotationProcessor square.butterknifeCompiler
   annotationProcessor square.daggerCompiler
