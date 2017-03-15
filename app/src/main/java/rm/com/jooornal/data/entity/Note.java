@@ -7,11 +7,10 @@ import com.raizlabs.android.dbflow.annotation.ForeignKey;
 import com.raizlabs.android.dbflow.annotation.PrimaryKey;
 import com.raizlabs.android.dbflow.annotation.Table;
 import com.raizlabs.android.dbflow.structure.BaseModel;
-import rm.com.jooornal.constant.Events;
 import rm.com.jooornal.data.JoornalDatabase;
 import rm.com.jooornal.util.Guids;
 
-import static rm.com.jooornal.constant.Events.*;
+import static rm.com.jooornal.constant.Events.EVENT_NULL_ID;
 
 /**
  * класс, описывающий данные заметки

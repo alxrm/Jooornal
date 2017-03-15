@@ -4,6 +4,8 @@ import android.content.ContentResolver;
 import android.content.SharedPreferences;
 import android.os.Handler;
 import android.os.Looper;
+import com.crashlytics.android.Crashlytics;
+import com.crashlytics.android.answers.Answers;
 import dagger.Module;
 import dagger.Provides;
 import java.util.concurrent.ExecutorService;

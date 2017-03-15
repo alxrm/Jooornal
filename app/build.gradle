@@ -27,6 +27,10 @@ android {
 dependencies {
   compile fileTree(dir: 'libs', include: ['*.jar'])
 
+  annotationProcessor square.butterknifeCompiler
+  annotationProcessor square.daggerCompiler
+  annotationProcessor dbflow.processor
+
   compile supportDeps.appCompat
   compile supportDeps.design
   compile supportDeps.recyclerView
@@ -41,7 +45,7 @@ dependencies {
   compile "com.wdullaer:materialdatetimepicker:$versions.datePicker"
   compile 'com.redmadrobot:inputmask:2.2.1'
 
-  annotationProcessor square.butterknifeCompiler
-  annotationProcessor square.daggerCompiler
-  annotationProcessor dbflow.processor
+  // analytics
+  compile("com.crashlytics.sdk.android:crashlytics:$versions.crashlytics@aar") { transitive = true; }
+  compile("com.crashlytics.sdk.android:answers:$versions.answers@aar") { transitive = true; }
 }

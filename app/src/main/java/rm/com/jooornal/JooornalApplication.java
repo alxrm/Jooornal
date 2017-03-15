@@ -1,8 +1,11 @@
 package rm.com.jooornal;
 
 import android.app.Application;
+import com.crashlytics.android.Crashlytics;
+import com.crashlytics.android.answers.Answers;
 import com.raizlabs.android.dbflow.config.FlowConfig;
 import com.raizlabs.android.dbflow.config.FlowManager;
+import io.fabric.sdk.android.Fabric;
 import rm.com.jooornal.inject.DaggerJooornalComponent;
 import rm.com.jooornal.inject.JooornalComponent;
 import rm.com.jooornal.inject.modules.JooornalModule;
@@ -23,6 +26,7 @@ public final class JooornalApplication extends Application {
         new FlowConfig.Builder(this).openDatabasesOnInit(true).build();
 
     FlowManager.init(databaseConfig);
+    Fabric.with(this, new Answers(), new Crashlytics());
 
     component = DaggerJooornalComponent.builder().jooornalModule(new JooornalModule(this)).build();
   }
