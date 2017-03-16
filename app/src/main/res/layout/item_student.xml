@@ -37,7 +37,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="2dp"
         android:ellipsize="end"
-        android:lines="1"
+        android:maxLines="1"
         android:text="Einstein A. H."
         android:textColor="@color/color_text_primary"
         android:textSize="16sp"
@@ -49,11 +49,12 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/item_student_name"
         android:layout_margin="2dp"
+        android:ellipsize="end"
+        android:maxLines="1"
         android:text="+7 999 111-11-11"
         android:textColor="@color/color_text_secondary"
         android:textSize="14sp"
         />
-
 
   </RelativeLayout>
 

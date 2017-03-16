@@ -1,17 +1,19 @@
 apply plugin: 'com.android.application'
+apply plugin: 'io.fabric'
 apply plugin: 'let'
+
 apply from: "${rootDir}/constants.gradle"
 
 android {
   compileSdkVersion 25
-  buildToolsVersion "25.0.0"
+  buildToolsVersion "25.0.2"
   defaultConfig {
     applicationId "rm.com.jooornal"
     minSdkVersion minSdk
     targetSdkVersion targetSdk
     versionCode 1
     versionName "1.0"
-    vectorDrawables.useSupportLibrary = true
+//    vectorDrawables.useSupportLibrary = true
   }
   buildTypes {
     release {
@@ -46,6 +48,8 @@ dependencies {
   compile 'com.redmadrobot:inputmask:2.2.1'
 
   // analytics
-  compile("com.crashlytics.sdk.android:crashlytics:$versions.crashlytics@aar") { transitive = true; }
+  compile("com.crashlytics.sdk.android:crashlytics:$versions.crashlytics@aar") {
+    transitive = true;
+  }
   compile("com.crashlytics.sdk.android:answers:$versions.answers@aar") { transitive = true; }
 }
